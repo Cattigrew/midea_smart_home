@@ -1,0 +1,64 @@
+{
+  "entity": {
+    "climate": {
+      "electric_heater": {
+        "default": "mdi:radiator"
+      },
+      "water_heater": {
+        "default": "mdi:water-boiler"
+      }
+    },
+    "sensor": {
+      "cur_temperature": {
+        "default": "mdi:thermometer"
+      },
+      "temperature": {
+        "default": "mdi:thermometer"
+      },
+      "power_statistics": {
+        "default": "mdi:flash"
+      },
+      "end_time": {
+        "default": "mdi:clock-end"
+      },
+      "error_code": {
+        "default": "mdi:alert-circle"
+      }
+    },
+    "switch": {
+      "power": {
+        "default": "mdi:power"
+      },
+      "lock": {
+        "default": "mdi:lock"
+      },
+      "child_lock": {
+        "default": "mdi:lock"
+      },
+      "screen_close": {
+        "default": "mdi:television-shimmer"
+      },
+      "auto_power_off": {
+        "default": "mdi:timer-off"
+      },
+      "humidification": {
+        "default": "mdi:water-percent"
+      },
+      "voice": {
+        "default": "mdi:microphone"
+      },
+      "protect": {
+        "default": "mdi:shield-check"
+      },
+      "smart_sterilize": {
+        "default": "mdi:bacteria"
+      },
+      "eplus": {
+        "default": "mdi:plus-circle"
+      },
+      "frequency_hot": {
+        "default": "mdi:fire"
+      }
+    }
+  }
+}

@@ -1,0 +1,245 @@
+import logging
+from typing import Any, Optional
+
+from homeassistant.components.climate import (
+    ATTR_HVAC_MODE,
+    ClimateEntity,
+    ClimateEntityFeature,
+    HVACMode,
+)
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature, Platform
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+
+from .const import CONF_DEVICE_ID, CONF_DEVICE_TYPE, CONF_SN, CONF_SN8, DOMAIN
+from .coordinator import MideaCoordinator
+from .device_mapping import get_device_mapping
+from .entity import MideaBaseEntity
+
+_LOGGER = logging.getLogger(__name__)
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up climate entities for Midea devices."""
+    data = hass.data[DOMAIN][entry.entry_id]
+    coordinator = data["coordinator"]
+    device_id = data[CONF_DEVICE_ID]
+    device_type = data[CONF_DEVICE_TYPE]
+    sn8 = data.get(CONF_SN8, "")
+    sn = data.get(CONF_SN, "")
+    device_name = data.get("device_name", f"Midea Device {device_id}")
+    
+    device_type_int = int(device_type, 16) if isinstance(device_type, str) else device_type
+    _LOGGER.debug(f"设置Climate实体 - 设备类型: 0x{device_type_int:X}, sn8: {sn8}")
+    
+    device_mapping = get_device_mapping(device_type_int, sn8)
+    _LOGGER.debug(f"设备映射: {device_mapping}")
+    
+    entities_config = device_mapping.get("entities", {})
+    rationale = device_mapping.get("rationale", ["off", "on"])
+    
+    climate_config = entities_config.get(Platform.CLIMATE, {})
+    _LOGGER.debug(f"实体配置: {climate_config}")
+    
+    if climate_config:
+        entities = []
+        for climate_key, config in climate_config.items():
+            entities.append(
+                MideaClimateEntity(
+                    coordinator, device_id, device_type, sn, sn8, device_name,
+                    climate_key, config, rationale
+                )
+            )
+        async_add_entities(entities)
+    else:
+        _LOGGER.debug("未找到气候实体配置，跳过创建气候实体")
+        async_add_entities([])
+
+class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
+    def __init__(
+        self,
+        coordinator: MideaCoordinator,
+        device_id: int,
+        device_type: str,
+        sn: str,
+        sn8: str,
+        device_name: str,
+        entity_key: str,
+        config: dict,
+        rationale: list,
+    ):
+        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key)
+        self._config = config
+        self._rationale = rationale
+        
+        self._key_power = self._config.get("power")
+        self._key_hvac_modes = self._config.get("hvac_modes")
+        self._key_preset_modes = self._config.get("preset_modes")
+        self._key_fan_modes = self._config.get("fan_modes")
+        self._key_target_temperature = self._config.get("target_temperature")
+        self._key_current_temperature = self._config.get("current_temperature")
+        self._key_min_temp = self._config.get("min_temp", 16)
+        self._key_max_temp = self._config.get("max_temp", 30)
+        
+        self._attr_translation_key = entity_key
+        self._attr_temperature_unit = self._config.get("temperature_unit", UnitOfTemperature.CELSIUS)
+        self._attr_precision = self._config.get("precision", 1.0)
+        self._attr_target_temperature_step = self._config.get("precision", 1.0)
+        self._attr_min_temp = float(self._key_min_temp)
+        self._attr_max_temp = float(self._key_max_temp)
+        
+        self._setup_supported_features()
+        self._setup_modes()
+    
+    def _setup_supported_features(self):
+        features = ClimateEntityFeature(0)
+        features |= ClimateEntityFeature.TURN_ON
+        features |= ClimateEntityFeature.TURN_OFF
+        if self._key_target_temperature is not None:
+            features |= ClimateEntityFeature.TARGET_TEMPERATURE
+        if self._key_preset_modes is not None:
+            features |= ClimateEntityFeature.PRESET_MODE
+        if self._key_fan_modes is not None:
+            features |= ClimateEntityFeature.FAN_MODE
+        self._attr_supported_features = features
+    
+    def _setup_modes(self):
+        if self._key_hvac_modes is not None:
+            self._attr_hvac_modes = list(self._key_hvac_modes.keys())
+        else:
+            self._attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]
+        
+        if self._key_preset_modes is not None:
+            self._attr_preset_modes = list(self._key_preset_modes.keys())
+        
+        if self._key_fan_modes is not None:
+            self._attr_fan_modes = list(self._key_fan_modes.keys())
+    
+    @property
+    def hvac_mode(self) -> HVACMode:
+        if self._key_hvac_modes is not None:
+            return self._dict_get_selected(self._key_hvac_modes)
+        
+        data = self.coordinator.data or {}
+        power = data.get(self._key_power, 0)
+        if self._is_off(power):
+            return HVACMode.OFF
+        return HVACMode.HEAT
+    
+    @property
+    def current_temperature(self) -> Optional[float]:
+        if self._key_current_temperature is not None:
+            value = self._get_nested_value(self._key_current_temperature)
+            if value is not None:
+                try:
+                    return float(value)
+                except (ValueError, TypeError):
+                    return None
+        return None
+    
+    @property
+    def target_temperature(self) -> Optional[float]:
+        if self._key_target_temperature is not None:
+            value = self._get_nested_value(self._key_target_temperature)
+            if value is not None:
+                try:
+                    return float(value)
+                except (ValueError, TypeError):
+                    return None
+        return None
+    
+    @property
+    def preset_mode(self) -> Optional[str]:
+        if self._key_preset_modes is not None:
+            return self._dict_get_selected(self._key_preset_modes)
+        return None
+    
+    @property
+    def fan_mode(self) -> Optional[str]:
+        if self._key_fan_modes is not None:
+            return self._dict_get_selected(self._key_fan_modes)
+        return None
+    
+    async def async_set_temperature(self, **kwargs: Any) -> None:
+        temperature = kwargs.get(ATTR_TEMPERATURE)
+        if temperature is None:
+            return
+        
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
+        if hvac_mode is not None:
+            await self.async_set_hvac_mode(hvac_mode)
+        
+        if self._key_target_temperature is not None:
+            await self._async_set_control(self._key_target_temperature, int(temperature))
+    
+    async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
+        if self._key_hvac_modes is not None:
+            mode_config = self._key_hvac_modes.get(hvac_mode)
+            if mode_config:
+                await self._async_set_multiple_controls(mode_config)
+    
+    async def async_set_preset_mode(self, preset_mode: str) -> None:
+        if self._key_preset_modes is not None:
+            preset_config = self._key_preset_modes.get(preset_mode)
+            if preset_config:
+                await self._async_set_multiple_controls(preset_config)
+    
+    async def async_set_fan_mode(self, fan_mode: str) -> None:
+        if self._key_fan_modes is not None:
+            fan_config = self._key_fan_modes.get(fan_mode)
+            if fan_config:
+                await self._async_set_multiple_controls(fan_config)
+    
+    async def async_turn_on(self) -> None:
+        if self._key_power is not None:
+            await self._async_set_control(self._key_power, self._rationale[1])
+    
+    async def async_turn_off(self) -> None:
+        if self._key_power is not None:
+            await self._async_set_control(self._key_power, self._rationale[0])
+    
+    def _get_nested_value(self, key):
+        data = self.coordinator.data or {}
+        if isinstance(key, list):
+            value = data
+            for k in key:
+                if isinstance(value, dict):
+                    value = value.get(k)
+                else:
+                    return None
+            return value
+        return data.get(key)
+    
+    def _dict_get_selected(self, config_dict):
+        data = self.coordinator.data or {}
+        for mode, mode_config in config_dict.items():
+            if isinstance(mode_config, dict):
+                match = True
+                for key, value in mode_config.items():
+                    current_value = self._get_nested_value(key)
+                    if current_value != value:
+                        match = False
+                        break
+                if match:
+                    return mode
+        return list(config_dict.keys())[0] if config_dict else HVACMode.OFF
+    
+    def _is_off(self, value):
+        if isinstance(value, bool):
+            return not value
+        elif isinstance(value, int):
+            return value == 0
+        elif isinstance(value, str):
+            return value in ["off", "0", "false", "False"]
+        return True
+    
+    async def _async_set_control(self, attr: str, value: Any) -> None:
+        await self.coordinator.async_set_control(attr, value)
+    
+    async def _async_set_multiple_controls(self, controls: dict) -> None:
+        for attr, value in controls.items():
+            await self._async_set_control(attr, value)

@@ -1,0 +1,103 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Midea Smart Home Setup",
+                "description": "Enter your Midea account credentials to download device Lua files (optional)",
+                "data": {
+                    "account": "Midea Account",
+                    "password": "Password"
+                }
+            },
+            "discover": {
+                "title": "Discovering Devices",
+                "description": "Searching for Midea devices on your local network..."
+            },
+            "select_device": {
+                "title": "Select Device",
+                "description": "Select the device you want to add",
+                "data": {
+                    "device": "Device"
+                }
+            },
+            "get_token": {
+                "title": "Device Authentication",
+                "description": "Device ID: {device_id}\nIP Address: {ip}\nModel Code: {sn8}",
+                "data": {
+                    "token": "Token",
+                    "key": "Key",
+                    "lua_file": "Lua File Path"
+                }
+            }
+        },
+        "error": {
+            "no_devices_found": "No devices found on local network",
+            "connection_failed": "Failed to connect to device",
+            "auth_failed": "Authentication failed"
+        },
+        "abort": {
+            "already_configured": "Device is already configured"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Midea Smart Home Options",
+                "data": {
+                    "update_interval": "Update Interval (seconds)"
+                },
+                "data_description": {
+                    "update_interval": "Device status polling interval, range 1-30 seconds"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "power_statistics": { "name": "Power Statistics" },
+            "cur_temperature": { "name": "Current Temperature" },
+            "temperature": { "name": "Set Temperature" },
+            "end_time": { "name": "End Time" },
+            "error_code": { "name": "Error Code" }
+        },
+        "switch": {
+            "power": { "name": "Power" },
+            "auto_power_off": { "name": "Auto Power Off" },
+            "humidification": { "name": "Humidification" },
+            "child_lock": { "name": "Child Lock" },
+            "screen_close": { "name": "Screen Close" },
+            "voice": { "name": "Voice" },
+            "protect": { "name": "Protect" },
+            "smart_sterilize": { "name": "Smart Sterilize" },
+            "eplus": { "name": "E+" },
+            "frequency_hot": { "name": "Frequency Hot" },
+            "lock": { "name": "Child Lock" }
+        },
+        "climate": {
+            "electric_heater": {
+                "name": "Thermostat (Heater)",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "left_warm": "Left Warm",
+                            "right_warm": "Right Warm",
+                            "full_on": "Full On"
+                        }
+                    }
+                }
+            },
+            "water_heater": { "name": "Thermostat (Water Heater)" }
+        }
+    },
+    "device": {
+        "electric_heater": {
+            "name": "Electric Heater"
+        },
+        "electric_water_heater": {
+            "name": "Electric Water Heater"
+        },
+        "unknown_device": {
+            "name": "Unknown Device"
+        }
+    }
+}

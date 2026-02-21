@@ -1,0 +1,103 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Midea Smart Home 设置",
+                "description": "输入美的账号密码以下载设备 Lua 文件（可选）",
+                "data": {
+                    "account": "美的账号",
+                    "password": "密码"
+                }
+            },
+            "discover": {
+                "title": "发现设备",
+                "description": "正在局域网中搜索美的设备..."
+            },
+            "select_device": {
+                "title": "选择设备",
+                "description": "选择要添加的设备",
+                "data": {
+                    "device": "设备"
+                }
+            },
+            "get_token": {
+                "title": "设备认证",
+                "description": "设备 ID: {device_id}\nIP 地址: {ip}\n型号代码: {sn8}",
+                "data": {
+                    "token": "Token",
+                    "key": "Key",
+                    "lua_file": "Lua 文件路径"
+                }
+            }
+        },
+        "error": {
+            "no_devices_found": "局域网中未发现设备",
+            "connection_failed": "连接设备失败",
+            "auth_failed": "认证失败"
+        },
+        "abort": {
+            "already_configured": "设备已配置"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Midea Smart Home 选项",
+                "data": {
+                    "update_interval": "更新间隔（秒）"
+                },
+                "data_description": {
+                    "update_interval": "设备状态轮询间隔，范围 1-30 秒"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "power_statistics": { "name": "功率统计" },
+            "cur_temperature": { "name": "当前温度" },
+            "temperature": { "name": "设定温度" },
+            "end_time": { "name": "结束时间" },
+            "error_code": { "name": "错误代码" }
+        },
+        "switch": {
+            "power": { "name": "电源" },
+            "auto_power_off": { "name": "自动关机" },
+            "humidification": { "name": "加湿" },
+            "child_lock": { "name": "童锁" },
+            "screen_close": { "name": "屏幕关闭" },
+            "voice": { "name": "声音" },
+            "protect": { "name": "出水断电" },
+            "smart_sterilize": { "name": "智能杀菌" },
+            "eplus": { "name": "大水量" },
+            "frequency_hot": { "name": "变频加热" },
+            "lock": { "name": "童锁" }
+        },
+        "climate": {
+            "electric_heater": {
+                "name": "温控器(取暖器)",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "left_warm": "左暖",
+                            "right_warm": "右暖",
+                            "full_on": "全开"
+                        }
+                    }
+                }
+            },
+            "water_heater": { "name": "温控器(热水器)" }
+        }
+    },
+    "device": {
+        "electric_heater": {
+            "name": "取暖器"
+        },
+        "electric_water_heater": {
+            "name": "热水器"
+        },
+        "unknown_device": {
+            "name": "未知设备"
+        }
+    }
+}
