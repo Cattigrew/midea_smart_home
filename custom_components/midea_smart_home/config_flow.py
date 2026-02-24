@@ -1,4 +1,5 @@
 import base64
+import json
 import logging
 import socket
 from ipaddress import IPv4Network
@@ -30,6 +31,7 @@ from .const import (
     DEFAULT_PORT,
     DEVICE_TYPES,
     DOMAIN,
+    JSON_FILES_PATH,
     LUA_COMMON_PATH,
     LUA_DEVICE_PATH,
 )
@@ -53,6 +55,14 @@ def get_lua_file_path(hass_config_dir: str, device_id: int, device_type: int, sn
     if sn8:
         return get_lua_storage_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:].upper()}_{sn8}.lua"
     return get_lua_storage_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:]}.lua"
+
+def get_json_files_path(hass_config_dir: str) -> Path:
+    return Path(hass_config_dir) / JSON_FILES_PATH
+
+def get_device_json_path(hass_config_dir: str, device_id: int, device_type: int, sn8: str = "") -> Path:
+    if sn8:
+        return get_json_files_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:].upper()}_{sn8}.json"
+    return get_json_files_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:]}.json"
 
 def discover_devices(timeout: float = DISCOVERY_TIMEOUT) -> dict:
     from midealocal.security import LocalSecurity
@@ -227,6 +237,48 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         
         return await self.async_step_get_token()
 
+    def _save_device_to_json(self, device_data: dict):
+        """Save device data to JSON file."""
+        try:
+            json_dir = get_json_files_path(self.hass.config.config_dir)
+            json_dir.mkdir(parents=True, exist_ok=True)
+            
+            device_id = device_data.get(CONF_DEVICE_ID)
+            device_type_str = device_data.get(CONF_DEVICE_TYPE)
+            sn8 = device_data.get(CONF_SN8, "")
+            
+            if not device_id or not device_type_str:
+                return
+            
+            # Convert device_type from string to integer
+            try:
+                device_type = int(device_type_str, 16)
+            except ValueError:
+                _LOGGER.error("Invalid device type format: %s", device_type_str)
+                return
+            
+            json_path = get_device_json_path(self.hass.config.config_dir, device_id, device_type, sn8)
+            
+            # Read existing data if file exists
+            existing_data = {}
+            if json_path.exists():
+                try:
+                    with open(json_path, 'r', encoding='utf-8') as f:
+                        existing_data = json.load(f)
+                except Exception as e:
+                    _LOGGER.error("Failed to read existing JSON file: %s", e)
+            
+            # Update with new data
+            existing_data.update(device_data)
+            
+            # Write back to file
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(existing_data, f, indent=2, ensure_ascii=False)
+            
+            _LOGGER.info("Saved device data to JSON file: %s", json_path)
+        except Exception as e:
+            _LOGGER.error("Failed to save device data to JSON file: %s", e)
+
     async def async_step_get_token(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
@@ -242,7 +294,7 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         device_id = current_device[CONF_DEVICE_ID]
         
         if user_input is not None:
-            self._devices_data.append({
+            device_data = {
                 CONF_DEVICE_ID: device_id,
                 CONF_IP: current_device[CONF_IP],
                 CONF_PORT: DEFAULT_PORT,
@@ -252,7 +304,12 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_TOKEN: user_input.get(CONF_TOKEN),
                 CONF_KEY: user_input.get(CONF_KEY),
                 CONF_LUA_FILE: user_input.get(CONF_LUA_FILE),
-            })
+            }
+            
+            self._devices_data.append(device_data)
+            
+            # Save to JSON file
+            await self.hass.async_add_executor_job(self._save_device_to_json, device_data)
             
             self._current_device_index += 1
             return await self.async_step_get_token()
