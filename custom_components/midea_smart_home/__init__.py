@@ -2,7 +2,6 @@ import logging
 import os
 import base64
 from pathlib import Path
-from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -29,7 +28,7 @@ from .const import (
 )
 from .coordinator import MideaCoordinator
 from .device import DeviceController, MideaCodec
-from .device_mapping import get_device_mapping
+from .device_mapping import get_device_mapping, get_queries, get_centralized, get_default_values
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -74,64 +73,98 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    data = entry.data
+    hass.data.setdefault(DOMAIN, {})
+    hass.data[DOMAIN].setdefault(entry.entry_id, {})
     
-    device_id = data[CONF_DEVICE_ID]
-    ip_address = data[CONF_IP]
-    port = data.get(CONF_PORT, DEFAULT_PORT)
-    token = data[CONF_TOKEN]
-    key = data[CONF_KEY]
-    lua_file = data[CONF_LUA_FILE]
-    sn = data.get(CONF_SN, "")
-    sn8 = data.get(CONF_SN8, "")
-    device_type = data.get(CONF_DEVICE_TYPE)
-    
-    lua_common_dir = Path(hass.config.config_dir) / LUA_COMMON_PATH
-    
-    codec = MideaCodec(lua_file, str(lua_common_dir), sn=sn, subtype=0)
-    controller = DeviceController(
-        device_id=device_id,
-        ip_address=ip_address,
-        port=port,
-        token=token,
-        key=key,
-        codec=codec,
-    )
-    
-    if not await hass.async_add_executor_job(controller.connect):
-        _LOGGER.error("Failed to connect to device %s at %s", device_id, ip_address)
-        return False
-    
-    device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
-    device_mapping = get_device_mapping(device_type_int, sn8)
-    calculate_config = device_mapping.get("calculate", {})
-    
-    language = hass.config.language or "en"
-    if language.startswith("zh"):
-        device_name = DEVICE_TYPES_ZH.get(device_type_int, f"设备 {device_type}")
-    else:
-        device_name = DEVICE_TYPES.get(device_type_int, f"Device {device_type}")
+    devices = entry.data.get("devices", [])
+    if not devices:
+        devices = [entry.data]
     
     update_interval = entry.options.get("update_interval", 1)
-    coordinator = MideaCoordinator(
-        hass,
-        controller,
-        f"Device_{device_id}",
-        update_interval=update_interval,
-        calculate_config=calculate_config,
-    )
+    language = hass.config.language or "en"
     
-    await coordinator.async_config_entry_first_refresh()
-    
-    hass.data[DOMAIN][entry.entry_id] = {
-        "coordinator": coordinator,
-        "controller": controller,
-        CONF_DEVICE_ID: device_id,
-        CONF_DEVICE_TYPE: device_type,
-        CONF_SN8: sn8,
-        CONF_SN: sn,
-        "device_name": device_name,
-    }
+    for device_data in devices:
+        device_id = device_data[CONF_DEVICE_ID]
+        ip_address = device_data[CONF_IP]
+        port = device_data.get(CONF_PORT, DEFAULT_PORT)
+        token = device_data[CONF_TOKEN]
+        key = device_data[CONF_KEY]
+        lua_file = device_data[CONF_LUA_FILE]
+        sn = device_data.get(CONF_SN, "")
+        sn8 = device_data.get(CONF_SN8, "")
+        device_type = device_data.get(CONF_DEVICE_TYPE)
+        
+        lua_common_dir = Path(hass.config.config_dir) / LUA_COMMON_PATH
+        
+        def init_device():
+            codec = MideaCodec(lua_file, str(lua_common_dir), sn=sn, subtype=0)
+            controller = DeviceController(
+                device_id=device_id,
+                ip_address=ip_address,
+                port=port,
+                token=token,
+                key=key,
+                codec=codec,
+            )
+            if controller.connect():
+                return controller
+            return None
+        
+        controller = await hass.async_add_executor_job(init_device)
+        if not controller:
+            _LOGGER.error("Failed to connect to device %s at %s", device_id, ip_address)
+            continue
+        
+        device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
+        device_mapping = get_device_mapping(device_type_int, sn8)
+        calculate_config = device_mapping.get("calculate", {})
+        queries = get_queries(device_type_int, sn8)
+        centralized = get_centralized(device_type_int, sn8)
+        default_values = get_default_values(device_type_int, sn8)
+        
+        preset_keys = set(centralized)
+        entities_cfg = (device_mapping.get("entities") or {})
+        for platform_cfg in entities_cfg.values():
+            if not isinstance(platform_cfg, dict):
+                continue
+            for entity_key, ecfg in platform_cfg.items():
+                if not isinstance(ecfg, dict):
+                    continue
+                if "default_value" in ecfg:
+                    attr_name = ecfg.get("attribute", entity_key)
+                    default_values[attr_name] = ecfg["default_value"]
+        
+        if device_type_int == 0xD9:
+            default_values["db_location_selection"] = "left"
+        
+        if language.startswith("zh"):
+            device_name = DEVICE_TYPES_ZH.get(device_type_int, f"设备 {device_type}")
+        else:
+            device_name = DEVICE_TYPES.get(device_type_int, f"Device {device_type}")
+        
+        coordinator = MideaCoordinator(
+            hass,
+            controller,
+            f"Device_{device_id}",
+            update_interval=update_interval,
+            calculate_config=calculate_config,
+            queries=queries,
+            centralized=centralized,
+            default_values=default_values,
+            device_type=device_type_int,
+        )
+        
+        await coordinator.async_config_entry_first_refresh()
+        
+        hass.data[DOMAIN][entry.entry_id][str(device_id)] = {
+            "coordinator": coordinator,
+            "controller": controller,
+            CONF_DEVICE_ID: device_id,
+            CONF_DEVICE_TYPE: device_type,
+            CONF_SN8: sn8,
+            CONF_SN: sn,
+            "device_name": device_name,
+        }
     
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     
@@ -141,9 +174,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
-        data = hass.data[DOMAIN].pop(entry.entry_id)
-        controller = data["controller"]
-        await hass.async_add_executor_job(controller.close)
+        entry_data = hass.data[DOMAIN].pop(entry.entry_id)
+        for device_id_str, data in entry_data.items():
+            controller = data["controller"]
+            await hass.async_add_executor_job(controller.close)
     
     return unload_ok
 

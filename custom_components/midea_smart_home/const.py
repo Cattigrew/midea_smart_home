@@ -20,13 +20,35 @@ CONF_SN8 = "sn8"
 DEFAULT_PORT = 6444
 
 DEVICE_TYPES = {
+    0x17: "Laundry Machine",
+    0x26: "Bath Heater",
+    0xAC: "Air Conditioner",
+    0xB6: "Range Hood",
+    0xB8: "Smart Robot Vacuum",
+    0xBC: "Air Sensor",
+    0xD9: "Twin Tub Washing Machine",
+    0xDB: "Cylinder Washing Machine",
     0xE2: "Electric Water Heater",
+    0xFA: "Electric Fan",
     0xFB: "Electric Heater",
+    0xFC: "Air Purifier",
+    0xFD: "Humidifier"
 }
 
 DEVICE_TYPES_ZH = {
+    0x17: "晾衣架",
+    0x26: "浴霸",
+    0xAC: "空调",
+    0xB6: "油烟机",
+    0xB8: "扫地机器人",
+    0xBC: "空气检测仪",
+    0xD9: "复式滚筒洗衣机",
+    0xDB: "滚筒洗衣机",
     0xE2: "热水器",
+    0xFA: "风扇",
     0xFB: "取暖器",
+    0xFC: "空气净化器",
+    0xFD: "加湿器"
 }
 
-PLATFORMS = ["climate", "sensor", "switch", "select"]
+PLATFORMS = ["climate", "sensor", "switch", "select", "button", "number", "vacuum", "binary_sensor", "fan", "humidifier"]

@@ -57,10 +57,10 @@ class MideaCodec(LuaRuntime):
         self._sn = sn or ""
         self._subtype = subtype
 
-    def build_query(self) -> str:
+    def build_query(self, query: dict = None) -> str:
         return self.json_to_data(json.dumps({
             "deviceinfo": {"deviceSN": self._sn, "deviceSubType": self._subtype},
-            "query": {}
+            "query": query or {}
         }))
 
     def build_control(self, control: dict) -> str:
@@ -194,14 +194,18 @@ class DeviceController:
             _LOGGER.error("Reconnect failed for device %s: %s", self._device_id, e)
             self._connected = False
 
-    def get_status(self) -> dict[str, Any]:
-        query_hex = self._codec.build_query()
+    def get_status(self, query: dict = None) -> dict[str, Any]:
+        query_hex = self._codec.build_query(query)
         decrypted = self._send_and_receive(query_hex)
         if decrypted:
             return self._codec.decode_status(decrypted.hex()) or {}
         return {}
 
-    def set_control(self, attr: str, value: Any) -> dict[str, Any]:
-        control_hex = self._codec.build_control({attr: value})
+    def set_control(self, attr: str | dict, value: Any = None) -> dict[str, Any]:
+        if isinstance(attr, dict):
+            control = attr
+        else:
+            control = {attr: value}
+        control_hex = self._codec.build_control(control)
         self._send_and_receive(control_hex, retry=1)
         return {}

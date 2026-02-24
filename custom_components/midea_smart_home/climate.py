@@ -19,45 +19,50 @@ from .entity import MideaBaseEntity
 
 _LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up climate entities for Midea devices."""
-    data = hass.data[DOMAIN][entry.entry_id]
-    coordinator = data["coordinator"]
-    device_id = data[CONF_DEVICE_ID]
-    device_type = data[CONF_DEVICE_TYPE]
-    sn8 = data.get(CONF_SN8, "")
-    sn = data.get(CONF_SN, "")
-    device_name = data.get("device_name", f"Midea Device {device_id}")
+    entry_data = hass.data[DOMAIN][entry.entry_id]
+    entities = []
     
-    device_type_int = int(device_type, 16) if isinstance(device_type, str) else device_type
-    _LOGGER.debug(f"设置Climate实体 - 设备类型: 0x{device_type_int:X}, sn8: {sn8}")
-    
-    device_mapping = get_device_mapping(device_type_int, sn8)
-    _LOGGER.debug(f"设备映射: {device_mapping}")
-    
-    entities_config = device_mapping.get("entities", {})
-    rationale = device_mapping.get("rationale", ["off", "on"])
-    
-    climate_config = entities_config.get(Platform.CLIMATE, {})
-    _LOGGER.debug(f"实体配置: {climate_config}")
-    
-    if climate_config:
-        entities = []
-        for climate_key, config in climate_config.items():
-            entities.append(
-                MideaClimateEntity(
-                    coordinator, device_id, device_type, sn, sn8, device_name,
-                    climate_key, config, rationale
+    for device_id_str, data in entry_data.items():
+        if device_id_str == "device_list":
+            continue
+        coordinator = data.get("coordinator")
+        if not coordinator:
+            continue
+        device_id = data[CONF_DEVICE_ID]
+        device_type = data[CONF_DEVICE_TYPE]
+        sn8 = data.get(CONF_SN8, "")
+        sn = data.get(CONF_SN, "")
+        device_name = data.get("device_name", f"Midea Device {device_id}")
+        
+        device_type_int = int(device_type, 16) if isinstance(device_type, str) else device_type
+        _LOGGER.debug(f"设置Climate实体 - 设备类型: 0x{device_type_int:X}, sn8: {sn8}")
+        
+        device_mapping = get_device_mapping(device_type_int, sn8)
+        _LOGGER.debug(f"设备映射: {device_mapping}")
+        
+        entities_config = device_mapping.get("entities", {})
+        rationale = device_mapping.get("rationale", ["off", "on"])
+        
+        climate_config = entities_config.get(Platform.CLIMATE, {})
+        _LOGGER.debug(f"实体配置: {climate_config}")
+        
+        if climate_config:
+            for climate_key, config in climate_config.items():
+                entities.append(
+                    MideaClimateEntity(
+                        coordinator, device_id, device_type, sn, sn8, device_name,
+                        climate_key, config, rationale
+                    )
                 )
-            )
-        async_add_entities(entities)
-    else:
-        _LOGGER.debug("未找到气候实体配置，跳过创建气候实体")
-        async_add_entities([])
+    
+    async_add_entities(entities)
+
 
 class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
     def __init__(
@@ -80,12 +85,15 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         self._key_hvac_modes = self._config.get("hvac_modes")
         self._key_preset_modes = self._config.get("preset_modes")
         self._key_fan_modes = self._config.get("fan_modes")
+        self._key_swing_modes = self._config.get("swing_modes")
         self._key_target_temperature = self._config.get("target_temperature")
         self._key_current_temperature = self._config.get("current_temperature")
         self._key_min_temp = self._config.get("min_temp", 16)
         self._key_max_temp = self._config.get("max_temp", 30)
+        self._aux_heat = self._config.get("aux_heat")
+        self._condition = config.get("condition")
         
-        self._attr_translation_key = entity_key
+        self._attr_translation_key = config.get("translation_key", entity_key)
         self._attr_temperature_unit = self._config.get("temperature_unit", UnitOfTemperature.CELSIUS)
         self._attr_precision = self._config.get("precision", 1.0)
         self._attr_target_temperature_step = self._config.get("precision", 1.0)
@@ -94,6 +102,31 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         
         self._setup_supported_features()
         self._setup_modes()
+    
+    def _check_condition(self) -> bool:
+        if not self._condition:
+            return True
+        
+        data = self.coordinator.data or {}
+        
+        if "not" in self._condition:
+            attrs = self._condition["not"]
+            for attr in attrs:
+                value = data.get(attr)
+                if value:
+                    return False
+            return True
+        
+        if "eq" in self._condition:
+            attr, expected_value = self._condition["eq"]
+            actual_value = data.get(attr)
+            return actual_value == expected_value
+        
+        return True
+    
+    @property
+    def available(self) -> bool:
+        return super().available and self._check_condition()
     
     def _setup_supported_features(self):
         features = ClimateEntityFeature(0)
@@ -105,6 +138,10 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
             features |= ClimateEntityFeature.PRESET_MODE
         if self._key_fan_modes is not None:
             features |= ClimateEntityFeature.FAN_MODE
+        if self._key_swing_modes is not None:
+            features |= ClimateEntityFeature.SWING_MODE
+        if self._aux_heat is not None:
+            features |= ClimateEntityFeature.AUX_HEAT
         self._attr_supported_features = features
     
     def _setup_modes(self):
@@ -118,6 +155,9 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         
         if self._key_fan_modes is not None:
             self._attr_fan_modes = list(self._key_fan_modes.keys())
+        
+        if self._key_swing_modes is not None:
+            self._attr_swing_modes = list(self._key_swing_modes.keys())
     
     @property
     def hvac_mode(self) -> HVACMode:
@@ -164,6 +204,20 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
             return self._dict_get_selected(self._key_fan_modes)
         return None
     
+    @property
+    def swing_mode(self) -> Optional[str]:
+        if self._key_swing_modes is not None:
+            return self._dict_get_selected(self._key_swing_modes)
+        return None
+    
+    @property
+    def is_aux_heat(self) -> bool:
+        if self._aux_heat is not None:
+            data = self.coordinator.data or {}
+            value = data.get(self._aux_heat)
+            return self._is_on(value)
+        return False
+    
     async def async_set_temperature(self, **kwargs: Any) -> None:
         temperature = kwargs.get(ATTR_TEMPERATURE)
         if temperature is None:
@@ -193,6 +247,20 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
             fan_config = self._key_fan_modes.get(fan_mode)
             if fan_config:
                 await self._async_set_multiple_controls(fan_config)
+    
+    async def async_set_swing_mode(self, swing_mode: str) -> None:
+        if self._key_swing_modes is not None:
+            swing_config = self._key_swing_modes.get(swing_mode)
+            if swing_config:
+                await self._async_set_multiple_controls(swing_config)
+    
+    async def async_turn_aux_heat_on(self) -> None:
+        if self._aux_heat is not None:
+            await self._async_set_control(self._aux_heat, self._rationale[1] if len(self._rationale) > 1 else "on")
+    
+    async def async_turn_aux_heat_off(self) -> None:
+        if self._aux_heat is not None:
+            await self._async_set_control(self._aux_heat, self._rationale[0] if self._rationale else "off")
     
     async def async_turn_on(self) -> None:
         if self._key_power is not None:
@@ -236,6 +304,9 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         elif isinstance(value, str):
             return value in ["off", "0", "false", "False"]
         return True
+    
+    def _is_on(self, value):
+        return not self._is_off(value)
     
     async def _async_set_control(self, attr: str, value: Any) -> None:
         await self.coordinator.async_set_control(attr, value)

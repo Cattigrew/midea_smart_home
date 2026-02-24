@@ -11,6 +11,7 @@ from aiohttp import ClientSession
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+import homeassistant.helpers.config_validation as cv
 
 from .const import (
     BIT_LUA,
@@ -48,10 +49,10 @@ def get_lua_storage_path(hass_config_dir: str) -> Path:
 def get_lua_common_path(hass_config_dir: str) -> Path:
     return Path(hass_config_dir) / LUA_COMMON_PATH
 
-def get_lua_file_path(hass_config_dir: str, device_type: int, sn8: str = "") -> Path:
+def get_lua_file_path(hass_config_dir: str, device_id: int, device_type: int, sn8: str = "") -> Path:
     if sn8:
-        return get_lua_storage_path(hass_config_dir) / f"T0x{hex(device_type)[2:].upper()}_{sn8}.lua"
-    return get_lua_storage_path(hass_config_dir) / f"T0x{hex(device_type)[2:]}.lua"
+        return get_lua_storage_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:].upper()}_{sn8}.lua"
+    return get_lua_storage_path(hass_config_dir) / f"{device_id}_T0x{hex(device_type)[2:]}.lua"
 
 def discover_devices(timeout: float = DISCOVERY_TIMEOUT) -> dict:
     from midealocal.security import LocalSecurity
@@ -154,7 +155,9 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     
     def __init__(self):
         self._discovered_devices: dict = {}
-        self._selected_device: dict = {}
+        self._selected_devices: list = []
+        self._current_device_index: int = 0
+        self._devices_data: list = []
         self._account: str = None
         self._password: str = None
         self._session: ClientSession = None
@@ -202,7 +205,7 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="select_device",
             data_schema=vol.Schema({
-                vol.Required("device"): vol.In(device_options),
+                vol.Required("devices"): cv.multi_select(device_options),
             }),
         )
 
@@ -212,33 +215,47 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is None:
             return await self.async_step_discover()
         
-        device_id = int(user_input["device"])
-        self._selected_device = self._discovered_devices[device_id]
+        selected = user_input.get("devices", [])
+        if not selected:
+            return await self.async_step_discover()
         
-        await self.async_set_unique_id(str(device_id))
-        self._abort_if_unique_id_configured()
+        self._selected_devices = [
+            self._discovered_devices[int(did)]
+            for did in selected
+        ]
+        self._current_device_index = 0
         
         return await self.async_step_get_token()
 
     async def async_step_get_token(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
+        if self._current_device_index >= len(self._selected_devices):
+            if self._devices_data:
+                return self.async_create_entry(
+                    title=f"Midea | {self._account}",
+                    data={"devices": self._devices_data},
+                )
+            return self.async_abort(reason="no_devices")
+        
+        current_device = self._selected_devices[self._current_device_index]
+        device_id = current_device[CONF_DEVICE_ID]
+        
         if user_input is not None:
-            return self.async_create_entry(
-                title=f"Midea | {self._account}",
-                data={
-                    CONF_DEVICE_ID: self._selected_device[CONF_DEVICE_ID],
-                    CONF_IP: self._selected_device[CONF_IP],
-                    CONF_PORT: DEFAULT_PORT,
-                    CONF_DEVICE_TYPE: hex(self._selected_device.get(CONF_DEVICE_TYPE)),
-                    CONF_SN: self._selected_device.get(CONF_SN, ""),
-                    CONF_SN8: self._selected_device.get(CONF_SN8, ""),
-                    CONF_ACCOUNT: self._account,
-                    CONF_TOKEN: user_input.get(CONF_TOKEN),
-                    CONF_KEY: user_input.get(CONF_KEY),
-                    CONF_LUA_FILE: user_input.get(CONF_LUA_FILE),
-                },
-            )
+            self._devices_data.append({
+                CONF_DEVICE_ID: device_id,
+                CONF_IP: current_device[CONF_IP],
+                CONF_PORT: DEFAULT_PORT,
+                CONF_DEVICE_TYPE: hex(current_device.get(CONF_DEVICE_TYPE)),
+                CONF_SN: current_device.get(CONF_SN, ""),
+                CONF_SN8: current_device.get(CONF_SN8, ""),
+                CONF_TOKEN: user_input.get(CONF_TOKEN),
+                CONF_KEY: user_input.get(CONF_KEY),
+                CONF_LUA_FILE: user_input.get(CONF_LUA_FILE),
+            })
+            
+            self._current_device_index += 1
+            return await self.async_step_get_token()
         
         token = None
         key = None
@@ -258,7 +275,6 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             )
             
             if await self._preset_cloud.login():
-                device_id = self._selected_device[CONF_DEVICE_ID]
                 keys = await self._preset_cloud.get_cloud_keys(device_id)
                 if keys:
                     method = list(keys.keys())[0]
@@ -277,19 +293,17 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 _LOGGER.info("User account login success")
                 self._user_cloud = user_cloud
                 
-                # 下载通用Lua文件
                 lua_common_dir = get_lua_common_path(self.hass.config.config_dir)
                 await self._download_common_lua_files(lua_common_dir)
                 
-                # 下载设备特定的Lua文件
-                device_type = self._selected_device.get(CONF_DEVICE_TYPE)
-                sn = self._selected_device.get(CONF_SN, "")
-                sn8 = self._selected_device.get(CONF_SN8, "")
+                device_type = current_device.get(CONF_DEVICE_TYPE)
+                sn = current_device.get(CONF_SN, "")
+                sn8 = current_device.get(CONF_SN8, "")
                 lua_storage_dir = get_lua_storage_path(self.hass.config.config_dir)
                 lua_storage_dir.mkdir(parents=True, exist_ok=True)
                 
                 lua_file = await self._download_lua_file(
-                    user_cloud, device_type, sn, sn8, lua_storage_dir
+                    user_cloud, device_id, device_type, sn, sn8, lua_storage_dir
                 )
             else:
                 _LOGGER.warning("User account login failed")
@@ -298,9 +312,9 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         finally:
             await self._session.close()
         
-        device_type = self._selected_device.get(CONF_DEVICE_TYPE)
-        sn8 = self._selected_device.get(CONF_SN8, "")
-        lua_file_path = get_lua_file_path(self.hass.config.config_dir, device_type, sn8)
+        device_type = current_device.get(CONF_DEVICE_TYPE)
+        sn8 = current_device.get(CONF_SN8, "")
+        lua_file_path = get_lua_file_path(self.hass.config.config_dir, device_id, device_type, sn8)
         
         if not lua_file and lua_file_path.exists():
             lua_file = str(lua_file_path)
@@ -313,14 +327,15 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 vol.Required(CONF_LUA_FILE, default=lua_file or ""): str,
             }),
             description_placeholders={
-                "device_id": str(self._selected_device[CONF_DEVICE_ID]),
-                "ip": self._selected_device[CONF_IP],
-                "sn8": self._selected_device.get(CONF_SN8, ""),
+                "device_id": str(device_id),
+                "ip": current_device[CONF_IP],
+                "sn8": current_device.get(CONF_SN8, ""),
+                "progress": f"({self._current_device_index + 1}/{len(self._selected_devices)})",
             },
         )
 
     async def _download_lua_file(
-        self, cloud, device_type: int, sn: str, sn8: str, storage_dir: Path
+        self, cloud, device_id: int, device_type: int, sn: str, sn8: str, storage_dir: Path
     ) -> str | None:
         def _write_lua_file(file_path: Path, content: str) -> bool:
             try:
@@ -340,9 +355,9 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         try:
             if sn8:
-                lua_file_path = storage_dir / f"T0x{hex(device_type)[2:].upper()}_{sn8}.lua"
+                lua_file_path = storage_dir / f"{device_id}_T0x{hex(device_type)[2:].upper()}_{sn8}.lua"
             else:
-                lua_file_path = storage_dir / f"T0x{hex(device_type)[2:]}.lua"
+                lua_file_path = storage_dir / f"{device_id}_T0x{hex(device_type)[2:]}.lua"
             
             if lua_file_path.exists():
                 _LOGGER.info("Lua file already exists: %s", lua_file_path)
