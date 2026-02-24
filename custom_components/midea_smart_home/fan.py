@@ -1,0 +1,302 @@
+import logging
+
+from homeassistant.components.fan import FanEntity, FanEntityFeature
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+
+from .const import CONF_DEVICE_ID, CONF_DEVICE_TYPE, CONF_SN, CONF_SN8, DOMAIN
+from .coordinator import MideaCoordinator
+from .device_mapping import get_device_mapping
+from .entity import MideaBaseEntity
+
+_LOGGER = logging.getLogger(__name__)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up fan entities for Midea devices."""
+    entry_data = hass.data[DOMAIN][entry.entry_id]
+    entities = []
+
+    for device_id_str, data in entry_data.items():
+        if device_id_str == "device_list":
+            continue
+        coordinator = data.get("coordinator")
+        if not coordinator:
+            continue
+        device_id = data[CONF_DEVICE_ID]
+        device_type = data[CONF_DEVICE_TYPE]
+        sn8 = data.get(CONF_SN8, "")
+        sn = data.get(CONF_SN, "")
+        device_name = data.get("device_name", f"Midea Device {device_id}")
+
+        device_type_int = int(device_type, 16) if isinstance(device_type, str) else device_type
+
+        device_mapping = get_device_mapping(device_type_int, sn8)
+        entities_config = device_mapping.get("entities", {})
+
+        fan_config = entities_config.get(Platform.FAN, {})
+        if fan_config:
+            for fan_id, config in fan_config.items():
+                entities.append(
+                    MideaFanEntity(
+                        coordinator, device_id, device_type, sn, sn8, device_name,
+                        fan_id, config
+                    )
+                )
+
+    async_add_entities(entities)
+
+
+class MideaFanEntity(MideaBaseEntity, FanEntity):
+    def __init__(
+        self,
+        coordinator: MideaCoordinator,
+        device_id: int,
+        device_type: str,
+        sn: str,
+        sn8: str,
+        device_name: str,
+        fan_id: str,
+        config: dict,
+    ):
+        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, fan_id)
+        self._fan_id = fan_id
+        self._config = config
+        self._key_power = config.get("power")
+        self._key_preset_modes = config.get("preset_modes", {})
+        speeds_config = config.get("speeds", [])
+        self._key_oscillate = config.get("oscillate")
+        self._key_directions = config.get("directions", {})
+
+        if isinstance(speeds_config, list) and len(speeds_config) > 0:
+            if isinstance(speeds_config[0], dict) and "key" in speeds_config[0]:
+                key_name = speeds_config[0]["key"]
+                value_range = speeds_config[0].get("value", [1, 100])
+                if isinstance(value_range, list) and len(value_range) == 2:
+                    start, end = value_range[0], value_range[1]
+                    self._key_speeds = [{key_name: str(i)} for i in range(start, end + 1)]
+                else:
+                    self._key_speeds = speeds_config
+            else:
+                self._key_speeds = speeds_config
+        else:
+            self._key_speeds = speeds_config
+
+        self._attr_speed_count = len(self._key_speeds) if self._key_speeds else 0
+        self._current_preset_mode = None
+        self._current_speeds = self._key_speeds
+
+    @property
+    def supported_features(self):
+        features = FanEntityFeature(0)
+        features |= FanEntityFeature.TURN_ON
+        features |= FanEntityFeature.TURN_OFF
+        if self._key_preset_modes:
+            features |= FanEntityFeature.PRESET_MODE
+        if self._current_speeds:
+            features |= FanEntityFeature.SET_SPEED
+        if self._key_oscillate:
+            features |= FanEntityFeature.OSCILLATE
+        if self._key_directions:
+            features |= FanEntityFeature.DIRECTION
+        return features
+
+    @property
+    def is_on(self) -> bool:
+        return self._get_status_on_off(self._key_power)
+
+    @property
+    def preset_modes(self):
+        if not self._key_preset_modes:
+            return None
+        return list(self._key_preset_modes.keys())
+
+    @property
+    def preset_mode(self):
+        if not self._key_preset_modes:
+            return None
+
+        current_mode = self._dict_get_selected(self._key_preset_modes)
+
+        if current_mode:
+            mode_config = self._key_preset_modes.get(current_mode, {})
+            if "speeds" in mode_config:
+                self._current_speeds = mode_config["speeds"]
+                self._attr_speed_count = len(self._current_speeds)
+            else:
+                self._current_speeds = self._key_speeds
+                self._attr_speed_count = len(self._current_speeds) if self._current_speeds else 0
+            self._current_preset_mode = current_mode
+
+        return current_mode
+
+    @property
+    def percentage(self):
+        if not self.is_on:
+            return 0
+
+        index = self._list_get_selected(self._current_speeds)
+        if index is None:
+            return 0
+
+        if self._attr_speed_count <= 1:
+            return 100
+
+        return round((index + 1) * 100 / self._attr_speed_count)
+
+    @property
+    def oscillating(self):
+        return self._get_status_on_off(self._key_oscillate)
+
+    @property
+    def current_direction(self):
+        return self._dict_get_selected(self._key_directions)
+
+    async def async_turn_on(
+            self,
+            percentage: int | None = None,
+            preset_mode: str | None = None,
+            **kwargs,
+    ):
+        new_status = {}
+        if preset_mode is not None and self._key_preset_modes:
+            mode_config = self._key_preset_modes.get(preset_mode, {})
+            if "speeds" in mode_config:
+                self._current_speeds = mode_config["speeds"]
+                self._attr_speed_count = len(self._current_speeds)
+            else:
+                self._current_speeds = self._key_speeds
+                self._attr_speed_count = len(self._current_speeds) if self._current_speeds else 0
+            self._current_preset_mode = preset_mode
+
+            if "speeds" in mode_config and len(mode_config["speeds"]) == 1:
+                new_status.update(mode_config["speeds"][0])
+
+        if percentage is not None and self._current_speeds:
+            if percentage == 0:
+                await self.async_turn_off()
+                return
+
+            if self._attr_speed_count <= 1:
+                index = 0
+            else:
+                index = round(percentage * self._attr_speed_count / 100) - 1
+                index = max(0, min(index, len(self._current_speeds) - 1))
+
+            new_status.update(self._current_speeds[index])
+
+        await self._async_set_status_on_off(self._key_power, True)
+        if new_status:
+            await self.coordinator.async_set_controls(new_status)
+
+    async def async_turn_off(self):
+        await self._async_set_status_on_off(self._key_power, False)
+
+    async def async_set_percentage(self, percentage: int):
+        if not self._current_speeds:
+            return
+
+        if percentage == 0:
+            await self.async_turn_off()
+            return
+
+        if not self.is_on:
+            await self._async_set_status_on_off(self._key_power, True)
+
+        if self._attr_speed_count <= 1:
+            index = 0
+        else:
+            index = round((percentage / 100) * self._attr_speed_count)
+            index = max(1, min(index, self._attr_speed_count))
+
+        if 1 <= index <= len(self._current_speeds):
+            new_status = self._current_speeds[index - 1]
+            await self.coordinator.async_set_controls(new_status)
+
+    async def async_set_preset_mode(self, preset_mode: str):
+        if not self._key_preset_modes:
+            return
+
+        mode_config = self._key_preset_modes.get(preset_mode, {})
+        if mode_config:
+            if not self.is_on:
+                await self._async_set_status_on_off(self._key_power, True)
+
+            if "speeds" in mode_config:
+                self._current_speeds = mode_config["speeds"]
+                self._attr_speed_count = len(self._current_speeds)
+            else:
+                self._current_speeds = self._key_speeds
+                self._attr_speed_count = len(self._current_speeds) if self._current_speeds else 0
+
+            self._current_preset_mode = preset_mode
+
+            new_status = {}
+            if "speeds" in mode_config and len(mode_config["speeds"]) == 1:
+                new_status.update(mode_config["speeds"][0])
+
+            await self.coordinator.async_set_controls(new_status)
+
+    async def async_oscillate(self, oscillating: bool):
+        if self.oscillating != oscillating:
+            await self._async_set_status_on_off(self._key_oscillate, oscillating)
+
+    async def async_set_direction(self, direction: str):
+        if not self._key_directions:
+            return
+        new_status = self._key_directions.get(direction)
+        if new_status:
+            await self.coordinator.async_set_controls(new_status)
+
+    def _get_status_on_off(self, key):
+        """Get on/off status from device data."""
+        if not key:
+            return False
+        data = self.coordinator.data or {}
+        value = data.get(key)
+        return value == "on" or value == 1 or value is True
+
+    async def _async_set_status_on_off(self, key, value: bool):
+        """Set on/off status."""
+        if not key:
+            return
+        attr_value = "on" if value else "off"
+        await self.coordinator.async_set_control(key, attr_value)
+
+    def _dict_get_selected(self, options_dict: dict):
+        """Get the currently selected option from a dict of options."""
+        if not options_dict:
+            return None
+        data = self.coordinator.data or {}
+        for key, value in options_dict.items():
+            if isinstance(value, dict):
+                match = True
+                for k, v in value.items():
+                    if data.get(k) != v:
+                        match = False
+                        break
+                if match:
+                    return key
+        return None
+
+    def _list_get_selected(self, options_list: list):
+        """Get the currently selected option from a list of options."""
+        if not options_list:
+            return None
+        data = self.coordinator.data or {}
+        for i, value in enumerate(options_list):
+            if isinstance(value, dict):
+                match = True
+                for k, v in value.items():
+                    if data.get(k) != v:
+                        match = False
+                        break
+                if match:
+                    return i
+        return None
