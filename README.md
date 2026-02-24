@@ -20,14 +20,14 @@ Home Assistant custom integration for Midea smart devices via local network.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                      Configuration Phase                         │
+│                    Configuration Phase                         │
 ├─────────────────────────────────────────────────────────────────┤
 │  1. User enters Midea account credentials                        │
-│  2. Login to Midea Cloud API                                     │ 
+│  2. Login to Midea Cloud API                                     │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                       Discovery Phase                            │
+│                     Discovery Phase                            │
 ├─────────────────────────────────────────────────────────────────┤
 │  1. Get device details from cloud (Device ID, Model, SN8, etc.)  │
 │  2. Auto-download Lua protocol file for the device               │
@@ -36,7 +36,7 @@ Home Assistant custom integration for Midea smart devices via local network.
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                        Runtime Phase                             │
+│                      Runtime Phase                             │
 ├─────────────────────────────────────────────────────────────────┤
 │  1. Connect to device via local network                          │
 │  2. Parse device protocol using Lua script                       │
