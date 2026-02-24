@@ -65,14 +65,25 @@ Home Assistant custom integration for Midea smart devices via local network.
 
 1. Enter your Midea account credentials (for downloading Lua scripts)
 2. Select devices from discovered list
-3. Enter Token and Key for each device (obtain the Token and Key using the [midea-local](https://github.com/midea-lan/midea-local) library)
+3. Automatically obtain Token and Key for each device (obtain the Token and Key using the [midea-local](https://github.com/midea-lan/midea-local) library)
 
 ## Supported Devices
 
-| Device Type | Code | Description |
-|-------------|------|-------------|
-| Electric Heater | 0xFB | Smart electric heater |
-| Electric Water Heater | 0xE2 | Electric water heater |
+| No. | Code | Device Type |
+|-----|------|-------------|
+| 1 | 0x17 | Laundry Machine |
+| 2 | 0x26 | Bath Heater |
+| 3 | 0xAC | Air Conditioner |
+| 4 | 0xB6 | Range Hood |
+| 5 | 0xB8 | Smart Robot Vacuum |
+| 6 | 0xBC | Air Sensor |
+| 7 | 0xD9 | Twin Tub Washing Machine |
+| 8 | 0xDB | Cylinder Washing Machine |
+| 9 | 0xE2 | Electric Water Heater |
+| 10 | 0xFA | Electric Fan |
+| 11 | 0xFB | Electric Heater |
+| 12 | 0xFC | Air Purifier |
+| 13 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 
