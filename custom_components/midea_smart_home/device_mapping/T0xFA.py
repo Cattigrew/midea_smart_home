@@ -1,6 +1,7 @@
 from homeassistant.const import Platform, UnitOfTemperature, UnitOfTime, PERCENTAGE, DEGREE, \
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
@@ -11,6 +12,15 @@ DEVICE_MAPPING = {
             "power", "swing", "display_on_off", "temp_wind_switch",
         ],
         "entities": {
+            Platform.SWITCH: {
+                "display_on_off": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": ["on", "off"]
+                },
+                "temp_wind_switch": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+            },
             Platform.FAN: {
                 "fan": {
                     "power": "power",
@@ -22,15 +32,6 @@ DEVICE_MAPPING = {
                         "baby": {"mode": "baby"}
                     }
                 }
-            },
-            Platform.SWITCH: {
-                "display_on_off": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["on", "off"]
-                },
-                "temp_wind_switch": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                },
             },
             Platform.SELECT: {
                 "voice": {
@@ -127,19 +128,10 @@ DEVICE_MAPPING = {
     "56011CEN": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": ["power", "gear"],
+        "centralized": [
+            "power", "gear"
+        ],
         "entities": {
-            Platform.FAN: {
-                "fan": {
-                    "power": "power",
-                    "speeds": list({"gear": value + 1} for value in range(0, 100)),
-                    "preset_modes": {
-                        "self_selection": {"mode": "self_selection"},
-                        "sleeping_wind": {"mode": "sleeping_wind"},
-                        "purified_wind": {"mode": "purified_wind"}
-                    }
-                }
-            },
             Platform.SWITCH: {
                 "display_on_off": {
                     "device_class": SwitchDeviceClass.SWITCH,
@@ -151,6 +143,17 @@ DEVICE_MAPPING = {
                 "temp_wind_switch": {
                     "device_class": SwitchDeviceClass.SWITCH,
                 },
+            },
+            Platform.FAN: {
+                "fan": {
+                    "power": "power",
+                    "speeds": list({"gear": value + 1} for value in range(0, 100)),
+                    "preset_modes": {
+                        "self_selection": {"mode": "self_selection"},
+                        "sleeping_wind": {"mode": "sleeping_wind"},
+                        "purified_wind": {"mode": "purified_wind"}
+                    }
+                }
             },
             Platform.SELECT: {
                 "voice": {
@@ -208,6 +211,21 @@ DEVICE_MAPPING = {
         "queries": [{}],
         "centralized": [],
         "entities": {
+            Platform.SWITCH: {
+                "display_on_off": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": ["on", "off"],
+                    "translation_key": "screen_close",
+                },
+                "humidify": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": ["off", "1"],
+                },
+                "waterions": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "anion",
+                }
+            },
             Platform.FAN: {
                 "fan": {
                     "power": "power",
@@ -227,21 +245,6 @@ DEVICE_MAPPING = {
                             "speeds": list({"gear": value + 1} for value in range(0, 1))
                         }
                     }
-                }
-            },
-            Platform.SWITCH: {
-                "display_on_off": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["on", "off"],
-                    "translation_key": "screen_close",
-                },
-                "humidify": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["off", "1"],
-                },
-                "waterions": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "anion",
                 }
             },
             Platform.SENSOR: {

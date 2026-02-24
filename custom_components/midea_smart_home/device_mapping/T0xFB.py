@@ -1,5 +1,7 @@
-from homeassistant.const import Platform, UnitOfTemperature, UnitOfPower, PRECISION_WHOLE
+from homeassistant.const import Platform, UnitOfTemperature, UnitOfVolume, UnitOfTime, PERCENTAGE, PRECISION_HALVES, \
+    PRECISION_WHOLE, UnitOfEnergy, UnitOfPower
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
@@ -11,22 +13,10 @@ DEVICE_MAPPING = {
             Platform.SWITCH: {
                 "lock": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "child_lock"
                 },
                 "screen_close": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["off", "on"]
-                },
-                "auto_power_off": {
-                    "device_class": SwitchDeviceClass.SWITCH
-                },
-                "humidification": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["off", "no_change"]
-                },
-                "voice": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["close_buzzer", "open_buzzer"]
+                    "rationale": ["on", "off"],
                 }
             },
             Platform.CLIMATE: {
@@ -36,28 +26,26 @@ DEVICE_MAPPING = {
                         "off": {"power": "off"},
                         "heat": {"power": "on"}
                     },
-                    "preset_modes": {
-                        "left_warm": {"gear": 1},
-                        "right_warm": {"gear": 2},
-                        "full_on": {"gear": 3}
-                    },
                     "target_temperature": "temperature",
                     "current_temperature": "cur_temperature",
                     "min_temp": 5,
                     "max_temp": 35,
                     "temperature_unit": UnitOfTemperature.CELSIUS,
-                    "precision": PRECISION_WHOLE
+                    "precision": PRECISION_HALVES,
+                }
+            },
+            Platform.SELECT: {
+                "gear": {
+                    "options": {
+                        "low": {"gear": 1},
+                        "high": {"gear": 3}
+                    }
                 }
             },
             Platform.SENSOR: {
                 "power_statistics": {
                     "device_class": SensorDeviceClass.POWER,
                     "unit_of_measurement": UnitOfPower.WATT,
-                    "state_class": SensorStateClass.MEASUREMENT
-                },
-                "cur_temperature": {
-                    "device_class": SensorDeviceClass.TEMPERATURE,
-                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT
                 }
             }
@@ -69,24 +57,24 @@ DEVICE_MAPPING = {
         "centralized": [],
         "entities": {
             Platform.SWITCH: {
-                "lock": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "child_lock"
-                },
-                "screen_close": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["off", "on"]
-                },
                 "auto_power_off": {
-                    "device_class": SwitchDeviceClass.SWITCH
+                    "device_class": SwitchDeviceClass.SWITCH,
                 },
                 "humidification": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["off", "no_change"]
+                    "rationale": ['off', 'no_change'],
+                },
+                "lock": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "child_lock",
+                },
+                "screen_close": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": ['on', 'off'],
                 },
                 "voice": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": ["close_buzzer", "open_buzzer"]
+                    "rationale": ['close_buzzer', 'open_buzzer'],
                 }
             },
             Platform.CLIMATE: {
@@ -106,7 +94,7 @@ DEVICE_MAPPING = {
                     "min_temp": 5,
                     "max_temp": 35,
                     "temperature_unit": UnitOfTemperature.CELSIUS,
-                    "precision": PRECISION_WHOLE
+                    "precision": PRECISION_WHOLE,
                 }
             },
             Platform.SENSOR: {
