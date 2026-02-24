@@ -5,11 +5,13 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
+        "queries": [{}],
+        "centralized": [],
         "calculate": {
             "get": [
                 {
-                    "lvalue": "end_time",
-                    "rvalue": "end_time_hour * 60 + end_time_minute"
+                    "lvalue": "[end_time]",
+                    "rvalue": "[end_time_hour] * 60 + [end_time_minute]"
                 }
             ],
             "set": []
@@ -72,11 +74,13 @@ DEVICE_MAPPING = {
     },
     "510214HB": {
         "rationale": ["off", "on"],
+        "queries": [{}],
+        "centralized": [],
         "calculate": {
             "get": [
                 {
-                    "lvalue": "end_time",
-                    "rvalue": "end_time_hour * 60 + end_time_minute"
+                    "lvalue": "[end_time]",
+                    "rvalue": "[end_time_hour] * 60 + [end_time_minute]"
                 }
             ],
             "set": []

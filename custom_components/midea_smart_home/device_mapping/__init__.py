@@ -6,12 +6,10 @@ _LOGGER = logging.getLogger(__name__)
 
 DEVICE_MAPPINGS = {}
 
-# 动态加载所有设备映射文件
 def load_device_mappings():
     """加载所有设备映射文件"""
     mapping_dir = Path(__file__).parent
     
-    # 确保目录存在
     if not mapping_dir.exists():
         _LOGGER.error(f"设备映射目录不存在: {mapping_dir}")
         return
@@ -34,10 +32,9 @@ def load_device_mappings():
     except Exception as e:
         _LOGGER.error(f"遍历设备映射目录失败: {e}", exc_info=True)
 
-# 初始化时加载设备映射
 load_device_mappings()
 
-def get_device_mapping(device_type, sn8: str = ""):
+def get_device_mapping(device_type: int, sn8: str = "") -> dict:
     """获取指定设备类型的映射
     
     Args:
@@ -52,10 +49,44 @@ def get_device_mapping(device_type, sn8: str = ""):
     if not mapping:
         return {}
     
-    if sn8 and sn8 in mapping:
-        return mapping[sn8]
+    if sn8:
+        if sn8 in mapping:
+            return mapping[sn8]
+        for key in mapping:
+            if isinstance(key, tuple) and sn8 in key:
+                return mapping[key]
     
     if "default" in mapping:
         return mapping["default"]
     
     return mapping
+
+def get_queries(device_type: int, sn8: str = "") -> list:
+    """获取设备的查询配置"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("queries", [{}])
+
+def get_centralized(device_type: int, sn8: str = "") -> list:
+    """获取设备的集中控制属性列表"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("centralized", [])
+
+def get_default_values(device_type: int, sn8: str = "") -> dict:
+    """获取设备的属性默认值"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("default_values", {})
+
+def get_calculate(device_type: int, sn8: str = "") -> dict:
+    """获取设备的计算配置"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("calculate", {})
+
+def get_entities(device_type: int, sn8: str = "") -> dict:
+    """获取设备的实体配置"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("entities", {})
+
+def get_rationale(device_type: int, sn8: str = "") -> list:
+    """获取设备的开关逻辑"""
+    mapping = get_device_mapping(device_type, sn8)
+    return mapping.get("rationale", ["off", "on"])
