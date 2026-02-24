@@ -21,6 +21,7 @@ CONF_SN8 = "sn8"
 DEFAULT_PORT = 6444
 
 DEVICE_TYPES = {
+    0x13: "Light",
     0x17: "Laundry Machine",
     0x26: "Bath Heater",
     0xAC: "Air Conditioner",
@@ -37,6 +38,7 @@ DEVICE_TYPES = {
 }
 
 DEVICE_TYPES_ZH = {
+    0x13: "智能灯",
     0x17: "晾衣架",
     0x26: "浴霸",
     0xAC: "空调",
@@ -52,4 +54,4 @@ DEVICE_TYPES_ZH = {
     0xFD: "加湿器"
 }
 
-PLATFORMS = ["climate", "sensor", "switch", "select", "button", "number", "vacuum", "binary_sensor", "fan", "humidifier"]
+PLATFORMS = ["climate", "sensor", "switch", "select", "button", "number", "vacuum", "binary_sensor", "fan", "humidifier", "light", "water_heater"]
