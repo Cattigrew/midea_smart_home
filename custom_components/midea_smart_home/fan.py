@@ -166,6 +166,8 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
         new_status = {}
         if preset_mode is not None and self._key_preset_modes:
             mode_config = self._key_preset_modes.get(preset_mode, {})
+            if "mode" in mode_config:
+                new_status["mode"] = mode_config["mode"]
             if "speeds" in mode_config:
                 self._current_speeds = mode_config["speeds"]
                 self._attr_speed_count = len(self._current_speeds)
@@ -237,6 +239,9 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             self._current_preset_mode = preset_mode
 
             new_status = {}
+            if "mode" in mode_config:
+                new_status["mode"] = mode_config["mode"]
+
             if "speeds" in mode_config and len(mode_config["speeds"]) == 1:
                 new_status.update(mode_config["speeds"][0])
 
