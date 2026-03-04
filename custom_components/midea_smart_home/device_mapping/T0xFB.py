@@ -6,7 +6,6 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": [],
         "entities": {
             Platform.SWITCH: {
                 "auto_power_off": {
@@ -18,15 +17,16 @@ DEVICE_MAPPING = {
                 },
                 "lock": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "child_lock",
                 },
                 "screen_close": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": ['on', 'off'],
+                    "translation_key": "display_on_off"
                 },
                 "voice": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": ['close_buzzer', 'open_buzzer'],
+                    "translation_key": "buzzer"
                 }
             },
             Platform.CLIMATE: {

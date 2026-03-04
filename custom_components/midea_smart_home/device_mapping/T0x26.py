@@ -1,5 +1,6 @@
-from homeassistant.const import Platform, UnitOfTemperature, PERCENTAGE, UnitOfTime
+from homeassistant.const import Platform, UnitOfTemperature, PERCENTAGE, PRECISION_HALVES, UnitOfTime
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
@@ -71,7 +72,7 @@ DEVICE_MAPPING = {
                         "ventilation": {"mode": "ventilation"},
                         "drying": {"mode": "drying"}
                     }
-                },
+                }
             },
             Platform.SENSOR: {
                 "night_light_brightness": {
@@ -86,12 +87,7 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
-                },
-                "delay_time": {
-                    "device_class": SensorDeviceClass.DURATION,
-                    "unit_of_measurement": UnitOfTime.MINUTES,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "translaion_key": "cur_temperature"
                 }
             }
         }

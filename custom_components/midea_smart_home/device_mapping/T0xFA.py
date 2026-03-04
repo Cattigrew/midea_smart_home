@@ -6,13 +6,11 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": [],
         "entities": {
             Platform.SWITCH: {
                 "display_on_off": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": ["on", "off"],
-                    "translation_key": "screen_close",
                 },
                 "humidify": {
                     "device_class": SwitchDeviceClass.SWITCH,
@@ -20,7 +18,6 @@ DEVICE_MAPPING = {
                 },
                 "waterions": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "anion",
                 }
             },
             Platform.FAN: {

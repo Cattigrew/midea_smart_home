@@ -7,11 +7,11 @@ _LOGGER = logging.getLogger(__name__)
 DEVICE_MAPPINGS = {}
 
 def load_device_mappings():
-    """加载所有设备映射文件"""
+    """Load all device mapping files."""
     mapping_dir = Path(__file__).parent
     
     if not mapping_dir.exists():
-        _LOGGER.error(f"设备映射目录不存在: {mapping_dir}")
+        _LOGGER.error("Device mapping directory does not exist: %s", mapping_dir)
         return
     
     try:
@@ -26,23 +26,26 @@ def load_device_mappings():
                     if hasattr(module, 'DEVICE_MAPPING'):
                         device_type = int(file.stem.replace('T0x', ''), 16)
                         DEVICE_MAPPINGS[device_type] = module.DEVICE_MAPPING
-                        _LOGGER.info(f"成功加载设备映射: {file.stem} -> 设备类型: 0x{device_type:X}")
-                except Exception as e:
-                    _LOGGER.error(f"加载设备映射文件 {file.name} 失败: {e}", exc_info=True)
-    except Exception as e:
-        _LOGGER.error(f"遍历设备映射目录失败: {e}", exc_info=True)
+                        _LOGGER.info(
+                            "Loaded device mapping: %s -> device type: 0x%X",
+                            file.stem, device_type
+                        )
+                except (ImportError, ValueError, AttributeError) as e:
+                    _LOGGER.error("Failed to load device mapping file %s: %s", file.name, e)
+    except OSError as e:
+        _LOGGER.error("Failed to iterate device mapping directory: %s", e)
 
 load_device_mappings()
 
 def get_device_mapping(device_type: int, sn8: str = "") -> dict:
-    """获取指定设备类型的映射
+    """Get device mapping for specified device type.
     
     Args:
-        device_type: 设备类型（如 0xFB）
-        sn8: 设备型号代码（8位），用于获取特定设备的映射
+        device_type: Device type (e.g., 0xFB)
+        sn8: Device model code (8 digits), used to get specific device mapping
     
     Returns:
-        设备映射字典，优先返回 sn8 对应的映射，不存在则返回 default
+        Device mapping dict, returns sn8 mapping if available, otherwise default
     """
     mapping = DEVICE_MAPPINGS.get(device_type, {})
     
@@ -62,31 +65,31 @@ def get_device_mapping(device_type: int, sn8: str = "") -> dict:
     return mapping
 
 def get_queries(device_type: int, sn8: str = "") -> list:
-    """获取设备的查询配置"""
+    """Get device query configuration."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("queries", [{}])
 
 def get_centralized(device_type: int, sn8: str = "") -> list:
-    """获取设备的集中控制属性列表"""
+    """Get device centralized control attributes list."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("centralized", [])
 
 def get_default_values(device_type: int, sn8: str = "") -> dict:
-    """获取设备的属性默认值"""
+    """Get device attribute default values."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("default_values", {})
 
 def get_calculate(device_type: int, sn8: str = "") -> dict:
-    """获取设备的计算配置"""
+    """Get device calculation configuration."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("calculate", {})
 
 def get_entities(device_type: int, sn8: str = "") -> dict:
-    """获取设备的实体配置"""
+    """Get device entity configuration."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("entities", {})
 
 def get_rationale(device_type: int, sn8: str = "") -> list:
-    """获取设备的开关逻辑"""
+    """Get device switch logic."""
     mapping = get_device_mapping(device_type, sn8)
     return mapping.get("rationale", ["off", "on"])

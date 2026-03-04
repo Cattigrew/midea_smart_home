@@ -5,7 +5,6 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": [],
         "entities": {
             Platform.SELECT:{
                 "updown": {
@@ -21,13 +20,13 @@ DEVICE_MAPPING = {
                     "min": 20,
                     "max": 100,
                     "step": 1,
-                    "unit_of_measurement": PERCENTAGE
+                    "unit_of_measurement": PERCENTAGE,
+                    "translation_key": "lightness"
                 },
                 "custom_height": {
                     "min": 0,
                     "max": 100,
                     "step": 10,
-                    "translation_key": "laundry_height",
                 },
                 "custom_timing": {
                     "min": 0,
@@ -46,7 +45,7 @@ DEVICE_MAPPING = {
                 "offline_voice_function": {
                     "device_class": SwitchDeviceClass.SWITCH,
                 }
-            },
+            }
         }
     }
 }

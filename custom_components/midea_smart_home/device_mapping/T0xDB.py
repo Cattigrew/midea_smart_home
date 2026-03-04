@@ -7,25 +7,12 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": [],
-        "calculate": {
-            "get": [
-                {
-                    "lvalue": "[remaining_time]",
-                    "rvalue": "[remain_time]"
-                }
-            ],
-            "set": {}
-        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
                     "device_class": BinarySensorDeviceClass.OPENING,
                 },
                 "detergent_lack": {
-                    "device_class": BinarySensorDeviceClass.PROBLEM,
-                },
-                "softener_lack": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
                 },
                 "bucket_water_overheating": {
@@ -42,7 +29,6 @@ DEVICE_MAPPING = {
                 },
                 "lock": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "child_lock",
                 },
                 "nightly": {
                     "device_class": SwitchDeviceClass.SWITCH,
@@ -94,21 +80,21 @@ DEVICE_MAPPING = {
                 },
                 "dehydration_speed": {
                     "options": {
-                        "no_spin": {"dehydration_speed": 0},
-                        "400rpm": {"dehydration_speed": 400},
-                        "600rpm": {"dehydration_speed": 600},
-                        "800rpm": {"dehydration_speed": 800},
-                        "1000rpm": {"dehydration_speed": 1000},
-                        "1200rpm": {"dehydration_speed": 1200},
-                        "1400rpm": {"dehydration_speed": 1400}
+                        "no_spin": {"dehydration_speed": "0"},
+                        "400rpm": {"dehydration_speed": "400"},
+                        "600rpm": {"dehydration_speed": "600"},
+                        "800rpm": {"dehydration_speed": "800"},
+                        "1000rpm": {"dehydration_speed": "1000"},
+                        "1200rpm": {"dehydration_speed": "1200"},
+                        "1400rpm": {"dehydration_speed": "1400"}
                     }
                 },
                 "soak_count": {
                     "options": {
-                        "1_time": {"soak_count": 1},
-                        "2_times": {"soak_count": 2},
-                        "3_times": {"soak_count": 3},
-                        "4_times": {"soak_count": 4}
+                        "1_time": {"soak_count": "1"},
+                        "2_times": {"soak_count": "2"},
+                        "3_times": {"soak_count": "3"},
+                        "4_times": {"soak_count": "4"}
                     }
                 },
                 "water_level": {
@@ -117,35 +103,35 @@ DEVICE_MAPPING = {
                         "l1": {"water_level": "low"},
                         "l2": {"water_level": "mid"},
                         "l3": {"water_level": "high"},
-                        "l4": {"water_level": 4}
+                        "l4": {"water_level": "4"}
                     }
                 },
                 "detergent": {
                     "options": {
-                        "smart": {"detergent": 4},
-                        "off": {"detergent": 0},
-                        "l1": {"detergent": 1},
-                        "l2": {"detergent": 2},
-                        "l3": {"detergent": 3},
-                        "l4": {"detergent": 5}
+                        "smart": {"detergent": "4"},
+                        "off": {"detergent": "0"},
+                        "l1": {"detergent": "1"},
+                        "l2": {"detergent": "2"},
+                        "l3": {"detergent": "3"},
+                        "l4": {"detergent": "5"}
                     }
                 },
                 "temperature": {
                     "options": {
-                        "cold_water": {"temperature": 0},
-                        "20c": {"temperature": 20},
-                        "30c": {"temperature": 30},
-                        "40c": {"temperature": 40},
-                        "60c": {"temperature": 60},
-                        "95c": {"temperature": 95}
+                        "cold_water": {"temperature": "0"},
+                        "20c": {"temperature": "20"},
+                        "30c": {"temperature": "30"},
+                        "40c": {"temperature": "40"},
+                        "60c": {"temperature": "60"},
+                        "95c": {"temperature": "95"}
                     }
                 },
                 "stains": {
                     "options": {
-                        "off": {"stains": 0},
-                        "sauce": {"stains": 83},
-                        "fruit": {"stains": 85},
-                        "makeup": {"stains": 84}
+                        "off": {"stains": "0"},
+                        "sauce": {"stains": "83"},
+                        "fruit": {"stains": "85"},
+                        "makeup": {"stains": "84"}
                     }
                 }
             },

@@ -7,7 +7,6 @@ DEVICE_MAPPING = {
         "rationale": ["off", "on"],
         "queries": [{}, {"query_type": "prevent_straight_wind"}, {"query_type": "prevent_super_cool"},
                     {"query_type": "wind_swing_ud_angle"}, {"query_type": "wind_swing_lr_angle"}, {"query_type": "no_wind_sense"}], 
-        "centralized": ["buzzer"],
         "calculate":{
             "get": [
                 {
@@ -19,7 +18,7 @@ DEVICE_MAPPING = {
         },
         "entities": {
             Platform.CLIMATE: {
-                "thermostat": {
+                "air_conditioner": {
                     "power": "power",
                     "hvac_modes": {
                         "off": {"power": "off"},
@@ -44,12 +43,12 @@ DEVICE_MAPPING = {
                         "vertical": {"wind_swing_lr": "off", "wind_swing_ud": "on"},
                     },
                     "fan_modes": {
-                        "silent": {"wind_speed": 20},
-                        "low": {"wind_speed": 40},
-                        "medium": {"wind_speed": 60},
-                        "high": {"wind_speed": 80},
-                        "full": {"wind_speed": 100},
-                        "auto": {"wind_speed": 102}
+                        "20": {"wind_speed": 20},
+                        "40": {"wind_speed": 40},
+                        "60": {"wind_speed": 60},
+                        "80": {"wind_speed": 80},
+                        "100": {"wind_speed": 100},
+                        "102": {"wind_speed": 102}
                     },
                     "target_temperature": ["temperature", "small_temperature"],
                     "current_temperature": "indoor_temperature",
@@ -95,11 +94,9 @@ DEVICE_MAPPING = {
                 "buzzer": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "default_value": "on",
-                    "translation_key": "voice"
                 },
                 "screen_display": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "screen_close",
                 },
                 "prevent_straight_wind": {
                     "device_class": SwitchDeviceClass.SWITCH,
@@ -113,7 +110,6 @@ DEVICE_MAPPING = {
                 },
                 "ptc": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "aux_heat",
                 }
             },
             Platform.SENSOR: {
@@ -123,7 +119,8 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -144,10 +141,9 @@ DEVICE_MAPPING = {
                 },
             ],
         },
-        "centralized": [],
         "entities": {
             Platform.CLIMATE: {
-                "thermostat": {
+                "air_conditioner": {
                     "power": "power",
                     "hvac_modes": {
                         "off": {"power": "off"},
@@ -167,12 +163,12 @@ DEVICE_MAPPING = {
                         "boost": {"strong_wind": "on"}
                     },
                     "fan_modes": {
-                        "silent": {"wind_speed": 20},
-                        "low": {"wind_speed": 40},
-                        "medium": {"wind_speed": 60},
-                        "high": {"wind_speed": 80},
-                        "full": {"wind_speed": 100},
-                        "auto": {"wind_speed": 102}
+                        "20": {"wind_speed": 20},
+                        "40": {"wind_speed": 40},
+                        "60": {"wind_speed": 60},
+                        "80": {"wind_speed": 80},
+                        "100": {"wind_speed": 100},
+                        "102": {"wind_speed": 102}
                     },
                     "target_temperature": ["temperature", "small_temperature"],
                     "current_temperature": "indoor_temperature",
@@ -188,14 +184,12 @@ DEVICE_MAPPING = {
                 "fengguan_remove_odor": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": ["on", "off"],
-                    "translation_key": "disinfect",
                 },
                 "power": {
                     "device_class": SwitchDeviceClass.SWITCH,
                 },
                 "ptc": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "aux_heat",
                 }
             },
             Platform.SELECT: {
@@ -213,7 +207,8 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
                 },
                 "total_elec_value": {
                     "device_class": SensorDeviceClass.ENERGY,

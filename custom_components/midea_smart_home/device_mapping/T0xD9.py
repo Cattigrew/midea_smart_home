@@ -7,16 +7,6 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{"query_type": "db"}],
-        "centralized": [],
-        "calculate": {
-            "get": [
-                {
-                    "lvalue": "[remaining_time]",
-                    "rvalue": "[db_remain_time]"
-                }
-            ],
-            "set": {}
-        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "db_door_opened": {
@@ -39,17 +29,17 @@ DEVICE_MAPPING = {
             Platform.SWITCH: {
                 "db_power": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "power",
+                    "translation_key": "power"
                 },
                 "db_control_status": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": ["pause", "start"],
-                    "translation_key": "control_status",
+                    "translation_key": "control_status"
                 },
                 "db_baby_lock": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": [0, 1],
-                    "translation_key": "child_lock",
+                    "translation_key": "lock"
                 }
             },
             Platform.SELECT: {
@@ -134,13 +124,13 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "remaining_time",
+                    "translation_key": "remain_time"
                 },
                 "db_progress": {
                     "device_class": SensorDeviceClass.BATTERY,
                     "unit_of_measurement": "%",
                     "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "progress",
+                    "translation_key": "progress"
                 },
                 "db_running_status": {
                     "device_class": SensorDeviceClass.ENUM,

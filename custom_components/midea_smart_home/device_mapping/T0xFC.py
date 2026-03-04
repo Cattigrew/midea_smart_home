@@ -6,7 +6,6 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "queries": [{}],
-        "centralized": [],
         "entities": {
             Platform.NUMBER: {
                 "hosting_upper": {
@@ -26,11 +25,9 @@ DEVICE_MAPPING = {
                 },
                 "buzzer": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "voice",
                 },
                 "lock": {
                     "device_class": SwitchDeviceClass.SWITCH,
-                    "translation_key": "child_lock",
                 },
                 "waterions":{
                     "device_class": SwitchDeviceClass.SWITCH,
@@ -74,22 +71,26 @@ DEVICE_MAPPING = {
                 "temperature_feedback": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
                 },
                 "humidify_feedback": {
                     "device_class": SensorDeviceClass.HUMIDITY,
                     "unit_of_measurement": "%",
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_humidity"
                 },
                 "hcho":{
                     "device_class": SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS,
                     "unit_of_measurement": CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+
                 },
                 "pm1":{
                     "device_class": SensorDeviceClass.PM1,
                     "unit_of_measurement": CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+
                 },
                 "pm25":{
                     "device_class": SensorDeviceClass.PM25,
@@ -99,7 +100,8 @@ DEVICE_MAPPING = {
                 "pm10":{
                     "device_class": SensorDeviceClass.PM10,
                     "unit_of_measurement": CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "state_class": SensorStateClass.MEASUREMENT,
+
                 }
             }
         }
