@@ -7,6 +7,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import UpdateFailed
+import voluptuous as vol
+import homeassistant.helpers.config_validation as cv
 
 from .const import (
     CONF_DEVICE_ID,
@@ -35,6 +37,8 @@ from .device import DeviceController, MideaCodec
 from .device_mapping import get_device_mapping, get_queries, get_centralized, get_default_values
 
 _LOGGER = logging.getLogger(__name__)
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 def _write_lua_file(file_path: str, content: str) -> bool:
     try:

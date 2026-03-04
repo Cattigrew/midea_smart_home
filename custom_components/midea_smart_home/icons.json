@@ -109,7 +109,7 @@
             "work_time": { "default": "mdi:clock-outline" }
         },
         "switch": {
-            "airDry_on_off": { "default": "mdi:wind-turbine" },
+            "airdry_on_off": { "default": "mdi:wind-turbine" },
             "anion": { "default": "mdi:shield-check" },
             "auto_power_off": { "default": "mdi:timer-off" },
             "buzzer": { "default": "mdi:volume-high" },

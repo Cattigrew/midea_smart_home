@@ -667,7 +667,7 @@
       }
     },
     "switch": {
-      "airDry_on_off": {
+      "airdry_on_off": {
         "name": "湿帘风干"
       },
       "anion": {
