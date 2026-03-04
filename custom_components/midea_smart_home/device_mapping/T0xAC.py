@@ -7,6 +7,7 @@ DEVICE_MAPPING = {
         "rationale": ["off", "on"],
         "queries": [{}, {"query_type": "prevent_straight_wind"}, {"query_type": "prevent_super_cool"},
                     {"query_type": "wind_swing_ud_angle"}, {"query_type": "wind_swing_lr_angle"}, {"query_type": "no_wind_sense"}], 
+        "centralized": ["buzzer"],
         "calculate":{
             "get": [
                 {
