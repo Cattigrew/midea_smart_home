@@ -254,7 +254,7 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             if "mode" in mode_config:
                 new_status["mode"] = mode_config["mode"]
 
-            if "speeds" in mode_config and len(mode_config["speeds"]) == 1:
+            if "speeds" in mode_config and len(mode_config["speeds"]) >= 1:
                 new_status.update(mode_config["speeds"][0])
 
             await self.coordinator.async_set_controls(new_status)
