@@ -18,32 +18,21 @@ Home Assistant custom integration for Midea smart devices via local network.
 
 ## Workflow
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Configuration Phase                         │
-├─────────────────────────────────────────────────────────────────┤
-│  1. User enters Midea account credentials                        │
-│  2. Login to Midea Cloud API                                     │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                     Discovery Phase                            │
-├─────────────────────────────────────────────────────────────────┤
-│  1. Get device details from cloud (Device ID, Model, SN8, etc.)  │
-│  2. Auto-download Lua protocol file for the device               │
-│  3. Scan device IP address in local network                      │
-│  4. Get device Token and Key (for local authentication)          │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                      Runtime Phase                             │
-├─────────────────────────────────────────────────────────────────┤
-│  1. Connect to device via local network                          │
-│  2. Parse device protocol using Lua script                       │
-│  3. Poll device status periodically                              │
-│  4. User commands sent directly to device (no cloud needed)      │
-└─────────────────────────────────────────────────────────────────┘
-```
+**Configuration Phase**
+1. User enters Midea account credentials
+2. Login to Midea Cloud API
+
+**Discovery Phase**
+1. Get device details from cloud (Device ID, Model, SN8, etc.)
+2. Auto-download Lua protocol file for the device
+3. Scan device IP address in local network
+4. Get device Token and Key (for local authentication)
+
+**Runtime Phase**
+1. Connect to device via local network
+2. Parse device protocol using Lua script
+3. Poll device status periodically
+4. User commands sent directly to device (no cloud needed)
 
 ## Installation
 
