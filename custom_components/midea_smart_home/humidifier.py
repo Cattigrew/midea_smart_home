@@ -74,6 +74,7 @@ class MideaHumidifierEntity(MideaBaseEntity, HumidifierEntity):
         self._config = config
         self._attr_unique_id = f"humidifier.midea_{device_id}_{humidifier_id}"
         self.entity_id = f"humidifier.midea_{device_id}_{humidifier_id}"
+        self._attr_translation_key = config.get("translation_key", humidifier_id)
         self._key_power = config.get("power")
         self._key_target_humidity = config.get("target_humidity")
         self._key_current_humidity = config.get("current_humidity")

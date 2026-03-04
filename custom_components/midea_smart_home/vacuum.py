@@ -73,6 +73,7 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
         self._config = config
         self._attr_unique_id = f"vacuum.midea_{device_id}_{vacuum_id}"
         self.entity_id = f"vacuum.midea_{device_id}_{vacuum_id}"
+        self._attr_translation_key = config.get("translation_key", vacuum_id)
         self._key_battery_level = config.get("battery_level")
         self._key_control = config.get("control")
         self._key_fan_speeds = config.get("fan_speeds", {})
