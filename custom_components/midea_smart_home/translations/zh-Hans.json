@@ -152,7 +152,16 @@
     },
     "fan": {
       "fan": {
-        "name": "风扇"
+        "name": "风扇",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "baby": "宝宝风",
+              "normal": "正常风",
+              "sleep": "睡眠风"
+            }
+          }
+        }
       }
     },
     "humidifier": {
@@ -176,7 +185,7 @@
         "name": "延时关灯"
       },
       "heating_temperature": {
-        "name": "热风温度"
+        "name": "取暖温度"
       },
       "hosting_lower": {
         "name": "PM2.5下限(停止净化)"
@@ -395,14 +404,14 @@
       "mode": {
         "name": "模式",
         "state": {
-          "air_dry": "风干",
+          "air_dry": "干燥",
           "auto": "自动",
-          "bath": "浴霸",
+          "bath": "安心沐浴",
           "blowing": "吹风",
           "close_all": "关闭",
           "drying": "烘干",
           "factory_test": "工厂测试",
-          "heating": "暖风",
+          "heating": "取暖",
           "manual": "手动",
           "normal": "正常",
           "normal_continus": "正常持续",
@@ -423,34 +432,34 @@
       "program": {
         "name": "洗涤程序",
         "state": {
-          "baby_clothes": "童装",
+          "baby_clothes": "婴儿服",
           "big": "大件",
-          "clean_stains": "去渍",
+          "clean_stains": "特渍洗",
           "cold_wash": "冷水洗",
           "cotton": "棉麻",
           "deep_ssp": "深度筒自洁",
           "down_jacket": "羽绒服",
-          "enzyme": "酵素洗",
-          "fast_wash": "快洗",
+          "enzyme": "除菌洗",
+          "fast_wash": "快洗15分钟",
           "fast_wash_30": "快洗30分钟",
           "fiber": "化纤",
-          "intelligent": "智能",
-          "jacket": "夹克",
+          "intelligent": "智能洗",
+          "jacket": "冲锋衣",
           "jean": "牛仔",
-          "mixed_wash": "混合洗",
+          "mixed_wash": "混合",
           "new_clothes_wash": "新衣洗",
-          "outdoor": "户外",
+          "outdoor": "户外服",
           "remove_mite_wash": "除螨洗",
-          "rinsing_dehydration": "漂脱",
+          "rinsing_dehydration": "漂+脱",
           "shirt": "衬衫",
           "silk": "丝绸",
           "single_dehytration": "单脱水",
           "sport_clothes": "运动服",
           "spring_autumn_wash": "春秋洗",
           "ssp": "筒自洁",
-          "steam_sterilize_wash": "蒸汽杀菌洗",
+          "steam_sterilize_wash": "蒸汽消毒洗",
           "steep": "浸泡洗",
-          "summer_wash": "夏季洗",
+          "summer_wash": "夏日洗",
           "underwear": "内衣",
           "winter_wash": "冬季洗",
           "wool": "羊毛"
@@ -748,7 +757,17 @@
     },
     "vacuum": {
       "vacuum": {
-        "name": "扫地机器人"
+        "name": "扫地机器人",
+        "state_attributes": {
+          "fan_speed": {
+            "state": {
+              "soft": "轻柔",
+              "normal": "标准",
+              "high": "强力",
+              "super": "超强"
+            }
+          }
+        }
       }
     },
     "water_heater": {
