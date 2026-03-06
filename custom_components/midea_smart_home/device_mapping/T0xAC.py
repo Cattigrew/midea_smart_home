@@ -98,6 +98,7 @@ DEVICE_MAPPING = {
                 },
                 "screen_display": {
                     "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "display_on_off"
                 },
                 "prevent_straight_wind": {
                     "device_class": SwitchDeviceClass.SWITCH,

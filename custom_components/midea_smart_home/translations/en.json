@@ -787,6 +787,9 @@
       "prevent_super_cool": {
         "name": "Smart Temp Control"
       },
+      "dry": {
+        "name": "Dry Mode"
+      },
       "protect": {
         "name": "Power Cut Protection"
       },

@@ -6,7 +6,9 @@
             "device_status": { "default": "mdi:information" },
             "door_opened": { "default": "mdi:door-open" },
             "drying_tunnel_overheating": { "default": "mdi:thermometer-alert" },
-            "failed_device": { "default": "mdi:alert-circle" }
+            "failed_device": { "default": "mdi:alert-circle" },
+            "softener_lack": { "default": "mdi:water-alert" },
+            "door_warn": { "default": "mdi:door-open" }
         },
         "button": {
             "left_stove_off": { "default": "mdi:stove" },
@@ -35,7 +37,15 @@
             "lightness": { "default": "mdi:brightness-6" },
             "main_light_brightness": { "default": "mdi:brightness-6" },
             "night_light_brightness": { "default": "mdi:brightness-5" },
-            "radar_induction_closing_time": { "default": "mdi:timer" }
+            "radar_induction_closing_time": { "default": "mdi:timer" },
+            "softener": { "default": "mdi:water" },
+            "soak_time": { "default": "mdi:timer" },
+            "wash_time": { "default": "mdi:timer" },
+            "dehydration_time": { "default": "mdi:timer" },
+            "wash_level": { "default": "mdi:arrow-up-down" },
+            "rinse_level": { "default": "mdi:arrow-up-down" },
+            "wash_strength": { "default": "mdi:arrow-up-down" },
+            "rinse_count": { "default": "mdi:water-sync" }
         },
         "select": {
             "aidry": { "default": "mdi:tshirt-crew" },
@@ -60,7 +70,7 @@
             "light": { "default": "mdi:lightbulb" },
             "light_mode": { "default": "mdi:lightbulb" },
             "mode": { "default": "mdi:tune" },
-            "no_wind_sense": { "default": "mdi:wind-turbine-off" },
+            "no_wind_sense": { "default": "mdi:air-filter" },
             "program": { "default": "mdi:washing-machine" },
             "soak_count": { "default": "mdi:water-sync" },
             "stains": { "default": "mdi:water-alert" },
@@ -106,7 +116,9 @@
             "water_feedback": { "default": "mdi:water" },
             "wind_pressure": { "default": "mdi:weather-windy" },
             "work_status": { "default": "mdi:information" },
-            "work_time": { "default": "mdi:clock-outline" }
+            "work_time": { "default": "mdi:clock-outline" },
+            "appointment_time": { "default": "mdi:clock-outline" },
+            "dry_time": { "default": "mdi:timer" }
         },
         "switch": {
             "airdry_on_off": { "default": "mdi:wind-turbine" },
@@ -129,15 +141,26 @@
             "power": { "default": "mdi:power" },
             "power_off_timer": { "default": "mdi:timer-off" },
             "power_on_timer": { "default": "mdi:timer" },
-            "prevent_straight_wind": { "default": "mdi:wind-turbine-off" },
+            "prevent_straight_wind": { "default": "mdi:fan-off" },
             "prevent_super_cool": { "default": "mdi:snowflake-off" },
+            "dry": { "default": "mdi:water-off" },
             "protect": { "default": "mdi:shield" },
             "ptc": { "default": "mdi:fire" },
             "radar_induction_enable": { "default": "mdi:radar" },
             "smart_sterilize": { "default": "mdi:shield-check" },
             "temp_set": { "default": "mdi:thermometer" },
             "waterions": { "default": "mdi:water-check" },
-            "wifi_led_enable": { "default": "mdi:wifi" }
+            "wifi_led_enable": { "default": "mdi:wifi" },
+            "ai_switch": { "default": "mdi:robot" },
+            "prevent_wrinkle_switch": { "default": "mdi:tshirt-crew" },
+            "steam_switch": { "default": "mdi:steam" },
+            "damp_dry_signal": { "default": "mdi:water-percent" },
+            "eco_dry_switch": { "default": "mdi:leaf" },
+            "bucket_clean_switch": { "default": "mdi:bucket" },
+            "water_box": { "default": "mdi:water" },
+            "baby_lock": { "default": "mdi:account-lock" },
+            "remind_sound": { "default": "mdi:volume-high" },
+            "steam": { "default": "mdi:steam" }
         },
         "vacuum": {
             "vacuum": { "default": "mdi:robot-vacuum" }
