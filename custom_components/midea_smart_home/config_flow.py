@@ -1,13 +1,13 @@
 import base64
 import json
 import logging
-import re
 import socket
 from ipaddress import IPv4Network
 from pathlib import Path
 from typing import Any
 
 import ifaddr
+import lupa.lua51
 import voluptuous as vol
 from aiohttp import ClientSession
 from homeassistant import config_entries
@@ -28,6 +28,7 @@ from .const import (
     CONF_MANUFACTURER_CODE,
     CONF_PASSWORD,
     CONF_PORT,
+    CONF_PROTOCOL,
     CONF_SN,
     CONF_SN8,
     CONF_PRODUCT_MODEL,
@@ -39,6 +40,7 @@ from .const import (
     JSON_FILES_PATH,
     LUA_COMMON_PATH,
     LUA_DEVICE_PATH,
+    ProtocolVersion,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -51,6 +53,15 @@ STEP_USER_DATA_SCHEMA = vol.Schema({
     vol.Required(CONF_ACCOUNT): str,
     vol.Required(CONF_PASSWORD): str,
 })
+
+def _write_lua_file(file_path: Path, content: str) -> bool:
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return True
+    except OSError as e:
+        _LOGGER.error("Error writing Lua file %s: %s", file_path, e)
+        return False
 
 def get_lua_storage_path(hass_config_dir: str) -> Path:
     return Path(hass_config_dir) / LUA_DEVICE_PATH
@@ -73,6 +84,7 @@ def get_device_json_path(hass_config_dir: str, device_id: int, device_type: int,
 
 def discover_devices(timeout: float = DISCOVERY_TIMEOUT) -> dict:
     from .midea_lib.security import LocalSecurity
+    from defusedxml import ElementTree
     
     BROADCAST_MSG = bytes([
         0x5A, 0x5A, 0x01, 0x11, 0x48, 0x00, 0x92, 0x00,
@@ -121,13 +133,49 @@ def discover_devices(timeout: float = DISCOVERY_TIMEOUT) -> dict:
             if len(data) < 40:
                 continue
             
+            protocol = None
+            inner_data = None
+            
             if data[:2].hex() == "8370" and data[8:10].hex() == "5a5a":
-                inner_data = data[8:-16]
+                protocol = ProtocolVersion.V3
+                inner_data = data[8:-16] if len(data) > 24 else data[8:]
             elif data[:2].hex() == "5a5a":
+                protocol = ProtocolVersion.V2
                 inner_data = data
+            elif data[:6].hex() == "3c3f786d6c20":
+                protocol = ProtocolVersion.V1
+                try:
+                    root = ElementTree.fromstring(
+                        data.decode(encoding="utf-8", errors="replace")
+                    )
+                    child = root.find("body/device")
+                    if not child:
+                        continue
+                    m = child.attrib
+                    device_id = int(m.get("apc_sn", "0")[-8:], 16)
+                    if device_id in devices:
+                        continue
+                    device_type = int(m.get("apc_type", "0"), 16)
+                    port = int(m.get("port", "6444"))
+                    sn = m.get("apc_sn", "")
+                    sn8 = sn[9:17] if len(sn) > 17 else ""
+                    devices[device_id] = {
+                        CONF_DEVICE_ID: device_id,
+                        CONF_IP: addr[0],
+                        CONF_DEVICE_TYPE: device_type,
+                        CONF_SN: sn,
+                        CONF_SN8: sn8,
+                        CONF_PROTOCOL: protocol,
+                    }
+                    continue
+                except Exception:
+                    continue
             else:
                 continue
             
+            if inner_data is None:
+                continue
+                
             device_id = int.from_bytes(inner_data[20:26], "little")
             if device_id in devices:
                 continue
@@ -160,6 +208,7 @@ def discover_devices(timeout: float = DISCOVERY_TIMEOUT) -> dict:
                 CONF_DEVICE_TYPE: device_type,
                 CONF_SN: sn,
                 CONF_SN8: sn8,
+                CONF_PROTOCOL: protocol,
             }
         except socket.timeout:
             break
@@ -377,6 +426,11 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         
         current_device = self._selected_devices[self._current_device_index]
         device_id = current_device[CONF_DEVICE_ID]
+        protocol = current_device.get(CONF_PROTOCOL, ProtocolVersion.V3)
+        # Ensure protocol has a valid value (V1, V2, or V3), default to V3 if None
+        if protocol is None:
+            protocol = ProtocolVersion.V3
+        is_v3 = protocol == ProtocolVersion.V3
         
         if user_input is not None:
             lua_file = user_input.get(CONF_LUA_FILE, "")
@@ -386,43 +440,40 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             sn = current_device.get(CONF_SN, "")
             sn8 = current_device.get(CONF_SN8, "")
             
-            if not lua_file or not token or not key:
-                return self.async_show_form(
-                    step_id="get_token",
-                    data_schema=vol.Schema({
-                        vol.Required(CONF_TOKEN, default=token): str,
-                        vol.Required(CONF_KEY, default=key): str,
-                        vol.Required(CONF_LUA_FILE, default=lua_file): str,
-                    }),
-                    errors={"base": "lua_error"},
-                    description_placeholders={
-                        "device_name": current_device.get(CONF_DEVICE_NAME, DEVICE_TYPES.get(device_type, f"T0x{device_type:02X}")),
-                        "model": current_device.get(CONF_PRODUCT_MODEL, ""),
-                        "device_id": str(device_id),
-                        "ip": current_device[CONF_IP],
-                        "sn8": sn8,
-                        "progress": f"({self._current_device_index + 1}/{len(self._selected_devices)})",
-                        "error": "请填写所有必填项",
-                    },
+            if not lua_file or (is_v3 and (not token or not key)):
+                return self._show_token_form(
+                    current_device, device_id, protocol, token, key, lua_file,
+                    error="请填写所有必填项" if is_v3 else "请填写 Lua 文件路径"
                 )
             
-            from pathlib import Path
             from .device import MideaCodec, DeviceController
             lua_common_dir = Path(self.hass.config.config_dir) / LUA_COMMON_PATH
             ip_address = current_device[CONF_IP]
             
             def validate_device():
                 try:
-                    _LOGGER.info("Validating device %s with lua: %s", device_id, lua_file)
+                    _LOGGER.info("Validating device %s with lua: %s, protocol: %s", device_id, lua_file, protocol)
                     codec = MideaCodec(lua_file, str(lua_common_dir), sn=sn, subtype=0, device_type=device_type, sn8=sn8)
-                    controller = DeviceController(
-                        device_id=device_id,
-                        ip_address=ip_address,
-                        port=DEFAULT_PORT,
-                        token=token,
-                        key=key,
-                        codec=codec,
-                    )
+                    
+                    if is_v3:
+                        controller = DeviceController(
+                            device_id=device_id,
+                            ip_address=ip_address,
+                            port=DEFAULT_PORT,
+                            token=token,
+                            key=key,
+                            codec=codec,
+                        )
+                    else:
+                        controller = DeviceController(
+                            device_id=device_id,
+                            ip_address=ip_address,
+                            port=DEFAULT_PORT,
+                            token="",
+                            key="",
+                            codec=codec,
+                            protocol=protocol,
+                        )
                     if not controller.connect():
                         _LOGGER.warning("Device %s validation failed: cannot connect", device_id)
                         return False, "无法连接设备"
@@ -436,23 +487,9 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             
             valid, error_msg = await self.hass.async_add_executor_job(validate_device)
             if not valid:
-                return self.async_show_form(
-                    step_id="get_token",
-                    data_schema=vol.Schema({
-                        vol.Required(CONF_TOKEN, default=token): str,
-                        vol.Required(CONF_KEY, default=key): str,
-                        vol.Required(CONF_LUA_FILE, default=lua_file): str,
-                    }),
-                    errors={"base": "lua_error"},
-                    description_placeholders={
-                        "device_name": current_device.get(CONF_DEVICE_NAME, DEVICE_TYPES.get(device_type, f"T0x{device_type:02X}")),
-                        "model": current_device.get(CONF_PRODUCT_MODEL, ""),
-                        "device_id": str(device_id),
-                        "ip": current_device[CONF_IP],
-                        "sn8": sn8,
-                        "progress": f"({self._current_device_index + 1}/{len(self._selected_devices)})",
-                        "error": error_msg,
-                    },
+                return self._show_token_form(
+                    current_device, device_id, protocol, token, key, lua_file,
+                    error=error_msg
                 )
             
             device_data = {
@@ -466,9 +503,10 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_MODEL_NUMBER: current_device.get(CONF_MODEL_NUMBER, ""),
                 CONF_DEVICE_NAME: current_device.get(CONF_DEVICE_NAME, ""),
                 CONF_MANUFACTURER_CODE: current_device.get(CONF_MANUFACTURER_CODE, "0000"),
-                CONF_TOKEN: token,
-                CONF_KEY: key,
+                CONF_TOKEN: token if is_v3 else "",
+                CONF_KEY: key if is_v3 else "",
                 CONF_LUA_FILE: lua_file,
+                CONF_PROTOCOL: protocol,
             }
             
             existing_index = next(
@@ -490,7 +528,7 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         lua_file = None
         
         try:
-            if self._preset_cloud:
+            if is_v3 and self._preset_cloud:
                 keys = await self._preset_cloud.get_cloud_keys(device_id)
                 if keys:
                     method = list(keys.keys())[0]
@@ -531,36 +569,71 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if not lua_file and lua_file_path.exists():
             lua_file = str(lua_file_path)
         
+        return self._show_token_form(
+            current_device, device_id, protocol, token or "", key or "", lua_file or ""
+        )
+    
+    def _show_token_form(
+        self,
+        current_device: dict,
+        device_id: int,
+        protocol: int,
+        token: str,
+        key: str,
+        lua_file: str,
+        error: str = ""
+    ) -> FlowResult:
+        is_v3 = protocol == ProtocolVersion.V3
+        device_type = current_device.get(CONF_DEVICE_TYPE)
+        sn8 = current_device.get(CONF_SN8, "")
+        
+        protocol_name = f"V{protocol}"
+        device_name = current_device.get(CONF_DEVICE_NAME, DEVICE_TYPES.get(device_type, f"T0x{device_type:02X}"))
+        model = current_device.get(CONF_PRODUCT_MODEL, "")
+        
+        # Build description with HTML line breaks for proper rendering
+        description_parts = [
+            f"设备名称：{device_name}",
+            f"设备型号：{model if model else '未知'}",
+            f"设备 ID: {device_id}",
+            f"IP 地址：{current_device[CONF_IP]}",
+            f"SN8: {sn8 if sn8 else '未知'}",
+            f"协议版本：{protocol_name}",
+        ]
+        
+        if error:
+            description_parts.append(f"\n{error}")
+        
+        description = "\n".join(description_parts)
+        
+        if is_v3:
+            data_schema = vol.Schema({
+                vol.Required(CONF_TOKEN, default=token): str,
+                vol.Required(CONF_KEY, default=key): str,
+                vol.Required(CONF_LUA_FILE, default=lua_file): str,
+            })
+        else:
+            data_schema = vol.Schema({
+                vol.Optional(CONF_TOKEN, default=token): str,
+                vol.Optional(CONF_KEY, default=key): str,
+                vol.Required(CONF_LUA_FILE, default=lua_file): str,
+            })
+        
         return self.async_show_form(
             step_id="get_token",
-            data_schema=vol.Schema({
-                vol.Required(CONF_TOKEN, default=token or ""): str,
-                vol.Required(CONF_KEY, default=key or ""): str,
-                vol.Required(CONF_LUA_FILE, default=lua_file or ""): str,
-            }),
+            data_schema=data_schema,
+            errors={"base": "lua_error"} if error else None,
             description_placeholders={
-                "device_name": current_device.get(CONF_DEVICE_NAME, DEVICE_TYPES.get(device_type, f"T0x{device_type:02X}")),
-                "model": current_device.get(CONF_PRODUCT_MODEL, ""),
-                "device_id": str(device_id),
-                "ip": current_device[CONF_IP],
-                "sn8": current_device.get(CONF_SN8, ""),
+                "description": description,
                 "progress": f"({self._current_device_index + 1}/{len(self._selected_devices)})",
-                "error": "",
+                "token_required": "必填" if is_v3 else "选填 (V1/V2 设备不需要)",
+                "key_required": "必填" if is_v3 else "选填 (V1/V2 设备不需要)",
             },
         )
 
     async def _download_lua_file(
         self, cloud, device_id: int, device_type: int, sn: str, sn8: str, model_number: str, manufacturer_code: str, storage_dir: Path
     ) -> str | None:
-        def _write_lua_file(file_path: Path, content: str) -> bool:
-            try:
-                with open(file_path, "w", encoding="utf-8") as f:
-                    f.write(content)
-                return True
-            except OSError as e:
-                _LOGGER.error("Error writing Lua file %s: %s", file_path, e)
-                return False
-
         def _format_lua_code(lua_code: str) -> str:
             """解密Lua代码 - 使用 all_in_one_getter.py 中的逻辑"""
             try:
@@ -650,9 +723,8 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         
                         if str(result.get("code")) == "0" and "data" in result:
                             data_section = result["data"]
-                            if "url" in data_section and "fileName" in data_section:
+                            if "url" in data_section:
                                 lua_url = data_section["url"]
-                                file_name = data_section["fileName"]
                                 
                                 # 下载 Lua 文件内容
                                 async with session.get(lua_url, timeout=30) as lua_response:
@@ -691,15 +763,6 @@ class MideaLocalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def _download_common_lua_files(
         self, storage_dir: Path
     ) -> bool:
-        def _write_lua_file(file_path: Path, content: str) -> bool:
-            try:
-                with open(file_path, "w", encoding="utf-8") as f:
-                    f.write(content)
-                return True
-            except OSError as e:
-                _LOGGER.error("Error creating Lua file %s: %s", file_path, e)
-                return False
-
         try:
             storage_dir.mkdir(parents=True, exist_ok=True)
             
@@ -804,7 +867,6 @@ class MideaLocalOptionsFlowHandler(config_entries.OptionsFlow):
     
     async def _refresh_cloud_device_info(self, devices: list) -> list:
         """Refresh device info from cloud."""
-        from aiohttp import ClientSession
         from .midea_lib.cloud import get_midea_cloud
         
         cloud_device_info = {}
