@@ -61,6 +61,9 @@
     "cylinder_washing_machine": {
       "name": "Cylinder Washing Machine"
     },
+    "clothes_dryer": {
+      "name": "Clothes Dryer"
+    },
     "electric_fan": {
       "name": "Electric Fan"
     },
@@ -85,6 +88,9 @@
     "twin_tub_washing_machine": {
       "name": "Twin Tub Washing Machine"
     },
+    "top_load_washing_machine": {
+      "name": "Top Load Washing Machine"
+    },
     "unknown_device": {
       "name": "Unknown Device"
     }
@@ -103,11 +109,17 @@
       "door_opened": {
         "name": "Door Status"
       },
+      "softener_lack": {
+        "name": "Softener Status"
+      },
       "drying_tunnel_overheating": {
         "name": "Drying Tunnel Overheating"
       },
       "failed_device": {
         "name": "Initialization Failed"
+      },
+      "door_warn": {
+        "name": "Door Warning"
       }
     },
     "button": {
@@ -209,6 +221,30 @@
       },
       "radar_induction_closing_time": {
         "name": "Night Light Delay Off Time"
+      },
+      "softener": {
+        "name": "Softener"
+      },
+      "soak_time": {
+        "name": "Soak Time"
+      },
+      "wash_time": {
+        "name": "Wash Time"
+      },
+      "rinse_count": {
+        "name": "Rinse Count"
+      },
+      "dehydration_time": {
+        "name": "Dehydration Time"
+      },
+      "wash_level": {
+        "name": "Wash Level"
+      },
+      "rinse_level": {
+        "name": "Rinse Level"
+      },
+      "wash_strength": {
+        "name": "Wash Strength"
       }
     },
     "select": {
@@ -439,18 +475,23 @@
         "state": {
           "baby_clothes": "Baby Clothes",
           "big": "Big Items",
+          "blanket": "Blanket",
           "clean_stains": "Stain Removal",
           "cold_wash": "Cold Wash",
           "cotton": "Cotton",
+          "child": "Child Clothes",
           "deep_ssp": "Deep Self-Clean",
           "down_jacket": "Down Jacket",
+          "embathe": "Soak Wash",
           "enzyme": "Enzyme Wash",
+          "fast": "Fast Wash",
           "fast_wash": "Quick Wash",
           "fast_wash_30": "Quick Wash 30min",
           "fiber": "Synthetic",
           "intelligent": "Intelligent",
           "jacket": "Jacket",
           "jean": "Jeans",
+          "memory": "Memory",
           "mixed_wash": "Mixed",
           "new_clothes_wash": "New Clothes",
           "outdoor": "Outdoor",
@@ -464,7 +505,9 @@
           "ssp": "Self Clean",
           "steam_sterilize_wash": "Steam Sterilize",
           "steep": "Soak Wash",
+          "strong_wash": "Strong Wash",
           "summer_wash": "Summer",
+          "bucket_self_clean": "Bucket Self Clean",
           "underwear": "Underwear",
           "winter_wash": "Winter",
           "wool": "Wool"
@@ -669,6 +712,12 @@
       },
       "work_time": {
         "name": "Work Time"
+      },
+      "appointment_time": {
+        "name": "Appointment Time"
+      },
+      "dry_time": {
+        "name": "Dry Time"
       }
     },
     "switch": {
@@ -758,6 +807,36 @@
       },
       "wifi_led_enable": {
         "name": "WiFi LED"
+      },
+      "ai_switch": {
+        "name": "AI Mode"
+      },
+      "prevent_wrinkle_switch": {
+        "name": "Anti-Wrinkle Function"
+      },
+      "steam_switch": {
+        "name": "Steam Function"
+      },
+      "damp_dry_signal": {
+        "name": "Damp Dry Signal"
+      },
+      "eco_dry_switch": {
+        "name": "Eco Dry Switch"
+      },
+      "bucket_clean_switch": {
+        "name": "Bucket Clean"
+      },
+      "water_box": {
+        "name": "Water Box"
+      },
+      "baby_lock": {
+        "name": "Baby Lock"
+      },
+      "remind_sound": {
+        "name": "Reminder Sound"
+      },
+      "steam": {
+        "name": "Steam"
       }
     },
     "vacuum": {

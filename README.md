@@ -68,12 +68,14 @@ Home Assistant custom integration for Midea smart devices via local network.
 | 4 | 0xB6 | Range Hood |
 | 5 | 0xB8 | Smart Robot Vacuum |
 | 6 | 0xD9 | Twin Tub Washing Machine |
-| 7 | 0xDB | Cylinder Washing Machine |
-| 8 | 0xE2 | Electric Water Heater |
-| 9 | 0xFA | Electric Fan |
-| 10 | 0xFB | Electric Heater |
-| 11 | 0xFC | Air Purifier |
-| 12 | 0xFD | Humidifier |
+| 7 | 0xDA | Top Load Washing Machine |
+| 8 | 0xDB | Cylinder Washing Machine |
+| 9 | 0xDC | Clothes Dryer |
+| 10 | 0xE2 | Electric Water Heater |
+| 11 | 0xFA | Electric Fan |
+| 12 | 0xFB | Electric Heater |
+| 13 | 0xFC | Air Purifier |
+| 14 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 

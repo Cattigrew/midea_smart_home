@@ -61,6 +61,9 @@
     "cylinder_washing_machine": {
       "name": "滚筒洗衣机"
     },
+    "clothes_dryer": {
+      "name": "干衣机"
+    },
     "electric_fan": {
       "name": "风扇"
     },
@@ -85,6 +88,9 @@
     "twin_tub_washing_machine": {
       "name": "复式洗衣机"
     },
+    "top_load_washing_machine": {
+      "name": "波轮洗衣机"
+    },
     "unknown_device": {
       "name": "未知设备"
     }
@@ -103,11 +109,17 @@
       "door_opened": {
         "name": "洗衣机门状态"
       },
+      "softener_lack": {
+        "name": "柔顺剂状态"
+      },
       "drying_tunnel_overheating": {
         "name": "烘干通道过热"
       },
       "failed_device": {
         "name": "初始化失败"
+      },
+      "door_warn": {
+        "name": "门状态警告"
       }
     },
     "button": {
@@ -209,6 +221,30 @@
       },
       "radar_induction_closing_time": {
         "name": "夜灯延时关闭时间"
+      },
+      "softener": {
+        "name": "柔顺剂"
+      },
+      "soak_time": {
+        "name": "浸泡时间"
+      },
+      "wash_time": {
+        "name": "洗涤时间"
+      },
+      "rinse_count": {
+        "name": "漂洗次数"
+      },
+      "dehydration_time": {
+        "name": "脱水时间"
+      },
+      "wash_level": {
+        "name": "洗涤水位"
+      },
+      "rinse_level": {
+        "name": "漂洗水位"
+      },
+      "wash_strength": {
+        "name": "洗涤强度"
       }
     },
     "select": {
@@ -439,18 +475,23 @@
         "state": {
           "baby_clothes": "婴儿服",
           "big": "大件",
+          "blanket": "家纺",
           "clean_stains": "特渍洗",
           "cold_wash": "冷水洗",
           "cotton": "棉麻",
+          "child": "童装",
           "deep_ssp": "深度筒自洁",
           "down_jacket": "羽绒服",
+          "embathe": "浸洗",
           "enzyme": "除菌洗",
+          "fast": "速洗",
           "fast_wash": "快洗15分钟",
           "fast_wash_30": "快洗30分钟",
           "fiber": "化纤",
           "intelligent": "智能洗",
           "jacket": "冲锋衣",
           "jean": "牛仔",
+          "memory": "记忆",
           "mixed_wash": "混合",
           "new_clothes_wash": "新衣洗",
           "outdoor": "户外服",
@@ -464,7 +505,9 @@
           "ssp": "筒自洁",
           "steam_sterilize_wash": "蒸汽消毒洗",
           "steep": "浸泡洗",
+          "strong_wash": "强洗",
           "summer_wash": "夏日洗",
+          "bucket_self_clean": "桶自洁",
           "underwear": "内衣",
           "winter_wash": "冬季洗",
           "wool": "羊毛"
@@ -669,6 +712,12 @@
       },
       "work_time": {
         "name": "工作时间"
+      },
+      "appointment_time": {
+        "name": "预约时间"
+      },
+      "dry_time": {
+        "name": "烘干时间"
       }
     },
     "switch": {
@@ -758,6 +807,36 @@
       },
       "wifi_led_enable": {
         "name": "WiFi指示灯"
+      },
+      "ai_switch": {
+        "name": "AI模式"
+      },
+      "prevent_wrinkle_switch": {
+        "name": "防皱功能"
+      },
+      "steam_switch": {
+        "name": "蒸汽功能"
+      },
+      "damp_dry_signal": {
+        "name": "潮湿干燥信号"
+      },
+      "eco_dry_switch": {
+        "name": "节能干燥开关"
+      },
+      "bucket_clean_switch": {
+        "name": "桶清洁"
+      },
+      "water_box": {
+        "name": "水箱"
+      },
+      "baby_lock": {
+        "name": "婴儿锁"
+      },
+      "remind_sound": {
+        "name": "提醒声音"
+      },
+      "steam": {
+        "name": "蒸汽"
       }
     },
     "vacuum": {
