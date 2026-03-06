@@ -345,8 +345,9 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     
                     self._apply_special_handling(full_control, is_control=True, control_attrs=control)
                     
+                    current_status = self.data.copy() if self.data else {}
                     response = await self.hass.async_add_executor_job(
-                        self.controller.set_control, full_control
+                        self.controller.set_control, full_control, None, current_status
                     )
                     
                     for attr_name, val in control.items():
@@ -359,22 +360,20 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                                     new_data[attr_name] = val
                 else:
                     current_status = self.data.copy() if self.data else {}
+                    
+                    if self.device_type == 0xD9:
+                        control["bucket"] = "db"
+                        control["db_location"] = self._db_location
+                    
+                    self._apply_special_handling(control, is_control=True, control_attrs=control)
+                    
+                    response = await self.hass.async_add_executor_job(
+                        self.controller.set_control, control, None, current_status
+                    )
+                    
                     for attr_name, val in control.items():
-                        single_control = {attr_name: val}
-                        
-                        if self.device_type == 0xD9:
-                            single_control["bucket"] = "db"
-                            single_control["db_location"] = self._db_location
-                        
-                        self._apply_special_handling(single_control, is_control=True, control_attrs=single_control)
-                        
-                        response = await self.hass.async_add_executor_job(
-                            self.controller.set_control, single_control, None, current_status
-                        )
-                        
-                        current_status[attr_name] = val
                         new_data[attr_name] = val
-                        
+                
                 if self.device_type == 0xD9:
                     new_data["db_location"] = self._db_location
                     new_data["db_location_selection"] = self._db_location_selection
