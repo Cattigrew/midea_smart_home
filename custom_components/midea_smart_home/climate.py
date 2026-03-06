@@ -148,25 +148,59 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
 
     @property
     def current_temperature(self) -> Optional[float]:
-        if self._key_current_temperature is not None:
-            value = self._get_nested_value(self._key_current_temperature)
-            if value is not None:
+        if isinstance(self._key_current_temperature, list):
+            temp_int = self._get_nested_value(self._key_current_temperature[0])
+            tem_dec = self._get_nested_value(self._key_current_temperature[1])
+            if temp_int is not None and tem_dec is not None:
                 try:
-                    return float(value)
+                    return float(temp_int) + float(tem_dec)
                 except (ValueError, TypeError):
                     return None
-        return None
+            return None
+        else:
+            temp = self._get_nested_value(self._key_current_temperature)
+            if temp is not None:
+                try:
+                    return float(temp)
+                except (ValueError, TypeError):
+                    return None
+            return None
 
     @property
     def target_temperature(self) -> Optional[float]:
-        if self._key_target_temperature is not None:
-            value = self._get_nested_value(self._key_target_temperature)
-            if value is not None:
+        if isinstance(self._key_target_temperature, list):
+            if len(self._key_target_temperature) == 1:
+                temp = self._get_nested_value(self._key_target_temperature[0])
+                if temp is not None:
+                    try:
+                        return float(temp)
+                    except (ValueError, TypeError):
+                        return None
+                return None
+            try:
+                temp_int = self._get_nested_value(self._key_target_temperature[0])
+                tem_dec = self._get_nested_value(self._key_target_temperature[1])
+            except IndexError:
+                _LOGGER.error(
+                    "target_temperature list index error: _key_target_temperature=%s, len=%d",
+                    self._key_target_temperature,
+                    len(self._key_target_temperature)
+                )
+                return None
+            if temp_int is not None and tem_dec is not None:
                 try:
-                    return float(value)
+                    return float(temp_int) + float(tem_dec)
                 except (ValueError, TypeError):
                     return None
-        return None
+            return None
+        else:
+            temp = self._get_nested_value(self._key_target_temperature)
+            if temp is not None:
+                try:
+                    return float(temp)
+                except (ValueError, TypeError):
+                    return None
+            return None
 
     @property
     def preset_mode(self) -> Optional[str]:
@@ -203,7 +237,17 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
             await self.async_set_hvac_mode(hvac_mode)
 
         if self._key_target_temperature is not None:
-            await self._async_set_control(self._key_target_temperature, int(temperature))
+            if isinstance(self._key_target_temperature, list) and len(self._key_target_temperature) == 2:
+                temp_int = int(temperature)
+                temp_decimal = temperature - temp_int
+                new_status = {
+                    self._key_target_temperature[0]: temp_int,
+                    self._key_target_temperature[1]: temp_decimal
+                }
+                await self.coordinator.async_set_control(new_status)
+            else:
+                target_key = self._key_target_temperature[0] if isinstance(self._key_target_temperature, list) else self._key_target_temperature
+                await self._async_set_control(target_key, int(temperature))
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         if self._key_hvac_modes is not None:
