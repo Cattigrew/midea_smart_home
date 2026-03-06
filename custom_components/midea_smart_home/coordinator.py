@@ -80,6 +80,10 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 return str(data[var_name])
             return "0"
         
+        if re.fullmatch(r'\[[a-zA-Z_][a-zA-Z0-9_]*\]', expression):
+            var_name = expression[1:-1]
+            return data.get(var_name)
+        
         result_expr = re.sub(r'\[([a-zA-Z_][a-zA-Z0-9_]*)\]', replace_var, expression)
         
         preserve_functions = ['float', 'int', 'str', 'bool']
