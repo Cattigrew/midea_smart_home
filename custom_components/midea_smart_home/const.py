@@ -1,3 +1,9 @@
+"""Constants for the Midea Smart Home integration.
+
+This module contains all constant definitions used across the integration,
+including configuration keys, device types, paths, and embedded Lua scripts.
+"""
+
 DOMAIN = "midea_smart_home"
 
 LUA_DEVICE_PATH = f".storage/{DOMAIN}/lua_devices"
@@ -21,8 +27,15 @@ CONF_PRODUCT_MODEL = "product_model"
 CONF_MODEL_NUMBER = "model_number"
 CONF_MANUFACTURER_CODE = "manufacturer_code"
 CONF_DEVICE_NAME = "device_name"
+CONF_PROTOCOL = "protocol"
 
 DEFAULT_PORT = 6444
+
+
+class ProtocolVersion:
+    V1 = 1
+    V2 = 2
+    V3 = 3
 
 DEVICE_TYPES = {
     0x17: "Laundry Machine",

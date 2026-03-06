@@ -19,6 +19,12 @@ ControlValue = Union[str, int, float, bool, None]
 
 
 class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
+    """Coordinator for Midea Smart Home devices.
+    
+    This class manages data updates and control commands for Midea devices.
+    It handles polling, state management, and device-specific logic.
+    """
+    
     def __init__(
         self,
         hass: HomeAssistant,
@@ -31,6 +37,19 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         default_values: Optional[dict] = None,
         device_type: int = 0,
     ):
+        """Initialize the Midea device coordinator.
+        
+        Args:
+            hass: Home Assistant instance.
+            controller: Device controller for communication.
+            device_name: Human-readable device name.
+            update_interval: Polling interval in seconds.
+            calculate_config: Configuration for calculated attributes.
+            queries: List of query configurations for device status.
+            centralized: List of attributes that must be sent together.
+            default_values: Default values for missing attributes.
+            device_type: Device type identifier (e.g., 0xD9 for twin tub).
+        """
         self.controller = controller
         self.device_name = device_name
         self.calculate_config = calculate_config or {}
@@ -65,11 +84,25 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                            lambda m: str(data[m.group(1)]) if m.group(1) in data and m.group(1) not in preserve_functions else m.group(1), 
                            result_expr)
         
+        dangerous_patterns = ['__', 'import', 'exec', 'eval', 'compile', 'open', 'file', 'input']
+        for pattern in dangerous_patterns:
+            if pattern in result_expr.lower():
+                _LOGGER.warning("Dangerous pattern '%s' detected in expression: %s", pattern, expression)
+                return None
+        
         try:
-            allowed_names = {"float": float, "int": int, "str": str}
+            allowed_names = {"float": float, "int": int, "str": str, "abs": abs, "round": round, "min": min, "max": max}
             node = ast.parse(result_expr, mode='eval')
+            
+            for node_type in ast.walk(node):
+                if isinstance(node_type, (ast.Call, ast.Attribute, ast.Subscript)):
+                    if isinstance(node_type, ast.Attribute):
+                        if node_type.attr.startswith('_'):
+                            _LOGGER.warning("Access to private attribute '%s' denied", node_type.attr)
+                            return None
+            
             return eval(compile(node, '<string>', 'eval'), {"__builtins__": {}}, allowed_names)
-        except (SyntaxError, ValueError, TypeError, NameError) as e:
+        except (SyntaxError, ValueError, TypeError, NameError, AttributeError) as e:
             _LOGGER.warning("Failed to evaluate expression '%s': %s", expression, e)
             return None
 
@@ -99,18 +132,8 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         return data
     
     def _adjust_control_status(self, data: dict, running_status: str) -> None:
-        if running_status == "start":
-            control_status = "start"
-        else:
-            control_status = "pause"
-        
-        if self.device_type == 0xD9:
-            control_status_key = "db_control_status"
-        elif self.device_type in [0xDA, 0xDB, 0xDC]:
-            control_status_key = "control_status"
-        else:
-            control_status_key = "control_status"
-        
+        control_status = "start" if running_status == "start" else "pause"
+        control_status_key = "db_control_status" if self.device_type == 0xD9 else "control_status"
         data[control_status_key] = control_status
     
     def _apply_special_handling(self, data: dict, is_control: bool = False, control_attrs: dict = None) -> None:

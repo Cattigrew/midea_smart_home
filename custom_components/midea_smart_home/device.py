@@ -23,6 +23,13 @@ SOCKET_TIMEOUT = 10
 
 
 class LuaRuntime:
+    """Lua runtime wrapper for Midea device protocol handling.
+    
+    This class manages a Lua runtime environment for parsing and building
+    device-specific protocol messages. It loads device-specific Lua scripts
+    and provides methods for JSON-to-data and data-to-JSON conversions.
+    """
+    
     def __init__(self, file_path: str, lua_default_dir: str):
         self._runtime = lupa.lua51.LuaRuntime()
         
@@ -176,6 +183,13 @@ class MideaCodec(LuaRuntime):
 
 
 class DeviceController:
+    """Controller for Midea smart devices.
+    
+    This class manages the connection to a Midea device and handles
+    all communication including status queries and control commands.
+    It implements automatic reconnection with exponential backoff.
+    """
+    
     def __init__(
         self,
         device_id: int,
@@ -183,7 +197,8 @@ class DeviceController:
         port: int,
         token: str,
         key: str,
-        codec: MideaCodec
+        codec: MideaCodec,
+        protocol: int = 3
     ):
         self._device_id = device_id
         self._ip = ip_address
@@ -191,6 +206,7 @@ class DeviceController:
         self._token = token
         self._key = key
         self._codec = codec
+        self._protocol = protocol
         self._security: Optional[LocalSecurity] = None
         self._sock: Optional[socket.socket] = None
         self._lock = threading.Lock()
@@ -198,41 +214,47 @@ class DeviceController:
         self._last_connect_attempt: float = 0
         self._retry_delay: float = INITIAL_RETRY_DELAY
         self._connection_errors: int = 0
-
+        self._buffer = b""
+    
     @property
     def device_id(self) -> int:
         return self._device_id
-
+    
     @property
     def ip(self) -> str:
         return self._ip
-
+    
     @property
     def connected(self) -> bool:
         return self._connected
-
+    
+    @property
+    def protocol(self) -> int:
+        return self._protocol
+    
     def connect(self) -> bool:
         with self._lock:
             return self._connect_internal()
-
+    
     def close(self):
         with self._lock:
             self._disconnect_internal()
-
+    
     def _disconnect_internal(self):
         self._connected = False
+        self._buffer = b""
         if self._sock:
             try:
                 self._sock.close()
             except OSError:
                 pass
             self._sock = None
-
+    
     def _should_retry_connect(self) -> bool:
         current_time = time.time()
         time_since_last = current_time - self._last_connect_attempt
         return time_since_last >= self._retry_delay
-
+    
     def _update_retry_delay(self, success: bool):
         if success:
             self._retry_delay = INITIAL_RETRY_DELAY
@@ -243,7 +265,7 @@ class DeviceController:
                 INITIAL_RETRY_DELAY * (RETRY_MULTIPLIER ** self._connection_errors),
                 MAX_RETRY_DELAY
             )
-
+    
     def _connect_internal(self) -> bool:
         current_time = time.time()
         self._last_connect_attempt = current_time
@@ -255,19 +277,22 @@ class DeviceController:
             self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self._sock.settimeout(CONNECTION_TIMEOUT)
             self._sock.connect((self._ip, self._port))
-            handshake = self._security.encode_8370(bytes.fromhex(self._token), 0x0)
-            self._sock.send(handshake)
-            response = self._sock.recv(256)
             
-            if len(response) < 72:
-                raise DataUnexpectedLength(f"Response too short: {len(response)}")
+            if self._protocol == 3 and self._token and self._key:
+                handshake = self._security.encode_8370(bytes.fromhex(self._token), 0x0)
+                self._sock.send(handshake)
+                response = self._sock.recv(256)
+                
+                if len(response) < 72:
+                    raise DataUnexpectedLength(f"Response too short: {len(response)}")
+                
+                auth_data = response[8:72]
+                self._security.tcp_key(auth_data, bytes.fromhex(self._key))
             
-            auth_data = response[8:72]
-            self._security.tcp_key(auth_data, bytes.fromhex(self._key))
             self._sock.settimeout(SOCKET_TIMEOUT)
             self._connected = True
             self._update_retry_delay(True)
-            _LOGGER.debug("Device %s connected successfully", self._device_id)
+            _LOGGER.debug("Device %s connected successfully with protocol V%s", self._device_id, self._protocol)
             return True
             
         except (socket.timeout, socket.error, OSError) as e:
@@ -280,7 +305,7 @@ class DeviceController:
         self._update_retry_delay(False)
         self._connected = False
         return False
-
+    
     def _ensure_connection(self) -> bool:
         if self._connected and self._sock is not None:
             return True
@@ -294,7 +319,21 @@ class DeviceController:
             return False
         
         return self._connect_internal()
-
+    
+    def _fetch_v2_message(self, msg: bytes) -> tuple[list, bytes]:
+        result = []
+        while len(msg) > 0:
+            factual_msg_len = len(msg)
+            if factual_msg_len < 6:
+                break
+            alleged_msg_len = msg[4] + (msg[5] << 8)
+            if factual_msg_len >= alleged_msg_len:
+                result.append(msg[:alleged_msg_len])
+                msg = msg[alleged_msg_len:]
+            else:
+                break
+        return result, msg
+    
     def _send_and_receive(self, data_hex: str, retry: int = 2) -> Optional[bytes]:
         with self._lock:
             for attempt in range(retry):
@@ -304,10 +343,17 @@ class DeviceController:
                 try:
                     data_bytes = bytes.fromhex(data_hex)
                     packet = PacketBuilder(self._device_id, data_bytes).finalize()
-                    encrypted = self._security.encode_8370(bytes(packet), 0x6)
-                    self._sock.send(encrypted)
-                    response = self._sock.recv(4096)
-                    packets, _ = self._security.decode_8370(response)
+                    
+                    if self._protocol == 3:
+                        encrypted = self._security.encode_8370(bytes(packet), 0x6)
+                        self._sock.send(encrypted)
+                        response = self._sock.recv(4096)
+                        packets, self._buffer = self._security.decode_8370(self._buffer + response)
+                    else:
+                        self._sock.send(packet)
+                        response = self._sock.recv(4096)
+                        packets, self._buffer = self._fetch_v2_message(self._buffer + response)
+                    
                     if packets:
                         data = packets[0]
                         encrypted_data = data[40:-16]

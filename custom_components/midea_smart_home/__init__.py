@@ -7,7 +7,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import UpdateFailed
-import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
 
 from .const import (
@@ -20,6 +19,7 @@ from .const import (
     CONF_PRODUCT_MODEL,
     CONF_MODEL_NUMBER,
     CONF_PORT,
+    CONF_PROTOCOL,
     CONF_SN,
     CONF_SN8,
     CONF_TOKEN,
@@ -31,6 +31,7 @@ from .const import (
     CJSON_LUA,
     BIT_LUA,
     LUA_COMMON_PATH,
+    ProtocolVersion,
 )
 from .coordinator import MideaCoordinator
 from .device import DeviceController, MideaCodec
@@ -46,7 +47,7 @@ def _write_lua_file(file_path: str, content: str) -> bool:
             fp.write(content)
         return True
     except PermissionError as e:
-        _LOGGER.error(f"Failed to create {file_path}: {e}")
+        _LOGGER.error("Failed to create %s: %s", file_path, e)
         return False
 
 def _ensure_lua_files(lua_path: str) -> tuple:
@@ -110,6 +111,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             else:
                 device_name = DEVICE_TYPES.get(device_type_int, f"Device {device_type}")
         
+        protocol = device_data.get(CONF_PROTOCOL, ProtocolVersion.V3)
+        
         lua_common_dir = Path(hass.config.config_dir) / LUA_COMMON_PATH
         
         def init_device():
@@ -121,6 +124,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 token=token,
                 key=key,
                 codec=codec,
+                protocol=protocol,
             )
             if controller.connect():
                 return controller
@@ -137,7 +141,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         centralized = get_centralized(device_type_int, sn8)
         default_values = get_default_values(device_type_int, sn8)
 
-        preset_keys = set(centralized)
         entities_cfg = (device_mapping.get("entities") or {})
         for platform_cfg in entities_cfg.values():
             if not isinstance(platform_cfg, dict):
@@ -179,6 +182,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             CONF_PRODUCT_MODEL: device_data.get(CONF_PRODUCT_MODEL, ""),
             CONF_MODEL_NUMBER: device_data.get(CONF_MODEL_NUMBER, ""),
             CONF_DEVICE_NAME: device_name,
+            CONF_PROTOCOL: protocol,
         }
     
     try:
