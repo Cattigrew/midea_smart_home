@@ -69,6 +69,10 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self._db_location_selection = "left"
         self._last_db_position = 1
         
+        # Track recent control commands to prevent state jumps
+        self._recent_controls = {}
+        self._control_timeout = 3
+        
         super().__init__(
             hass,
             _LOGGER,
@@ -155,12 +159,20 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     else:
                         data["db_control_status"] = "pause"
             else:
-                if "db_running_status" in data:
-                    self._adjust_control_status(data, data["db_running_status"])
+                # Check if db_control_status is in recent controls
+                import time
+                current_time = time.time()
+                if "db_control_status" not in [attr for attr, (_, timestamp) in self._recent_controls.items() if current_time - timestamp < self._control_timeout]:
+                    if "db_running_status" in data:
+                        self._adjust_control_status(data, data["db_running_status"])
         
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
-            if "running_status" in data:
-                self._adjust_control_status(data, data["running_status"])
+            # Check if control_status is in recent controls
+            import time
+            current_time = time.time()
+            if "control_status" not in [attr for attr, (_, timestamp) in self._recent_controls.items() if current_time - timestamp < self._control_timeout]:
+                if "running_status" in data:
+                    self._adjust_control_status(data, data["running_status"])
 
     def _is_valid_data_type(self, data: dict) -> bool:
         if self.device_type != 0xD9:
@@ -279,8 +291,25 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 all_data["db_location"] = self._db_location
                 all_data["db_location_selection"] = self._db_location_selection
             
+            # Check for recent control commands and use expected values
+            import time
+            current_time = time.time()
+            recent_control_attrs = []
+            
+            for attr, (expected_value, timestamp) in list(self._recent_controls.items()):
+                if current_time - timestamp < self._control_timeout:
+                    # Use expected value for recently controlled attributes
+                    all_data[attr] = expected_value
+                    recent_control_attrs.append(attr)
+                else:
+                    # Remove expired control entries
+                    del self._recent_controls[attr]
+            
             if self.data:
                 for attr, old_value in self.data.items():
+                    # Don't override recent control values
+                    if attr in recent_control_attrs:
+                        continue
                     if old_value is not None:
                         if attr not in all_data or all_data[attr] is None:
                             all_data[attr] = old_value
@@ -391,61 +420,22 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     new_data["db_location"] = self._db_location
                     new_data["db_location_selection"] = self._db_location_selection
 
-                self.async_set_updated_data(new_data)
+                # Record recent control commands
+                import time
+                current_time = time.time()
+                for attr_name, val in control.items():
+                    if attr_name not in ["bucket", "db_location"]:
+                        self._recent_controls[attr_name] = (val, current_time)
                 
-                await self._wait_for_device_response(control, max_retries=10, retry_delay=0.5)
+                self.async_set_updated_data(new_data)
                 
             except (socket.error, OSError, ValueError, json.JSONDecodeError, TypeError) as e:
                 _LOGGER.error("Control command execution failed: %s", e)
             finally:
                 self._polling_paused = False
                 self._polling_resume_event.set()
-                    
+        
         return self.data
-
-    async def _wait_for_device_response(
-        self, 
-        control: dict, 
-        max_retries: int = 10, 
-        retry_delay: float = 0.5
-    ) -> bool:
-        control_attrs = set(control.keys()) - {"bucket", "db_location"}
-        if not control_attrs:
-            return True
-        
-        for _ in range(max_retries):
-            try:
-                query = {}
-                if self.device_type == 0xD9:
-                    query["db_location"] = self._db_location
-                
-                device_status = await self.hass.async_add_executor_job(
-                    self.controller.get_status, query
-                )
-                
-                if device_status and self._is_valid_data_type(device_status):
-                    all_matched = True
-                    for attr in control_attrs:
-                        expected_value = control[attr]
-                        actual_value = device_status.get(attr)
-                        if actual_value is not None and actual_value == expected_value:
-                            continue
-                        else:
-                            all_matched = False
-                            break
-                    
-                    if all_matched:
-                        _LOGGER.debug("[%s] Device confirmed response for control: %s", self.device_name, control_attrs)
-                        return True
-                
-                await asyncio.sleep(retry_delay)
-                
-            except Exception as e:
-                _LOGGER.debug("[%s] Error checking device response: %s", self.device_name, e)
-                await asyncio.sleep(retry_delay)
-        
-        _LOGGER.warning("[%s] Device did not confirm response after %d retries", self.device_name, max_retries)
-        return False
-
+    
     async def async_set_controls(self, controls: dict[str, ControlValue]) -> StatusDict:
         return await self.async_set_control(controls)
