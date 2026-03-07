@@ -62,6 +62,9 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.respose = respose or []
         
         self._control_lock = asyncio.Lock()
+        self._polling_paused = False
+        self._polling_resume_event = asyncio.Event()
+        self._polling_resume_event.set()
         self._db_location = 1
         self._db_location_selection = "left"
         self._last_db_position = 1
@@ -207,6 +210,9 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             self._db_location_selection = "right"
 
     async def _async_update_data(self) -> dict[str, Any]:
+        if self._polling_paused:
+            await self._polling_resume_event.wait()
+        
         if self._control_lock.locked():
             return self.data
   
@@ -325,6 +331,9 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             control = {attr: value}
             
         async with self._control_lock:
+            self._polling_paused = True
+            self._polling_resume_event.clear()
+            
             try:
                 new_data = self.data.copy() if self.data else {}
                 
@@ -384,10 +393,59 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
                 self.async_set_updated_data(new_data)
                 
+                await self._wait_for_device_response(control, max_retries=10, retry_delay=0.5)
+                
             except (socket.error, OSError, ValueError, json.JSONDecodeError, TypeError) as e:
                 _LOGGER.error("Control command execution failed: %s", e)
+            finally:
+                self._polling_paused = False
+                self._polling_resume_event.set()
                     
         return self.data
+
+    async def _wait_for_device_response(
+        self, 
+        control: dict, 
+        max_retries: int = 10, 
+        retry_delay: float = 0.5
+    ) -> bool:
+        control_attrs = set(control.keys()) - {"bucket", "db_location"}
+        if not control_attrs:
+            return True
+        
+        for _ in range(max_retries):
+            try:
+                query = {}
+                if self.device_type == 0xD9:
+                    query["db_location"] = self._db_location
+                
+                device_status = await self.hass.async_add_executor_job(
+                    self.controller.get_status, query
+                )
+                
+                if device_status and self._is_valid_data_type(device_status):
+                    all_matched = True
+                    for attr in control_attrs:
+                        expected_value = control[attr]
+                        actual_value = device_status.get(attr)
+                        if actual_value is not None and actual_value == expected_value:
+                            continue
+                        else:
+                            all_matched = False
+                            break
+                    
+                    if all_matched:
+                        _LOGGER.debug("[%s] Device confirmed response for control: %s", self.device_name, control_attrs)
+                        return True
+                
+                await asyncio.sleep(retry_delay)
+                
+            except Exception as e:
+                _LOGGER.debug("[%s] Error checking device response: %s", self.device_name, e)
+                await asyncio.sleep(retry_delay)
+        
+        _LOGGER.warning("[%s] Device did not confirm response after %d retries", self.device_name, max_retries)
+        return False
 
     async def async_set_controls(self, controls: dict[str, ControlValue]) -> StatusDict:
         return await self.async_set_control(controls)
