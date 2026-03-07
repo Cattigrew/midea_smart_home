@@ -58,11 +58,11 @@
     "bath_heater": {
       "name": "Bath Heater"
     },
-    "cylinder_washing_machine": {
-      "name": "Cylinder Washing Machine"
-    },
     "clothes_dryer": {
       "name": "Clothes Dryer"
+    },
+    "cylinder_washing_machine": {
+      "name": "Cylinder Washing Machine"
     },
     "electric_fan": {
       "name": "Electric Fan"
@@ -85,11 +85,11 @@
     "smart_robot_vacuum": {
       "name": "Smart Robot Vacuum"
     },
-    "twin_tub_washing_machine": {
-      "name": "Twin Tub Washing Machine"
-    },
     "top_load_washing_machine": {
       "name": "Top Load Washing Machine"
+    },
+    "twin_tub_washing_machine": {
+      "name": "Twin Tub Washing Machine"
     },
     "unknown_device": {
       "name": "Unknown Device"
@@ -109,17 +109,14 @@
       "door_opened": {
         "name": "Door Status"
       },
-      "softener_lack": {
-        "name": "Softener Status"
-      },
       "drying_tunnel_overheating": {
         "name": "Drying Tunnel Overheating"
       },
       "failed_device": {
         "name": "Initialization Failed"
       },
-      "door_warn": {
-        "name": "Door Warning"
+      "softener_lack": {
+        "name": "Softener Status"
       }
     },
     "button": {
@@ -201,6 +198,12 @@
       "custom_timing": {
         "name": "Light Off Timer"
       },
+      "dehydration_time": {
+        "name": "Dehydration Time"
+      },
+      "detergent": {
+        "name": "Detergent"
+      },
       "heating_temperature": {
         "name": "Heating Temperature"
       },
@@ -222,29 +225,26 @@
       "radar_induction_closing_time": {
         "name": "Night Light Delay Off Time"
       },
+      "rinse_count": {
+        "name": "Rinse Count"
+      },
+      "rinse_level": {
+        "name": "Rinse Level"
+      },
       "softener": {
         "name": "Softener"
       },
       "soak_time": {
         "name": "Soak Time"
       },
-      "wash_time": {
-        "name": "Wash Time"
-      },
-      "rinse_count": {
-        "name": "Rinse Count"
-      },
-      "dehydration_time": {
-        "name": "Dehydration Time"
-      },
       "wash_level": {
         "name": "Wash Level"
       },
-      "rinse_level": {
-        "name": "Rinse Level"
-      },
       "wash_strength": {
         "name": "Wash Strength"
+      },
+      "wash_time": {
+        "name": "Wash Time"
       }
     },
     "select": {
@@ -420,6 +420,16 @@
           "sleep": "Sleep"
         }
       },
+      "intensity": {
+        "name": "Drying Intensity",
+        "state": {
+          "10": "10'",
+          "20": "20'",
+          "30": "30'",
+          "40": "40'",
+          "off": "Off"
+        }
+      },
       "inverter": {
         "name": "Inverter Cruise",
         "state": {
@@ -474,20 +484,25 @@
         "name": "Wash Program",
         "state": {
           "baby_clothes": "Baby Clothes",
+          "bed_clothes": "Bed Clothes",
           "big": "Big Items",
           "blanket": "Blanket",
+          "bucket_self_clean": "Bucket Self Clean",
+          "child": "Child Clothes",
           "clean_stains": "Stain Removal",
           "cold_wash": "Cold Wash",
           "cotton": "Cotton",
-          "child": "Child Clothes",
           "deep_ssp": "Deep Self-Clean",
+          "dehumidification": "Dehumidification",
           "down_jacket": "Down Jacket",
+          "eco": "Eco Wash",
           "embathe": "Soak Wash",
           "enzyme": "Enzyme Wash",
           "fast": "Fast Wash",
           "fast_wash": "Quick Wash",
           "fast_wash_30": "Quick Wash 30min",
           "fiber": "Synthetic",
+          "fresh_air": "Fresh Air",
           "intelligent": "Intelligent",
           "jacket": "Jacket",
           "jean": "Jeans",
@@ -495,6 +510,7 @@
           "mixed_wash": "Mixed",
           "new_clothes_wash": "New Clothes",
           "outdoor": "Outdoor",
+          "quick_dry_20": "Quick Dry 20min",
           "remove_mite_wash": "Mite Removal",
           "rinsing_dehydration": "Rinse+Spin",
           "shirt": "Shirt",
@@ -507,8 +523,9 @@
           "steep": "Soak Wash",
           "strong_wash": "Strong Wash",
           "summer_wash": "Summer",
-          "bucket_self_clean": "Bucket Self Clean",
+          "towel": "Towel",
           "underwear": "Underwear",
+          "warm_clothes": "Warm Clothes",
           "winter_wash": "Winter",
           "wool": "Wool"
         }
@@ -617,6 +634,9 @@
       "air_dry_left_time": {
         "name": "Air Dry Remaining Time"
       },
+      "appointment_time": {
+        "name": "Appointment Time"
+      },
       "area": {
         "name": "Cleaning Area"
       },
@@ -643,6 +663,9 @@
       },
       "dehydration_time_value": {
         "name": "Dehydration Time"
+      },
+      "dry_time": {
+        "name": "Dry Time"
       },
       "end_time": {
         "name": "Heating End Time"
@@ -712,23 +735,20 @@
       },
       "work_time": {
         "name": "Work Time"
-      },
-      "appointment_time": {
-        "name": "Appointment Time"
-      },
-      "dry_time": {
-        "name": "Dry Time"
       }
     },
     "switch": {
       "airdry_on_off": {
         "name": "Curtain Air Dry"
       },
-      "anion": {
-        "name": "Sterilization"
-      },
       "auto_power_off": {
         "name": "Auto Power Off"
+      },
+      "baby_lock": {
+        "name": "Baby Lock"
+      },
+      "bucket_clean_switch": {
+        "name": "Bucket Clean"
       },
       "buzzer": {
         "name": "Sound"
@@ -736,8 +756,17 @@
       "control_status": {
         "name": "Start/Stop"
       },
+      "damp_dry_signal": {
+        "name": "Damp Dry Signal"
+      },
       "display_on_off": {
         "name": "Screen Display"
+      },
+      "dry": {
+        "name": "Dry Mode"
+      },
+      "eco_dry_switch": {
+        "name": "Eco Dry Switch"
       },
       "eplus": {
         "name": "Large Flow"
@@ -757,9 +786,6 @@
       "laundry": {
         "name": "One-Key Laundry"
       },
-      "laundry_height": {
-        "name": "Laundry Height"
-      },
       "light": {
         "name": "Light Switch"
       },
@@ -775,20 +801,14 @@
       "power": {
         "name": "Power"
       },
-      "power_off_timer": {
-        "name": "Power Off Timer"
-      },
-      "power_on_timer": {
-        "name": "Power On Timer"
-      },
       "prevent_straight_wind": {
         "name": "Prevent Direct Wind"
       },
       "prevent_super_cool": {
         "name": "Smart Temp Control"
       },
-      "dry": {
-        "name": "Dry Mode"
+      "prevent_wrinkle_switch": {
+        "name": "Anti-Wrinkle Function"
       },
       "protect": {
         "name": "Power Cut Protection"
@@ -799,47 +819,32 @@
       "radar_induction_enable": {
         "name": "Motion Night Light"
       },
+      "remind_sound": {
+        "name": "Reminder Sound"
+      },
       "smart_sterilize": {
         "name": "Smart Sterilization"
       },
-      "temp_set": {
-        "name": "Temperature Setting"
+      "steam": {
+        "name": "Steam"
+      },
+      "steam_switch": {
+        "name": "Steam Function"
+      },
+      "sterilize": {
+        "name": "Sterilize"
+      },
+      "ultraviolet_lamp": {
+        "name": "UV Sterilization"
+      },
+      "water_box": {
+        "name": "Water Box"
       },
       "waterions": {
         "name": "Air Sterilization"
       },
       "wifi_led_enable": {
         "name": "WiFi LED"
-      },
-      "ai_switch": {
-        "name": "AI Mode"
-      },
-      "prevent_wrinkle_switch": {
-        "name": "Anti-Wrinkle Function"
-      },
-      "steam_switch": {
-        "name": "Steam Function"
-      },
-      "damp_dry_signal": {
-        "name": "Damp Dry Signal"
-      },
-      "eco_dry_switch": {
-        "name": "Eco Dry Switch"
-      },
-      "bucket_clean_switch": {
-        "name": "Bucket Clean"
-      },
-      "water_box": {
-        "name": "Water Box"
-      },
-      "baby_lock": {
-        "name": "Baby Lock"
-      },
-      "remind_sound": {
-        "name": "Reminder Sound"
-      },
-      "steam": {
-        "name": "Steam"
       }
     },
     "vacuum": {
@@ -848,10 +853,9 @@
         "state_attributes": {
           "fan_speed": {
             "state": {
-              "soft": "Soft",
-              "normal": "Standard",
               "high": "Strong",
-              "super": "Super Strong"
+              "normal": "Standard",
+              "soft": "Soft"
             }
           }
         }
