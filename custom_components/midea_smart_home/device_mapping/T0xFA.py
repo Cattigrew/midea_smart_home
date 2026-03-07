@@ -43,8 +43,7 @@ DEVICE_MAPPING = {
             },
             Platform.SENSOR: {
                 "water_feedback": {
-                    "device_class": SensorDeviceClass.ENUM,
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "device_class": SensorDeviceClass.ENUM
                 }
             }
         }
