@@ -49,7 +49,7 @@ DEVICE_MAPPING = {
                 },
                 "air_dry_left_time": {
                     "device_class": SensorDeviceClass.DURATION,
-                    "unit_of_measurement": UnitOfTime.MINUTES,
+                    "unit_of_measurement": UnitOfTime.SECONDS,
                     "state_class": SensorStateClass.MEASUREMENT
                 },
                 "tank_status": {
