@@ -107,7 +107,7 @@
         "name": "设备状态"
       },
       "door_opened": {
-        "name": "洗衣机门状态"
+        "name": "门状态"
       },
       "drying_tunnel_overheating": {
         "name": "烘干通道过热"
