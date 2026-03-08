@@ -156,6 +156,7 @@
         "state_attributes": {
           "preset_mode": {
             "state": {
+              "full_off": "Full Off",
               "full_on": "Full On",
               "left_warm": "Left Warm",
               "right_warm": "Right Warm"

@@ -156,6 +156,7 @@
         "state_attributes": {
           "preset_mode": {
             "state": {
+              "full_off": "全关",
               "full_on": "全开",
               "left_warm": "左暖",
               "right_warm": "右暖"

@@ -37,6 +37,7 @@ DEVICE_MAPPING = {
                         "heat": {"power": "on"}
                     },
                     "preset_modes": {
+                        "full_off": {"gear": 0},
                         "left_warm": {"gear": 1},
                         "right_warm": {"gear": 2},
                         "full_on": {"gear": 3}
