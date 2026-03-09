@@ -1,0 +1,113 @@
+name: 🐛 Bug 报告
+description: 报告已支持设备的问题
+body:
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: |
+        请清晰描述遇到的问题。请提供设备型号信息（如 KFR-35GW/N8MJA3）和设备 Code（如 0xAC），可在设备详情页查看。
+      placeholder: "描述你遇到的问题..."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 复现步骤
+      description: 请详细描述复现问题的步骤
+      placeholder: |
+        1. 进入 '...'
+        2. 点击 '...'
+        3. 看到错误
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 预期行为
+      description: 描述你预期应该发生什么
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Home Assistant 版本
+      description: "[设置 > 关于](https://my.home-assistant.io/redirect/info)"
+      placeholder: "2024.1.0"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 集成版本
+      description: "[设置 > 设备与服务 > 已配置 > Midea Smart Home](https://my.home-assistant.io/redirect/integration/?domain=midea_smart_home)"
+      placeholder: "v1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: 安装方式
+      options:
+        - HACS
+        - 手动安装
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Home Assistant 类型
+      options:
+        - OS
+        - Container
+        - Core
+        - Supervised
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备类型
+      placeholder: "如：空调"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备型号
+      placeholder: "如：KFR-35GW/N8MJA3"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备 Code
+      placeholder: "如：0xAC"
+
+  - type: textarea
+    attributes:
+      label: 日志信息
+      description: |
+        请将日志级别设置为 `debug` 并尝试复现问题。
+        
+        在 `configuration.yaml` 中添加：
+        ```yaml
+        logger:
+          logs:
+            custom_components.midea_smart_home: debug
+        ```
+        
+        [设置 > 系统 > 日志 > 下载完整日志](https://my.home-assistant.io/redirect/logs) > 筛选 `midea_smart_home`
+      render: shell
+
+  - type: checkboxes
+    attributes:
+      label: 检查清单
+      options:
+        - label: 我已经搜索了现有的 issues
+          required: true
+        - label: 我已经阅读了 README 文档
+          required: true
+        - label: 设备已成功添加到集成中
+          required: true
+        - label: 我已经移除了日志中的敏感信息
+          required: true

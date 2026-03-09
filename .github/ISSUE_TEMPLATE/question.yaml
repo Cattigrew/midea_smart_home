@@ -1,0 +1,71 @@
+name: ❓ 问题咨询
+description: 使用问题或帮助请求
+body:
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 请清晰描述你的问题
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Home Assistant 版本
+      placeholder: "如：2024.1.0"
+
+  - type: input
+    attributes:
+      label: 集成版本
+      placeholder: "如：v1.0.0"
+
+  - type: dropdown
+    attributes:
+      label: 安装方式
+      options:
+        - HACS
+        - 手动安装
+
+  - type: dropdown
+    attributes:
+      label: Home Assistant 类型
+      options:
+        - OS
+        - Container
+        - Core
+        - Supervised
+
+  - type: input
+    attributes:
+      label: 设备类型（如适用）
+      placeholder: "如：空调"
+
+  - type: input
+    attributes:
+      label: 设备型号（如适用）
+      placeholder: "如：KFR-35GW/N8MJA3"
+
+  - type: textarea
+    attributes:
+      label: 你已经尝试过什么？
+      description: 请描述你已经尝试过的解决方案或方法
+
+  - type: textarea
+    attributes:
+      label: 日志信息
+      description: |
+        在 `configuration.yaml` 中添加：
+        ```yaml
+        logger:
+          logs:
+            custom_components.midea_smart_home: debug
+        ```
+      render: shell
+
+  - type: checkboxes
+    attributes:
+      label: 检查清单
+      options:
+        - label: 我已经搜索了现有的 issues 和讨论
+          required: true
+        - label: 我已经阅读了 README 文档
+          required: true

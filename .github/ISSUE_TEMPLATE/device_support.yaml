@@ -1,0 +1,109 @@
+name: 🔌 新设备支持请求
+description: 请求支持新的美的设备类型
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **⚠️ 重要提示**
+        
+        此模板用于请求支持 **新的设备类型**。
+        
+        如果你的设备 **已在支持列表中** 但遇到问题，请使用 [Bug 报告](https://github.com/Cyborg2017/midea_smart_home/issues/new?template=bug_report.yaml) 模板。
+        ---
+
+  - type: input
+    attributes:
+      label: 设备品牌
+      placeholder: "美的 / 小天鹅 / 其他"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备类型
+      placeholder: "如：空调、洗衣机、热水器"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备型号
+      placeholder: "如：KFR-35GW/N8MJA3"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 设备 Code（如已知）
+      placeholder: "如：0xAC"
+
+  - type: textarea
+    attributes:
+      label: 设备功能
+      description: 请描述这个设备有哪些功能，你希望在 Home Assistant 中使用哪些功能
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 设备发现日志
+      description: |
+        在 `configuration.yaml` 中添加：
+        ```yaml
+        logger:
+          logs:
+            custom_components.midea_smart_home: debug
+        ```
+        然后尝试添加设备，粘贴发现过程中的日志
+      render: shell
+
+  - type: dropdown
+    attributes:
+      label: 设备是否在美的美居 App 中正常使用？
+      options:
+        - "是"
+        - "否"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: 美居 App 版本
+      placeholder: "如：8.0.0"
+
+  - type: checkboxes
+    attributes:
+      label: 检查清单
+      options:
+        - label: 我已经搜索了现有的 issues
+          required: true
+        - label: 我已经查看了支持的设备列表
+          required: true
+        - label: 我愿意协助测试这个设备的支持
+          required: false
+        - label: 我愿意提供设备的调试信息
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📋 已支持的设备类型
+        
+        | Code | 设备类型 |
+        |------|----------|
+        | 0xAC | 空调 |
+        | 0x17 | 晾衣架 |
+        | 0xD9 | 双桶洗衣机 |
+        | 0xDA | 波轮洗衣机 |
+        | 0xDB | 滚筒洗衣机 |
+        | 0xE2 | 电热水器 |
+        | 0x26 | 浴霸 |
+        | 0xB6 | 油烟机 |
+        | 0xB8 | 扫地机器人 |
+        | 0xDC | 干衣机 |
+        | 0xFA | 电风扇 |
+        | 0xFB | 取暖器 |
+        | 0xFC | 空气净化器 |
+        | 0xFD | 加湿器 |

@@ -1,0 +1,31 @@
+name: 📝 文档问题
+description: 报告文档错误或改进建议
+body:
+  - type: checkboxes
+    attributes:
+      label: 问题类型
+      options:
+        - label: 文档错误
+        - label: 文档缺失
+        - label: 文档不清晰
+        - label: 文档改进建议
+        - label: 翻译问题
+
+  - type: input
+    attributes:
+      label: 问题位置
+      description: 请提供文档中有问题的位置链接或章节名称
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 请描述文档中的问题
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 建议的改进
+      description: 请提供你建议的改进内容

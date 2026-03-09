@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 查看 README 文档
+    url: https://github.com/Cyborg2017/midea_smart_home#readme
+    about: 在提交 issue 之前，请先查看项目文档
+
+  - name: 📋 查看支持的设备列表
+    url: https://github.com/Cyborg2017/midea_smart_home#supported-devices
+    about: 查看当前支持的美的设备类型，确认你的设备是否已支持
