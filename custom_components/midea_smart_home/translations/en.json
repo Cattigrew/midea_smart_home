@@ -28,7 +28,7 @@
           "lua_file": "Device protocol file path",
           "token": "{token_required}"
         },
-        "description": "{description}",
+        "description": "Device Name: {device_name}\nDevice Model: {device_model}\nDevice ID: {device_id}\nIP Address: {ip_address}\nSN8: {sn8}\nProtocol Version: {protocol_version}\n{error}",
         "title": "Device Authentication {progress}"
       },
       "select_device": {
@@ -885,14 +885,12 @@
         "data": {
           "account": "Midea Account",
           "password": "Midea Password",
-          "refresh_cloud": "Refresh Cloud Device Info",
-          "update_interval": "Update Interval (seconds)"
+          "refresh_cloud": "Refresh Cloud Device Info"
         },
         "data_description": {
           "account": "Used to get device info, save to enable cloud refresh",
           "password": "Used to get device info, save to enable cloud refresh",
-          "refresh_cloud": "Check and submit to refresh device info from cloud",
-          "update_interval": "Device status polling interval, range 1-30 seconds"
+          "refresh_cloud": "Check and submit to refresh device info from cloud"
         },
         "title": "Midea Smart Home Options"
       }

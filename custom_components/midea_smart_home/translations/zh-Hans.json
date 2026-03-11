@@ -28,7 +28,7 @@
           "lua_file": "设备协议文件路径",
           "token": "{token_required}"
         },
-        "description": "{description}",
+        "description": "设备名称: {device_name}\n设备型号: {device_model}\n设备 ID: {device_id}\nIP 地址: {ip_address}\nSN8: {sn8}\n协议版本: {protocol_version}\n{error}",
         "title": "设备认证 {progress}"
       },
       "select_device": {
@@ -885,14 +885,12 @@
         "data": {
           "account": "美的美居账号",
           "password": "美的美居密码",
-          "refresh_cloud": "刷新云端设备信息",
-          "update_interval": "更新间隔（秒）"
+          "refresh_cloud": "刷新云端设备信息"
         },
         "data_description": {
           "account": "用于获取设备信息，保存后可用于刷新云端数据",
           "password": "用于获取设备信息，保存后可用于刷新云端数据",
-          "refresh_cloud": "勾选后点击提交，将从云端刷新设备信息并覆盖本地数据",
-          "update_interval": "设备状态轮询间隔，范围 1-30 秒"
+          "refresh_cloud": "勾选后点击提交，将从云端刷新设备信息并覆盖本地数据"
         },
         "title": "Midea Smart Home 选项"
       }
