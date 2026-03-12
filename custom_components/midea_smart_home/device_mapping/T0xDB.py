@@ -6,7 +6,6 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -167,7 +166,6 @@ DEVICE_MAPPING = {
     },
     "38133671": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -328,7 +326,6 @@ DEVICE_MAPPING = {
     },
     "38124584": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {

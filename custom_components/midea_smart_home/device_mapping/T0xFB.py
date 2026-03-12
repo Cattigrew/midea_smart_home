@@ -5,7 +5,6 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.SWITCH: {
                 "auto_power_off": {

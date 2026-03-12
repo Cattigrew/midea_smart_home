@@ -4,7 +4,6 @@ from homeassistant.const import Platform, PERCENTAGE, UnitOfTime
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.SELECT:{
                 "updown": {

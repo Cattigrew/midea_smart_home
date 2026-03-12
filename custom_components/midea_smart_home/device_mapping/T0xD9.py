@@ -6,7 +6,6 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{"query_type": "db"}],
         "entities": {
             Platform.BINARY_SENSOR: {
                 "db_door_opened": {

@@ -5,7 +5,6 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "centralized": ["lightness"],
         "response": ["on"],
         "calculate": {
@@ -156,7 +155,6 @@ DEVICE_MAPPING = {
     },
     "7300078W": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "centralized": ["lightness"],
         "calculate": {
             "get": [

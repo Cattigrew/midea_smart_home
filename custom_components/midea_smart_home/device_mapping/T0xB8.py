@@ -5,7 +5,6 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "queries": [{}],
         "entities": {
             Platform.VACUUM: {
                 "vacuum": {
