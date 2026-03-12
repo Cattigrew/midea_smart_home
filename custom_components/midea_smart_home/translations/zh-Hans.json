@@ -40,59 +40,12 @@
       },
       "user": {
         "data": {
-          "account": "美的账号",
+          "account": "账号",
           "password": "密码"
         },
-        "description": "输入美的账号密码以下载设备 Lua 文件",
+        "description": "输入美的美居账号密码，下载必要的资源文件",
         "title": "Midea Smart Home 设置"
       }
-    }
-  },
-  "device": {
-    "air_conditioner": {
-      "name": "空调"
-    },
-    "air_purifier": {
-      "name": "空气净化器"
-    },
-    "bath_heater": {
-      "name": "浴霸"
-    },
-    "cylinder_washing_machine": {
-      "name": "滚筒洗衣机"
-    },
-    "clothes_dryer": {
-      "name": "干衣机"
-    },
-    "electric_fan": {
-      "name": "风扇"
-    },
-    "electric_heater": {
-      "name": "取暖器"
-    },
-    "electric_water_heater": {
-      "name": "电热水器"
-    },
-    "humidifier": {
-      "name": "加湿器"
-    },
-    "laundry_machine": {
-      "name": "晾衣架"
-    },
-    "range_hood": {
-      "name": "油烟机"
-    },
-    "smart_robot_vacuum": {
-      "name": "扫地机器人"
-    },
-    "twin_tub_washing_machine": {
-      "name": "复式洗衣机"
-    },
-    "top_load_washing_machine": {
-      "name": "波轮洗衣机"
-    },
-    "unknown_device": {
-      "name": "未知设备"
     }
   },
   "entity": {
@@ -883,14 +836,14 @@
     "step": {
       "init": {
         "data": {
-          "account": "美的美居账号",
-          "password": "美的美居密码",
-          "refresh_cloud": "刷新云端设备信息"
+          "account": "账号",
+          "password": "密码",
+          "refresh_cloud": "同步云端设备名称等信息"
         },
         "data_description": {
-          "account": "用于获取设备信息，保存后可用于刷新云端数据",
-          "password": "用于获取设备信息，保存后可用于刷新云端数据",
-          "refresh_cloud": "勾选后点击提交，将从云端刷新设备信息并覆盖本地数据"
+          "account": "美的美居账号（一般为手机号）",
+          "password": "美的美居密码",
+          "refresh_cloud": "勾选后点击提交，将从云端同步设备名称等信息至本地"
         },
         "title": "Midea Smart Home 选项"
       }

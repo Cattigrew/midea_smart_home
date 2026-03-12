@@ -40,59 +40,12 @@
       },
       "user": {
         "data": {
-          "account": "Midea Account",
+          "account": "Account",
           "password": "Password"
         },
-        "description": "Enter your Midea account credentials to download device Lua files",
+        "description": "Enter your Midea Meiju account credentials to download necessary resource files",
         "title": "Midea Smart Home Setup"
       }
-    }
-  },
-  "device": {
-    "air_conditioner": {
-      "name": "Air Conditioner"
-    },
-    "air_purifier": {
-      "name": "Air Purifier"
-    },
-    "bath_heater": {
-      "name": "Bath Heater"
-    },
-    "clothes_dryer": {
-      "name": "Clothes Dryer"
-    },
-    "cylinder_washing_machine": {
-      "name": "Cylinder Washing Machine"
-    },
-    "electric_fan": {
-      "name": "Electric Fan"
-    },
-    "electric_heater": {
-      "name": "Electric Heater"
-    },
-    "electric_water_heater": {
-      "name": "Electric Water Heater"
-    },
-    "humidifier": {
-      "name": "Humidifier"
-    },
-    "laundry_machine": {
-      "name": "Laundry Machine"
-    },
-    "range_hood": {
-      "name": "Range Hood"
-    },
-    "smart_robot_vacuum": {
-      "name": "Smart Robot Vacuum"
-    },
-    "top_load_washing_machine": {
-      "name": "Top Load Washing Machine"
-    },
-    "twin_tub_washing_machine": {
-      "name": "Twin Tub Washing Machine"
-    },
-    "unknown_device": {
-      "name": "Unknown Device"
     }
   },
   "entity": {
@@ -883,14 +836,14 @@
     "step": {
       "init": {
         "data": {
-          "account": "Midea Account",
-          "password": "Midea Password",
-          "refresh_cloud": "Refresh Cloud Device Info"
+          "account": "Account",
+          "password": "Password",
+          "refresh_cloud": "Sync device names and info from cloud"
         },
         "data_description": {
-          "account": "Used to get device info, save to enable cloud refresh",
-          "password": "Used to get device info, save to enable cloud refresh",
-          "refresh_cloud": "Check and submit to refresh device info from cloud"
+          "account": "Midea Meiju account (usually phone number)",
+          "password": "Midea Meiju password",
+          "refresh_cloud": "Check and submit to sync device names and info from cloud to local"
         },
         "title": "Midea Smart Home Options"
       }
