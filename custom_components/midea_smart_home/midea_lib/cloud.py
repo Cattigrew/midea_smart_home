@@ -540,6 +540,12 @@ async def download_lua_file(hass, access_token: str, sn: str, device_type: int, 
                                     ''
                                 )
                                 
+                                # Fix tonumber error when db_error_code is nil
+                                modified = modified.replace(
+                                    'if (tonumber(tb["db_error_code"], 16) ~= 0)',
+                                    'if (tb["db_error_code"] and tonumber(tb["db_error_code"], 16) ~= 0)'
+                                )
+                                
                                 modified = modified.replace("\r\n", "\n")
                                 return True, modified
                             else:
