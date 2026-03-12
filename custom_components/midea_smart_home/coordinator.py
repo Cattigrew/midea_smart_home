@@ -64,14 +64,9 @@ class MideaCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     ) -> StatusDict:
         """Send control command to the device."""
         if isinstance(attr, dict):
-            controls = attr
+            await self.hass.async_add_executor_job(self.device.set_attributes, attr)
         else:
-            controls = {attr: value}
-
-        # Use asyncio.to_thread to run the blocking socket operation in a separate thread
-        # MideaDevice.set_attribute handles the logic and sending
-        for k, v in controls.items():
-            await self.hass.async_add_executor_job(self.device.set_attribute, k, v)
+            await self.hass.async_add_executor_job(self.device.set_attribute, attr, value)
             
         return self.device.data
 

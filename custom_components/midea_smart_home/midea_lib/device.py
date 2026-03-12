@@ -524,7 +524,27 @@ class MideaDevice:
         self._controller.send_control(control, current_status=self._data)
         
         # Trigger update to reflect optimistic state
-        self._on_device_update(control) 
+        self._on_device_update(control)
+
+    def set_attributes(self, controls: dict):
+        """Set multiple device attributes as a single command."""
+        _LOGGER.debug("Setting attributes: %s", controls)
+        
+        control = controls.copy()
+        
+        # Handle special logic preparation
+        control = self._logic_handler.prepare_control_data(control)
+        
+        # Update local state optimistically
+        now = time.time()
+        for k, v in control.items():
+            self._recent_controls[k] = (v, now)
+		
+        # Send control
+        self._controller.send_control(control, current_status=self._data)
+        
+        # Trigger update to reflect optimistic state
+        self._on_device_update(control)
 
     def refresh_status(self):
         self._controller.refresh_status()
