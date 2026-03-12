@@ -239,6 +239,13 @@
           "off": "熄灭"
         }
       },
+      "cold_water_conservation": {
+        "name": "零冷水预热时间设置",
+        "state": {
+          "off": "保温零冷水",
+          "on": "节能零冷水"
+        }
+      },
       "db_dehydration_speed": {
         "name": "脱水转速",
         "state": {
@@ -638,6 +645,15 @@
       "air_dry_left_time": {
         "name": "风干剩余时间"
       },
+      "out_water_tem": {
+        "name": "出水温度"
+      },
+      "return_water_tem": {
+        "name": "回水温度"
+      },
+      "in_water_tem": {
+        "name": "进水温度"
+      },
       "appointment_time": {
         "name": "预约时间"
       },
@@ -721,6 +737,9 @@
       },
       "tank_status": {
         "name": "水箱状态"
+      },
+      "temp_set": {
+        "name": "目标温度"
       },
       "total_elec_value": {
         "name": "总耗电量"
@@ -811,6 +830,15 @@
       "power": {
         "name": "电源"
       },
+      "cold_water_master": {
+        "name": "单次零冷水"
+      },
+      "cold_water_dot": {
+        "name": "点动零冷水"
+      },
+      "cold_water_pressure": {
+        "name": "双增压"
+      },
       "prevent_straight_wind": {
         "name": "防直吹"
       },
@@ -874,13 +902,9 @@
     "water_heater": {
       "water_heater": {
         "name": "温控器(生活热水)",
-        "state_attributes": {
-          "operation_mode": {
-            "state": {
-              "heat": "加热",
-              "off": "关闭"
-            }
-          }
+        "state": {
+          "heat": "加热",
+          "off": "关闭"
         }
       }
     }

@@ -239,6 +239,13 @@
           "off": "Off"
         }
       },
+      "cold_water_conservation": {
+        "name": "Zero Cold Water Preheat",
+        "state": {
+          "off": "Keep Warm Zero Cold Water",
+          "on": "Energy Saving Zero Cold Water"
+        }
+      },
       "db_dehydration_speed": {
         "name": "Dehydration Speed",
         "state": {
@@ -638,6 +645,15 @@
       "air_dry_left_time": {
         "name": "Air Dry Remaining Time"
       },
+      "out_water_tem": {
+        "name": "Outlet Water Temperature"
+      },
+      "return_water_tem": {
+        "name": "Return Water Temperature"
+      },
+      "in_water_tem": {
+        "name": "Inlet Water Temperature"
+      },
       "appointment_time": {
         "name": "Appointment Time"
       },
@@ -721,6 +737,9 @@
       },
       "tank_status": {
         "name": "Tank Status"
+      },
+      "temp_set": {
+        "name": "Target Temperature"
       },
       "total_elec_value": {
         "name": "Total Energy Consumption"
@@ -811,6 +830,15 @@
       "power": {
         "name": "Power"
       },
+      "cold_water_master": {
+        "name": "Single Zero Cold Water"
+      },
+      "cold_water_dot": {
+        "name": "Jog Zero Cold Water"
+      },
+      "cold_water_pressure": {
+        "name": "Dual Boost"
+      },
       "prevent_straight_wind": {
         "name": "Prevent Direct Wind"
       },
@@ -874,13 +902,9 @@
     "water_heater": {
       "water_heater": {
         "name": "Thermostat (Hot Water)",
-        "state_attributes": {
-          "operation_mode": {
-            "state": {
-              "heat": "Heat",
-              "off": "Off"
-            }
-          }
+        "state": {
+          "heat": "Heat",
+          "off": "Off"
         }
       }
     }
