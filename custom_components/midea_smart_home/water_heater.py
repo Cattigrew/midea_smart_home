@@ -73,14 +73,15 @@ class MideaWaterHeaterEntity(MideaBaseEntity, WaterHeaterEntity):
         self._attr_translation_key = config.get("translation_key", entity_key)
         self._attr_temperature_unit = self._config.get("temperature_unit", UnitOfTemperature.CELSIUS)
         self._attr_precision = self._config.get("precision", 1.0)
+        self._attr_target_temperature_step = self._config.get("precision", 1.0)
         self._attr_min_temp = float(self._key_min_temp)
         self._attr_max_temp = float(self._key_max_temp)
 
     @property
     def supported_features(self):
         features = WaterHeaterEntityFeature(0)
-        features |= WaterHeaterEntityFeature.TURN_ON
-        features |= WaterHeaterEntityFeature.TURN_OFF
+        if hasattr(WaterHeaterEntityFeature, 'ON_OFF'):
+            features |= WaterHeaterEntityFeature.ON_OFF
         if self._key_target_temperature is not None:
             features |= WaterHeaterEntityFeature.TARGET_TEMPERATURE
         if self._key_operation_list is not None:
