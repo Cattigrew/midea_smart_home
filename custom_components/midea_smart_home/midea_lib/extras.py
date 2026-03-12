@@ -31,8 +31,10 @@ class DeviceLogicHandler:
             if "running_status" in data:
                 self.adjust_control_status(data, data["running_status"])
 
-    def prepare_control_data(self, control: dict) -> dict:
+    def prepare_control_data(self, control: dict, current_data: dict = None) -> dict:
         """Prepare control data with device-specific requirements."""
         if self.device_type == 0xD9:
             control["bucket"] = "db"
+            if "db_location" not in control and current_data and "db_location" in current_data:
+                control["db_location"] = current_data["db_location"]
         return control

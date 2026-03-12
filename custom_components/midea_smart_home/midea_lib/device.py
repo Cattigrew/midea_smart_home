@@ -513,7 +513,7 @@ class MideaDevice:
                     control[key] = self._data[key]
                     
         # Handle special logic preparation
-        control = self._logic_handler.prepare_control_data(control)
+        control = self._logic_handler.prepare_control_data(control, self._data)
         
         # Update local state optimistically
         now = time.time()
@@ -533,7 +533,7 @@ class MideaDevice:
         control = controls.copy()
         
         # Handle special logic preparation
-        control = self._logic_handler.prepare_control_data(control)
+        control = self._logic_handler.prepare_control_data(control, self._data)
         
         # Update local state optimistically
         now = time.time()
