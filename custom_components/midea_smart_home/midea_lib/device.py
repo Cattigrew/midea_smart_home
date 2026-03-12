@@ -519,10 +519,7 @@ class MideaDevice:
         now = time.time()
         for k, v in control.items():
             self._recent_controls[k] = (v, now)
-            
-        # Update logic handler state
-        self._logic_handler.update_state_for_control(self._data, control, self._data)
-        
+		     
         # Send control
         self._controller.send_control(control, current_status=self._data)
         

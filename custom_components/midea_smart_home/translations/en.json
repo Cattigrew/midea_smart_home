@@ -300,7 +300,7 @@
           "timer_60": "Timer 60"
         }
       },
-      "db_location_selection": {
+      "db_location": {
         "name": "Bucket Selection",
         "state": {
           "left": "Left Bucket",

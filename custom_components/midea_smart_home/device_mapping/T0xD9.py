@@ -42,10 +42,10 @@ DEVICE_MAPPING = {
                 }
             },
             Platform.SELECT: {
-                "db_location_selection": {
+                "db_location": {
                     "options": {
-                        "left": {"db_location_selection": "left"},
-                        "right": {"db_location_selection": "right"}
+                        "left": {"db_location": 1},
+                        "right": {"db_location": 2}
                     }
                 },
                 "db_program": {
