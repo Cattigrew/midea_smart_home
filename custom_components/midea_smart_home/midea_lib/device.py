@@ -375,13 +375,13 @@ class MideaDevice:
         lua_common_dir: str,
         device_name: str,
         calculate_config: Optional[dict] = None,
-        centralized: Optional[dict] = None,
+        centralized: Optional[list[str]] = None,
         default_values: Optional[dict] = None,
     ):
         self._device_id = device_id
         self._device_type = device_type
         self._default_values = default_values or {}
-        self._centralized = centralized
+        self._centralized = list(centralized) if isinstance(centralized, (list, tuple, set)) else []
         
         # Initialize Logic Handler
         self._logic_handler = DeviceLogicHandler(device_type, device_name)
@@ -496,9 +496,9 @@ class MideaDevice:
         control = {attr: value}
         
         # Handle centralized control
-        if self._centralized and attr in self._centralized:
-            for key in self._centralized[attr]:
-                if key in self._data:
+        if self._centralized:
+            for key in self._centralized:
+                if key in self._data and key != attr:
                     control[key] = self._data[key]
                     
         # Handle special logic preparation
