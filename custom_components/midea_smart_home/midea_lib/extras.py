@@ -1,7 +1,6 @@
 """Midea Smart Home Extra Logic Handler."""
 
 import logging
-import time
 from typing import Any, Optional
 
 _LOGGER = logging.getLogger(__name__)
@@ -37,35 +36,12 @@ class DeviceLogicHandler:
         control_attrs: dict = None
     ) -> None:
         if self.device_type == 0xD9:
-            if is_control and control_attrs:
-                if "db_control_status" in control_attrs:
-                    if control_attrs["db_control_status"] == "start":
-                        data["db_control_status"] = "start"
-                    else:
-                        data["db_control_status"] = "pause"
-            else:
-                current_time = time.time()
-                # Check if db_control_status was recently controlled
-                was_recently_controlled = "db_control_status" in [
-                    attr for attr, (_, timestamp) in recent_controls.items()
-                    if current_time - timestamp < control_timeout
-                ]
-
-                if not was_recently_controlled:
-                    if "db_running_status" in data:
-                        self.adjust_control_status(data, data["db_running_status"])
+            if "db_running_status" in data:
+                self.adjust_control_status(data, data["db_running_status"])
 
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
-            current_time = time.time()
-            # Check if control_status was recently controlled
-            was_recently_controlled = "control_status" in [
-                attr for attr, (_, timestamp) in recent_controls.items()
-                if current_time - timestamp < control_timeout
-            ]
-
-            if not was_recently_controlled:
-                if "running_status" in data:
-                    self.adjust_control_status(data, data["running_status"])
+            if "running_status" in data:
+                self.adjust_control_status(data, data["running_status"])
 
 
     def handle_t0xd9_db_location_selection(self, status: dict, value: str) -> None:

@@ -414,6 +414,7 @@ class MideaDevice:
         self._available = False
         self._recent_controls = {}  # {attr: (value, timestamp)}
         self._control_timeout = 5.0
+        self._control_hold = 5.0 if self._centralized else 1.0
         self._callbacks = []
         
         # Register controller update callback
@@ -469,6 +470,10 @@ class MideaDevice:
             k: v for k, v in self._recent_controls.items() 
             if now - v[1] < self._control_timeout
         }
+
+        for key, (value, timestamp) in self._recent_controls.items():
+            if now - timestamp < self._control_hold and new_data.get(key) != value:
+                new_data[key] = value
         
         # Apply default values
         for key, value in self._default_values.items():
@@ -497,8 +502,14 @@ class MideaDevice:
         
         # Handle centralized control
         if self._centralized:
+            now = time.time()
             for key in self._centralized:
-                if key in self._data and key != attr:
+                if key == attr:
+                    continue
+                recent = self._recent_controls.get(key)
+                if recent and now - recent[1] < self._control_timeout:
+                    control[key] = recent[0]
+                elif key in self._data:
                     control[key] = self._data[key]
                     
         # Handle special logic preparation
@@ -516,7 +527,7 @@ class MideaDevice:
         self._controller.send_control(control, current_status=self._data)
         
         # Trigger update to reflect optimistic state
-        self._on_device_update({}) 
+        self._on_device_update(control) 
 
     def refresh_status(self):
         self._controller.refresh_status()
