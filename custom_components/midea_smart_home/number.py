@@ -98,4 +98,4 @@ class MideaNumberEntity(MideaBaseEntity, NumberEntity):
                     merged_command[key] = val
             await self.coordinator.async_set_control(merged_command)
         else:
-            await self.coordinator.async_set_control(self._entity_key, str(int(value)))
+            await self.coordinator.async_set_control(self._entity_key, int(value))
