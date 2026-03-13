@@ -3,22 +3,22 @@ name: Validate
 on:
   push:
   pull_request:
-  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
-  validate:
-    name: Validate
-    runs-on: "ubuntu-latest"
+  hassfest:
+    name: hassfest
+    runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: actions/checkout@v4
+      - uses: home-assistant/actions/hassfest@master
 
-      - name: HACS validation
-        uses: "hacs/action@main"
+  hacs:
+    name: HACS
+    runs-on: ubuntu-latest
+    steps:
+      - name: HACS Action
+        uses: hacs/action@main
         with:
-          category: "integration"
-          ignore: "brands"
-
-      - name: Hassfest validation
-        uses: "home-assistant/actions/hassfest@master"
+          category: integration
