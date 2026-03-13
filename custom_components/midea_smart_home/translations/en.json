@@ -119,22 +119,6 @@
       }
     },
     "fan": {
-      "fresh_air_fan": {
-        "name": "Fresh Air",
-        "state_attributes": {
-          "preset_mode": {
-            "state": {
-              "heat_exchange": "Heat Exchange",
-              "smooth_in": "Gentle Intake",
-              "rough_in": "Boost Intake",
-              "smooth_out": "Gentle Exhaust",
-              "rough_out": "Boost Exhaust",
-              "auto": "Auto",
-              "innercycle": "Internal Circulation"
-            }
-          }
-        }
-      },
       "fan": {
         "name": "Fan",
         "state_attributes": {
@@ -143,6 +127,22 @@
               "baby": "Baby",
               "normal": "Normal",
               "sleep": "Sleep"
+            }
+          }
+        }
+      },
+      "fresh_air_fan": {
+        "name": "Fresh Air",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "auto": "Auto",
+              "heat_exchange": "Heat Exchange",
+              "innercycle": "Internal Circulation",
+              "rough_in": "Boost Intake",
+              "rough_out": "Boost Exhaust",
+              "smooth_in": "Gentle Intake",
+              "smooth_out": "Gentle Exhaust"
             }
           }
         }
@@ -162,20 +162,11 @@
       "bath_temperature": {
         "name": "Bath Temperature"
       },
-      "quantify_21": {
-        "name": "Small Amount Water Volume"
-      },
-      "quantify_22": {
-        "name": "Normal Amount Water Volume"
-      },
-      "quantify_23": {
-        "name": "Large Amount Water Volume"
+      "custom_height": {
+        "name": "Laundry Height"
       },
       "custom_temperature_1": {
         "name": "Custom Temperature"
-      },
-      "custom_height": {
-        "name": "Laundry Height"
       },
       "custom_timing": {
         "name": "Light Off Timer"
@@ -204,6 +195,15 @@
       "night_light_brightness": {
         "name": "Night Light Brightness"
       },
+      "quantify_21": {
+        "name": "Small Amount Water Volume"
+      },
+      "quantify_22": {
+        "name": "Normal Amount Water Volume"
+      },
+      "quantify_23": {
+        "name": "Large Amount Water Volume"
+      },
       "radar_induction_closing_time": {
         "name": "Night Light Delay Off Time"
       },
@@ -213,11 +213,11 @@
       "rinse_level": {
         "name": "Rinse Level"
       },
-      "softener": {
-        "name": "Softener"
-      },
       "soak_time": {
         "name": "Soak Time"
+      },
+      "softener": {
+        "name": "Softener"
       },
       "temperature": {
         "name": "Set Temperature"
@@ -231,6 +231,9 @@
       "wash_time": {
         "name": "Wash Time"
       },
+      "weight": {
+        "name": "Weight"
+      },
       "work_hour": {
         "name": "Set Hour"
       },
@@ -239,124 +242,9 @@
       },
       "work_second": {
         "name": "Set Second"
-      },
-      "weight": {
-        "name": "Weight"
       }
     },
     "select": {
-      "no_obsolete_water": {
-        "name": "Water Mode",
-        "state": {
-          "water_saving": "Water Saving Priority",
-          "water_quality": "Water Quality Priority"
-        }
-      },
-      "cur_quantify": {
-        "name": "Quantitative Water",
-        "state": {
-          "off_quantify": "Off",
-          "small_amount": "Small Amount",
-          "normal_amount": "Normal Amount",
-          "large_amount": "Large Amount"
-        }
-      },
-      "first_custom_out_water_ml_0": {
-        "name": "Custom Water Volume 1",
-        "state": {
-          "none": "None",
-          "500": "500mL",
-          "600": "600mL",
-          "700": "700mL",
-          "800": "800mL",
-          "900": "900mL",
-          "1000": "1000mL",
-          "1250": "1250mL",
-          "1500": "1500mL",
-          "1750": "1750mL",
-          "2000": "2000mL",
-          "2250": "2250mL",
-          "2500": "2500mL",
-          "3000": "3000mL",
-          "3500": "3500mL",
-          "4000": "4000mL",
-          "4500": "4500mL",
-          "5000": "5000mL"
-        }
-      },
-      "first_custom_out_water_ml_1": {
-        "name": "Custom Water Volume 2",
-        "state": {
-          "none": "None",
-          "500": "500mL",
-          "600": "600mL",
-          "700": "700mL",
-          "800": "800mL",
-          "900": "900mL",
-          "1000": "1000mL",
-          "1250": "1250mL",
-          "1500": "1500mL",
-          "1750": "1750mL",
-          "2000": "2000mL",
-          "2250": "2250mL",
-          "2500": "2500mL",
-          "3000": "3000mL",
-          "3500": "3500mL",
-          "4000": "4000mL",
-          "4500": "4500mL",
-          "5000": "5000mL"
-        }
-      },
-      "heat_start": {
-        "name": "Heating",
-        "state": {
-          "start": "Start",
-          "stop": "Stop"
-        }
-      },
-      "quantify_1": {
-        "name": "Small Amount Water Volume",
-        "state": {
-          "50": "50mL",
-          "100": "100mL",
-          "150": "150mL",
-          "200": "200mL",
-          "250": "250mL",
-          "300": "300mL"
-        }
-      },
-      "quantify_2": {
-        "name": "Normal Amount Water Volume",
-        "state": {
-          "150": "150mL",
-          "200": "200mL",
-          "250": "250mL",
-          "300": "300mL",
-          "400": "400mL",
-          "500": "500mL"
-        }
-      },
-      "quantify_3": {
-        "name": "Large Amount Water Volume",
-        "state": {
-          "300": "300mL",
-          "400": "400mL",
-          "500": "500mL",
-          "600": "600mL",
-          "700": "700mL"
-        }
-      },
-      "screenout_time": {
-        "name": "Screen Timeout",
-        "state": {
-          "10": "10s",
-          "30": "30s",
-          "60": "1min",
-          "120": "2min",
-          "180": "3min",
-          "300": "5min"
-        }
-      },
       "aidry": {
         "name": "AI Dry",
         "state": {
@@ -384,6 +272,15 @@
         "state": {
           "off": "Keep Warm Zero Cold Water",
           "on": "Energy Saving Zero Cold Water"
+        }
+      },
+      "cur_quantify": {
+        "name": "Quantitative Water",
+        "state": {
+          "large_amount": "Large Amount",
+          "normal_amount": "Normal Amount",
+          "off_quantify": "Off",
+          "small_amount": "Small Amount"
         }
       },
       "db_dehydration_speed": {
@@ -490,19 +387,58 @@
       "fire_power": {
         "name": "Microwave Power",
         "state": {
-          "100": "100%",
-          "80": "80%",
-          "50": "50%",
-          "30": "30%",
           "10": "10%",
+          "100": "100%",
+          "30": "30%",
+          "50": "50%",
+          "80": "80%",
           "none": "None"
         }
       },
-      "pre_heat": {
-        "name": "Preheat",
+      "first_custom_out_water_ml_0": {
+        "name": "Custom Water Volume 1",
         "state": {
-          "off": "Off",
-          "on": "On"
+          "1000": "1000mL",
+          "1250": "1250mL",
+          "1500": "1500mL",
+          "1750": "1750mL",
+          "2000": "2000mL",
+          "2250": "2250mL",
+          "2500": "2500mL",
+          "3000": "3000mL",
+          "3500": "3500mL",
+          "4000": "4000mL",
+          "4500": "4500mL",
+          "500": "500mL",
+          "5000": "5000mL",
+          "600": "600mL",
+          "700": "700mL",
+          "800": "800mL",
+          "900": "900mL",
+          "none": "None"
+        }
+      },
+      "first_custom_out_water_ml_1": {
+        "name": "Custom Water Volume 2",
+        "state": {
+          "1000": "1000mL",
+          "1250": "1250mL",
+          "1500": "1500mL",
+          "1750": "1750mL",
+          "2000": "2000mL",
+          "2250": "2250mL",
+          "2500": "2500mL",
+          "3000": "3000mL",
+          "3500": "3500mL",
+          "4000": "4000mL",
+          "4500": "4500mL",
+          "500": "500mL",
+          "5000": "5000mL",
+          "600": "600mL",
+          "700": "700mL",
+          "800": "800mL",
+          "900": "900mL",
+          "none": "None"
         }
       },
       "follow_body_sense": {
@@ -544,6 +480,13 @@
           "light_toggle": "Light Toggle",
           "power_and_speed": "Power & Speed",
           "power_toggle": "Power Toggle"
+        }
+      },
+      "heat_start": {
+        "name": "Heating",
+        "state": {
+          "start": "Start",
+          "stop": "Stop"
         }
       },
       "humidity_mode": {
@@ -605,6 +548,13 @@
           "ventilation": "Ventilation"
         }
       },
+      "no_obsolete_water": {
+        "name": "Water Mode",
+        "state": {
+          "water_quality": "Water Quality Priority",
+          "water_saving": "Water Saving Priority"
+        }
+      },
       "no_wind_sense": {
         "name": "No Wind Sense",
         "state": {
@@ -612,6 +562,13 @@
           "off": "Off",
           "up_down_no_wind": "Up+Down No Wind",
           "up_no_wind": "Up No Wind"
+        }
+      },
+      "pre_heat": {
+        "name": "Preheat",
+        "state": {
+          "off": "Off",
+          "on": "On"
         }
       },
       "program": {
@@ -662,6 +619,49 @@
           "warm_clothes": "Warm Clothes",
           "winter_wash": "Winter",
           "wool": "Wool"
+        }
+      },
+      "quantify_1": {
+        "name": "Small Amount Water Volume",
+        "state": {
+          "100": "100mL",
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL",
+          "50": "50mL"
+        }
+      },
+      "quantify_2": {
+        "name": "Normal Amount Water Volume",
+        "state": {
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL"
+        }
+      },
+      "quantify_3": {
+        "name": "Large Amount Water Volume",
+        "state": {
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL",
+          "600": "600mL",
+          "700": "700mL"
+        }
+      },
+      "screenout_time": {
+        "name": "Screen Timeout",
+        "state": {
+          "10": "10s",
+          "120": "2min",
+          "180": "3min",
+          "30": "30s",
+          "300": "5min",
+          "60": "1min"
         }
       },
       "soak_count": {
@@ -766,54 +766,24 @@
       "work_mode": {
         "name": "Work Mode",
         "state": {
-          "microwave_1": "Microwave Heating",
-          "double_tube_hot_wind_tube_fan_1": "Air Fry",
-          "steam_double_tube_fan_1": "Low-fat Steam Bake",
           "double_tube_1": "Bake & Grill",
-          "steam_double_tube_1": "Low-cal Steam",
+          "double_tube_hot_wind_tube_fan_1": "Air Fry",
           "fast_unfreeze": "Quick Defrost",
-          "zymosis": "Fermentation",
-          "warm": "Keep Warm",
-          "stop": "Stop",
+          "microwave_1": "Microwave Heating",
+          "none": "None",
           "pause": "Pause",
+          "steam_double_tube_1": "Low-cal Steam",
+          "steam_double_tube_fan_1": "Low-fat Steam Bake",
+          "stop": "Stop",
+          "warm": "Keep Warm",
           "work": "Work",
-          "none": "None"
+          "zymosis": "Fermentation"
         }
       }
     },
     "sensor": {
-      "in_tds": {
-        "name": "Inlet TDS"
-      },
-      "out_tds": {
-        "name": "Outlet TDS"
-      },
-      "life_1": {
-        "name": "Filter 1 Life"
-      },
-      "life_2": {
-        "name": "Filter 2 Life"
-      },
-      "germicidal_left_time": {
-        "name": "Sterilization Remaining Time"
-      },
-      "current_temperature": {
-        "name": "Current Temperature"
-      },
-      "germicidal_countdown": {
-        "name": "Sterilization Countdown"
-      },
       "air_dry_left_time": {
         "name": "Air Dry Remaining Time"
-      },
-      "out_water_tem": {
-        "name": "Outlet Water Temperature"
-      },
-      "return_water_tem": {
-        "name": "Return Water Temperature"
-      },
-      "in_water_tem": {
-        "name": "Inlet Water Temperature"
       },
       "appointment_time": {
         "name": "Appointment Time"
@@ -839,6 +809,9 @@
       "cur_temperature": {
         "name": "Current Temperature"
       },
+      "current_temperature": {
+        "name": "Current Temperature"
+      },
       "deep_filter_percent": {
         "name": "Filter Life Remaining"
       },
@@ -857,8 +830,29 @@
       "fire_power": {
         "name": "Microwave Power"
       },
+      "fresh_filter_time": {
+        "name": "Fresh Air Filter Usage Rate"
+      },
+      "germicidal_countdown": {
+        "name": "Sterilization Countdown"
+      },
+      "germicidal_left_time": {
+        "name": "Sterilization Remaining Time"
+      },
       "hcho": {
         "name": "Formaldehyde Level"
+      },
+      "in_tds": {
+        "name": "Inlet TDS"
+      },
+      "in_water_tem": {
+        "name": "Inlet Water Temperature"
+      },
+      "life_1": {
+        "name": "Filter 1 Life"
+      },
+      "life_2": {
+        "name": "Filter 2 Life"
       },
       "main_light_brightness": {
         "name": "Main Light Brightness"
@@ -866,8 +860,17 @@
       "mode": {
         "name": "Running Mode"
       },
+      "new_wind_humidity": {
+        "name": "Fresh Air Humidity"
+      },
       "night_light_brightness": {
         "name": "Night Light Brightness"
+      },
+      "out_tds": {
+        "name": "Outlet TDS"
+      },
+      "out_water_tem": {
+        "name": "Outlet Water Temperature"
       },
       "pm1": {
         "name": "PM1 Level"
@@ -886,6 +889,9 @@
       },
       "remain_time": {
         "name": "Remaining Time"
+      },
+      "return_water_tem": {
+        "name": "Return Water Temperature"
       },
       "running_status": {
         "name": "Running Status"
@@ -917,41 +923,17 @@
       "wind_pressure": {
         "name": "Wind Pressure"
       },
-      "work_status": {
-        "name": "Work Status"
-      },
       "work_mode": {
         "name": "Work Mode"
       },
+      "work_status": {
+        "name": "Work Status"
+      },
       "work_time": {
         "name": "Work Time"
-      },
-      "fresh_filter_time": {
-        "name": "Fresh Air Filter Usage Rate"
-      },
-      "new_wind_humidity": {
-        "name": "Fresh Air Humidity"
       }
     },
     "switch": {
-      "wash": {
-        "name": "Wash"
-      },
-      "germicidal": {
-        "name": "High Temperature Sterilization"
-      },
-      "drainage": {
-        "name": "One-Key Drainage"
-      },
-      "cool": {
-        "name": "Cooling"
-      },
-      "human_sensing_switch": {
-        "name": "Motion Screen Wake"
-      },
-      "set_germicidal_countdown": {
-        "name": "Sterilization Reminder"
-      },
       "airdry_on_off": {
         "name": "Curtain Air Dry"
       },
@@ -967,14 +949,29 @@
       "buzzer": {
         "name": "Sound"
       },
+      "cold_water_dot": {
+        "name": "Jog Zero Cold Water"
+      },
+      "cold_water_master": {
+        "name": "Single Zero Cold Water"
+      },
+      "cold_water_pressure": {
+        "name": "Dual Boost"
+      },
       "control_status": {
         "name": "Start/Stop"
+      },
+      "cool": {
+        "name": "Cooling"
       },
       "damp_dry_signal": {
         "name": "Damp Dry Signal"
       },
       "display_on_off": {
         "name": "Screen Display"
+      },
+      "drainage": {
+        "name": "One-Key Drainage"
       },
       "dry": {
         "name": "Dry Mode"
@@ -990,6 +987,15 @@
       },
       "frequency_hot": {
         "name": "Inverter Heating"
+      },
+      "fresh_air_remove_odor": {
+        "name": "Fresh Air Remove Odor"
+      },
+      "germicidal": {
+        "name": "High Temperature Sterilization"
+      },
+      "human_sensing_switch": {
+        "name": "Motion Screen Wake"
       },
       "humidification": {
         "name": "Humidification"
@@ -1015,15 +1021,6 @@
       "power": {
         "name": "Power"
       },
-      "cold_water_master": {
-        "name": "Single Zero Cold Water"
-      },
-      "cold_water_dot": {
-        "name": "Jog Zero Cold Water"
-      },
-      "cold_water_pressure": {
-        "name": "Dual Boost"
-      },
       "prevent_straight_wind": {
         "name": "Prevent Direct Wind"
       },
@@ -1045,6 +1042,9 @@
       "remind_sound": {
         "name": "Reminder Sound"
       },
+      "set_germicidal_countdown": {
+        "name": "Sterilization Reminder"
+      },
       "smart_sterilize": {
         "name": "Smart Sterilization"
       },
@@ -1060,6 +1060,9 @@
       "ultraviolet_lamp": {
         "name": "UV Sterilization"
       },
+      "wash": {
+        "name": "Wash"
+      },
       "water_box": {
         "name": "Water Box"
       },
@@ -1068,9 +1071,6 @@
       },
       "wifi_led_enable": {
         "name": "WiFi LED"
-      },
-      "fresh_air_remove_odor": {
-        "name": "Fresh Air Remove Odor"
       }
     },
     "vacuum": {
