@@ -171,6 +171,9 @@
       "quantify_23": {
         "name": "Large Amount Water Volume"
       },
+      "custom_temperature_1": {
+        "name": "Custom Temperature"
+      },
       "custom_height": {
         "name": "Laundry Height"
       },
@@ -309,6 +312,49 @@
         "state": {
           "start": "Start",
           "stop": "Stop"
+        }
+      },
+      "quantify_1": {
+        "name": "Small Amount Water Volume",
+        "state": {
+          "50": "50mL",
+          "100": "100mL",
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL"
+        }
+      },
+      "quantify_2": {
+        "name": "Normal Amount Water Volume",
+        "state": {
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL"
+        }
+      },
+      "quantify_3": {
+        "name": "Large Amount Water Volume",
+        "state": {
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL",
+          "600": "600mL",
+          "700": "700mL"
+        }
+      },
+      "screenout_time": {
+        "name": "Screen Timeout",
+        "state": {
+          "10": "10s",
+          "30": "30s",
+          "60": "1min",
+          "120": "2min",
+          "180": "3min",
+          "300": "5min"
         }
       },
       "aidry": {
@@ -748,6 +794,15 @@
       "life_2": {
         "name": "Filter 2 Life"
       },
+      "germicidal_left_time": {
+        "name": "Sterilization Remaining Time"
+      },
+      "current_temperature": {
+        "name": "Current Temperature"
+      },
+      "germicidal_countdown": {
+        "name": "Sterilization Countdown"
+      },
       "air_dry_left_time": {
         "name": "Air Dry Remaining Time"
       },
@@ -881,6 +936,21 @@
     "switch": {
       "wash": {
         "name": "Wash"
+      },
+      "germicidal": {
+        "name": "High Temperature Sterilization"
+      },
+      "drainage": {
+        "name": "One-Key Drainage"
+      },
+      "cool": {
+        "name": "Cooling"
+      },
+      "human_sensing_switch": {
+        "name": "Motion Screen Wake"
+      },
+      "set_germicidal_countdown": {
+        "name": "Sterilization Reminder"
       },
       "airdry_on_off": {
         "name": "Curtain Air Dry"

@@ -171,6 +171,9 @@
       "quantify_23": {
         "name": "大量用水量"
       },
+      "custom_temperature_1": {
+        "name": "自定义温度"
+      },
       "custom_height": {
         "name": "晾衣高度"
       },
@@ -309,6 +312,49 @@
         "state": {
           "start": "开始",
           "stop": "停止"
+        }
+      },
+      "quantify_1": {
+        "name": "小量用水量",
+        "state": {
+          "50": "50mL",
+          "100": "100mL",
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL"
+        }
+      },
+      "quantify_2": {
+        "name": "普通用水量",
+        "state": {
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL"
+        }
+      },
+      "quantify_3": {
+        "name": "大量用水量",
+        "state": {
+          "300": "300mL",
+          "400": "400mL",
+          "500": "500mL",
+          "600": "600mL",
+          "700": "700mL"
+        }
+      },
+      "screenout_time": {
+        "name": "熄屏时间",
+        "state": {
+          "10": "10秒",
+          "30": "30秒",
+          "60": "1分钟",
+          "120": "2分钟",
+          "180": "3分钟",
+          "300": "5分钟"
         }
       },
       "aidry": {
@@ -748,6 +794,12 @@
       "life_2": {
         "name": "RO滤芯寿命"
       },
+      "germicidal_left_time": {
+        "name": "杀菌剩余时间"
+      },
+      "germicidal_countdown": {
+        "name": "杀菌提醒周期"
+      },
       "air_dry_left_time": {
         "name": "风干剩余时间"
       },
@@ -881,6 +933,21 @@
     "switch": {
       "wash": {
         "name": "滤芯冲洗"
+      },
+      "germicidal": {
+        "name": "高温杀菌"
+      },
+      "drainage": {
+        "name": "一键排水"
+      },
+      "cool": {
+        "name": "制冷"
+      },
+      "human_sensing_switch": {
+        "name": "感应亮屏"
+      },
+      "set_germicidal_countdown": {
+        "name": "高温杀菌提醒"
       },
       "airdry_on_off": {
         "name": "湿帘风干"

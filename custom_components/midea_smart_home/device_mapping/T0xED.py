@@ -1,4 +1,4 @@
-from homeassistant.const import Platform, PERCENTAGE
+from homeassistant.const import Platform, PERCENTAGE, UnitOfTemperature, UnitOfTime
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
@@ -106,6 +106,106 @@ DEVICE_MAPPING = {
                 },
                 "life_2": {
                     "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
+    },
+    "default_pipeline_machine": {
+        "rationale": ["off", "on"],
+        "entities": {
+            Platform.SWITCH: {
+                "germicidal": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "drainage": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "cool": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "lock": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "human_sensing_switch": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "set_germicidal_countdown": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                }
+            },
+            Platform.SELECT: {
+                "cur_quantify": {
+                    "options": {
+                        "off_quantify": {"cur_quantify": 0},
+                        "small_amount": {"cur_quantify": 1},
+                        "normal_amount": {"cur_quantify": 2},
+                        "large_amount": {"cur_quantify": 3},
+                    }
+                },
+                "quantify_1": {
+                    "options": {
+                        "50": {"quantify_1": 5},
+                        "100": {"quantify_1": 10},
+                        "150": {"quantify_1": 15},
+                        "200": {"quantify_1": 20},
+                        "250": {"quantify_1": 25},
+                        "300": {"quantify_1": 30}
+                    }
+                },
+                "quantify_2": {
+                    "options": {
+                        "150": {"quantify_2": 15},
+                        "200": {"quantify_2": 20},
+                        "250": {"quantify_2": 25},
+                        "300": {"quantify_2": 30},
+                        "400": {"quantify_2": 40},
+                        "500": {"quantify_2": 50}
+                    }
+                },
+                "quantify_3": {
+                    "options": {
+                        "300": {"quantify_3": 30},
+                        "400": {"quantify_3": 40},
+                        "500": {"quantify_3": 50},
+                        "600": {"quantify_3": 60},
+                        "700": {"quantify_3": 70}
+                    }
+                },
+                "screenout_time": {
+                    "options": {
+                        "10": {"screenout_time": 10},
+                        "30": {"screenout_time": 30},
+                        "60": {"screenout_time": 60},
+                        "120": {"screenout_time": 120},
+                        "180": {"screenout_time": 180},
+                        "300": {"screenout_time": 300}
+                    }
+                }
+            },
+            Platform.NUMBER: {
+                "custom_temperature_1": {
+                    "min": 35,
+                    "max": 95,
+                    "step": 5,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS
+                }
+            },
+            Platform.SENSOR: {
+                "germicidal_left_time": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.MINUTES,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "current_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
+                },
+                "germicidal_countdown": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.DAYS,
                     "state_class": SensorStateClass.MEASUREMENT
                 }
             }

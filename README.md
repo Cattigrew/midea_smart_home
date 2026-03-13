@@ -74,7 +74,7 @@ Home Assistant custom integration for Midea smart devices via local network.
 | 10 | 0xDC | Clothes Dryer |
 | 11 | 0xE2 | Electric Water Heater |
 | 12 | 0xE3 | Gas Water Heater |
-| 13 | 0xED | Water Purifier |
+| 13 | 0xED | Water Purifier / Pipeline Machine |
 | 14 | 0xFA | Electric Fan |
 | 15 | 0xFB | Electric Heater |
 | 16 | 0xFC | Air Purifier |
