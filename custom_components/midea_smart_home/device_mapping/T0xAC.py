@@ -132,10 +132,6 @@ DEVICE_MAPPING = {
     },
     "24296529": {
         "rationale": ["off", "on"],
-        "queries": [{}, {"query_type": "run_status"}, {"query_type": "fresh_air_mode"}, {"query_type": "wind_strength"},
-                    {"query_type": "fresh_filter_time"}, {"query_type": "indoor_temperature"}, {"query_type": "new_wind_humidity"}],
-        "centralized": [],
-        "calculate":{},
         "entities": {
             Platform.FAN: {
                 "fan": {

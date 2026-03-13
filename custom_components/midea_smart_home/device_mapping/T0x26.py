@@ -6,7 +6,6 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
-        "centralized": [],
         "entities": {
             Platform.NUMBER: {
                 "bath_temperature": {

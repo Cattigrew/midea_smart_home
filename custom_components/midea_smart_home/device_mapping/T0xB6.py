@@ -6,7 +6,6 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "centralized": ["lightness"],
-        "response": ["on"],
         "calculate": {
             "get": [
                 {
