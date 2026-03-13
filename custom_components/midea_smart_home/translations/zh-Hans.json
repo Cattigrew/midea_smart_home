@@ -119,6 +119,22 @@
       }
     },
     "fan": {
+      "fresh_air_fan": {
+        "name": "新风",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "heat_exchange": "热交换",
+              "smooth_in": "舒缓进风",
+              "rough_in": "快速进风",
+              "smooth_out": "舒缓排风",
+              "rough_out": "快速排风",
+              "auto": "自动",
+              "innercycle": "内循环"
+            }
+          }
+        }
+      },
       "fan": {
         "name": "风扇",
         "state_attributes": {
@@ -764,6 +780,12 @@
       },
       "work_time": {
         "name": "工作时间"
+      },
+      "fresh_filter_time": {
+        "name": "新风滤网使用率"
+      },
+      "new_wind_humidity": {
+        "name": "新风湿度"
       }
     },
     "switch": {
@@ -883,6 +905,9 @@
       },
       "wifi_led_enable": {
         "name": "WiFi指示灯"
+      },
+      "fresh_air_remove_odor": {
+        "name": "新风除菌"
       }
     },
     "vacuum": {
