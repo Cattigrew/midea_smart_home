@@ -231,6 +231,15 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             if "speeds" in mode_config and len(mode_config["speeds"]) >= 1:
                 new_status.update(mode_config["speeds"][0])
 
+            if "fresh_air_mode" in mode_config:
+                new_status["fresh_air_mode"] = mode_config["fresh_air_mode"]
+
+            if "exhaust_strength" in mode_config:
+                new_status["exhaust_strength"] = mode_config["exhaust_strength"]
+
+            if "wind_strength" in mode_config:
+                new_status["wind_strength"] = mode_config["wind_strength"]
+
             await self.coordinator.async_set_controls(new_status)
 
     async def async_oscillate(self, oscillating: bool):

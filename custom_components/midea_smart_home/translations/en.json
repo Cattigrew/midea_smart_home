@@ -119,6 +119,22 @@
       }
     },
     "fan": {
+      "fresh_air_fan": {
+        "name": "Fresh Air",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "heat_exchange": "Heat Exchange",
+              "smooth_in": "Gentle Intake",
+              "rough_in": "Boost Intake",
+              "smooth_out": "Gentle Exhaust",
+              "rough_out": "Boost Exhaust",
+              "auto": "Auto",
+              "innercycle": "Internal Circulation"
+            }
+          }
+        }
+      },
       "fan": {
         "name": "Fan",
         "state_attributes": {
@@ -764,6 +780,12 @@
       },
       "work_time": {
         "name": "Work Time"
+      },
+      "fresh_filter_time": {
+        "name": "Fresh Air Filter Usage Rate"
+      },
+      "new_wind_humidity": {
+        "name": "Fresh Air Humidity"
       }
     },
     "switch": {
@@ -883,6 +905,9 @@
       },
       "wifi_led_enable": {
         "name": "WiFi LED"
+      },
+      "fresh_air_remove_odor": {
+        "name": "Fresh Air Remove Odor"
       }
     },
     "vacuum": {

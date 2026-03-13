@@ -130,7 +130,9 @@
             "wind_pressure": { "default": "mdi:weather-windy" },
             "work_mode": { "default": "mdi:tune" },
             "work_status": { "default": "mdi:play-circle-outline" },
-            "work_time": { "default": "mdi:clock-outline" }
+            "work_time": { "default": "mdi:clock-outline" },
+            "fresh_filter_time": { "default": "mdi:air-filter" },
+            "new_wind_humidity": { "default": "mdi:water-percent" }
         },
         "switch": {
             "airdry_on_off": { "default": "mdi:wind-turbine" },
@@ -168,7 +170,8 @@
             "ultraviolet_lamp": { "default": "mdi:lightbulb-uv" },
             "water_box": { "default": "mdi:water" },
             "waterions": { "default": "mdi:water-check" },
-            "wifi_led_enable": { "default": "mdi:wifi" }
+            "wifi_led_enable": { "default": "mdi:wifi" },
+            "fresh_air_remove_odor": { "default": "mdi:air-purifier" }
         },
         "vacuum": {
             "vacuum": { "default": "mdi:robot-vacuum" }
