@@ -809,9 +809,6 @@
       "cur_temperature": {
         "name": "Current Temperature"
       },
-      "current_temperature": {
-        "name": "Current Temperature"
-      },
       "deep_filter_percent": {
         "name": "Filter Life Remaining"
       },
