@@ -4,7 +4,7 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_clothes_dryer": {
         "rationale": ["off", "on"],
         "entities": {
             Platform.SWITCH: {

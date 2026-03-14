@@ -4,8 +4,11 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_compound_washer": {
         "rationale": ["off", "on"],
+        "initial_query": [
+            {"db"}
+        ],
         "entities": {
             Platform.BINARY_SENSOR: {
                 "db_door_opened": {

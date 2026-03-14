@@ -3,7 +3,7 @@ from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_robot_cleaner": {
         "rationale": ["off", "on"],
         "entities": {
             Platform.VACUUM: {

@@ -2,7 +2,7 @@ from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import Platform, PERCENTAGE, UnitOfTime
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_laundry_rack": {
         "rationale": ["off", "on"],
         "entities": {
             Platform.SELECT:{

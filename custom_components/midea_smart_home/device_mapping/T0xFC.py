@@ -3,7 +3,7 @@ from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_air_purifier": {
         "rationale": ["off", "on"],
         "entities": {
             Platform.NUMBER: {

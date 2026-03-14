@@ -3,8 +3,16 @@ from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_wall_air_conditioner": {
         "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"no_wind_sense"},
+            {"prevent_straight_wind"},
+            {"prevent_super_cool"},
+            {"wind_swing_lr_angle"},
+            {"wind_swing_ud_angle"}
+        ],
         "centralized": ["buzzer"],
         "calculate":{
             "get": [
@@ -130,80 +138,13 @@ DEVICE_MAPPING = {
             }
         }
     },
-    "24296529": {
+    "default_central_air_conditioner": {
         "rationale": ["off", "on"],
-        "entities": {
-            Platform.FAN: {
-                "fan": {
-                    "translation_key": "fresh_air_fan",
-                    "power": "new_wind_machine",
-                    "speeds": list({"fresh_air_fan_speed": value + 1} for value in range(0, 100)),
-                    "preset_modes": {
-                        "heat_exchange": {
-                            "fresh_air_mode": 1,
-                            "exhaust_strength": 0,
-                            "wind_strength": 0
-                        },
-                        "smooth_in": {
-                            "fresh_air_mode": 2,
-                            "exhaust_strength": 0,
-                            "wind_strength": 0
-                        },
-                        "rough_in": {
-                            "fresh_air_mode": 2,
-                            "exhaust_strength": 0,
-                            "wind_strength": 1
-                        },
-                        "smooth_out": {
-                            "fresh_air_mode": 3,
-                            "exhaust_strength": 0,
-                            "wind_strength": 0
-                        },
-                        "rough_out": {
-                            "fresh_air_mode": 3,
-                            "exhaust_strength": 1,
-                            "wind_strength": 0
-                        },
-                        "auto": {
-                            "fresh_air_mode": 4,
-                            "exhaust_strength": 0,
-                            "wind_strength": 0
-                        },
-                        "innercycle": {
-                            "fresh_air_mode": 5,
-                            "exhaust_strength": 0,
-                            "wind_strength": 0
-                        },
-                    }
-                }
-            },
-            Platform.SWITCH: {
-                "fresh_air_remove_odor": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "rationale": [0, 1],
-                }
-            },
-            Platform.SENSOR: {
-                "fresh_filter_time": {
-                    "native_unit_of_measurement": PERCENTAGE,
-                    "state_class": SensorStateClass.MEASUREMENT
-                },
-                "indoor_temperature": {
-                    "device_class": SensorDeviceClass.TEMPERATURE,
-                    "native_unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
-                },
-                "new_wind_humidity": {
-                    "device_class": SensorDeviceClass.HUMIDITY,
-                    "native_unit_of_measurement": PERCENTAGE,
-                    "state_class": SensorStateClass.MEASUREMENT
-                }
-            }
-        }
-    },
-    "23096653": {
-        "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"indoor_temperature"},
+            {"run_status"}
+        ],
         "calculate": {
             "get": [
                 {
@@ -289,8 +230,97 @@ DEVICE_MAPPING = {
             }
         }
     },
+    "central_fresh_air": {
+        "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"fresh_air_mode"},
+            {"fresh_filter_time"},
+            {"indoor_temperature"},
+            {"new_wind_humidity"},
+            {"run_status"},
+            {"wind_strength"}
+        ],
+        "centralized": ["buzzer"],
+        "entities": {
+            Platform.FAN: {
+                "fan": {
+                    "translation_key": "fresh_air_fan",
+                    "power": "new_wind_machine",
+                    "speeds": list({"fresh_air_fan_speed": value + 1} for value in range(0, 100)),
+                    "preset_modes": {
+                        "heat_exchange": {
+                            "fresh_air_mode": 1,
+                            "exhaust_strength": 0,
+                            "wind_strength": 0
+                        },
+                        "smooth_in": {
+                            "fresh_air_mode": 2,
+                            "exhaust_strength": 0,
+                            "wind_strength": 0
+                        },
+                        "rough_in": {
+                            "fresh_air_mode": 2,
+                            "exhaust_strength": 0,
+                            "wind_strength": 1
+                        },
+                        "smooth_out": {
+                            "fresh_air_mode": 3,
+                            "exhaust_strength": 0,
+                            "wind_strength": 0
+                        },
+                        "rough_out": {
+                            "fresh_air_mode": 3,
+                            "exhaust_strength": 1,
+                            "wind_strength": 0
+                        },
+                        "auto": {
+                            "fresh_air_mode": 4,
+                            "exhaust_strength": 0,
+                            "wind_strength": 0
+                        },
+                        "innercycle": {
+                            "fresh_air_mode": 5,
+                            "exhaust_strength": 0,
+                            "wind_strength": 0
+                        },
+                    }
+                }
+            },
+            Platform.SWITCH: {
+                "fresh_air_remove_odor": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": [0, 1],
+                }
+            },
+            Platform.SENSOR: {
+                "fresh_filter_time": {
+                    "native_unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "indoor_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "native_unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
+                },
+                "new_wind_humidity": {
+                    "device_class": SensorDeviceClass.HUMIDITY,
+                    "native_unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
+    },
     ("22040055", "22040023", "22040053"): {
         "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"prevent_straight_wind"},
+            {"prevent_super_cool"},
+            {"wind_swing_lr_angle"},
+            {"wind_swing_ud_angle"}
+        ],
         "centralized": ["buzzer"],
         "calculate":{
             "get": [
@@ -410,6 +440,10 @@ DEVICE_MAPPING = {
     },
     "23096245": {
         "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"indoor_temperature"}
+        ],
         "entities": {
             Platform.CLIMATE: {
                 "air_conditioner": {

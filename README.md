@@ -64,7 +64,7 @@ Home Assistant custom integration for Midea smart devices via local network.
 |-----|------|-------------|
 | 1 | 0x17 | Laundry Machine |
 | 2 | 0x26 | Bath Heater |
-| 3 | 0xAC | Air Conditioner |
+| 3 | 0xAC | Air Conditioner / Central Air Conditioner / Central Fresh Air |
 | 4 | 0xB0 | Microwave Oven |
 | 5 | 0xB6 | Range Hood |
 | 6 | 0xB8 | Smart Robot Vacuum |

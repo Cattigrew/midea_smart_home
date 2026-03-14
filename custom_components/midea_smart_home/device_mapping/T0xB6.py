@@ -3,7 +3,7 @@ from homeassistant.const import Platform, UnitOfPressure, UnitOfTime, UnitOfElec
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default": {
+    "default_range_hood": {
         "rationale": ["off", "on"],
         "centralized": ["lightness"],
         "calculate": {
