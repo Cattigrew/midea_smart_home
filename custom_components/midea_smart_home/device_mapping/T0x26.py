@@ -85,7 +85,7 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
-                    "translaion_key": "cur_temperature"
+                    "translation_key": "cur_temperature"
                 }
             }
         }
