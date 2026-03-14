@@ -32,6 +32,14 @@
         "title": "设备认证 {progress}"
       },
       "select_device": {
+        "menu_options": {
+          "select_device_continue": "✅ 前往添加设备",
+          "select_device_rescan": "🔄 重新扫描（尝试搜索更多设备）"
+        },
+        "description": "已发现 {device_count} 台设备，请选择操作：",
+        "title": "选择设备"
+      },
+      "select_device_continue": {
         "data": {
           "devices": "设备"
         },
@@ -41,7 +49,11 @@
       "user": {
         "data": {
           "account": "账号",
-          "password": "密码"
+          "password": "密码",
+          "scan_address": "扫描地址"
+        },
+        "data_description": {
+          "scan_address": "[1] 输入路由器地址（如 192.168.1.1）扫描整个网段\n[2] 输入设备 IP 扫描指定设备\n[3] 输入「auto」自动检测（默认）"
         },
         "description": "输入美的美居账号密码，下载必要的资源文件",
         "title": "Midea Smart Home 设置"

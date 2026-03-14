@@ -32,6 +32,14 @@
         "title": "Device Authentication {progress}"
       },
       "select_device": {
+        "menu_options": {
+          "select_device_continue": "✅ Continue with selected devices",
+          "select_device_rescan": "🔄 Rescan for devices"
+        },
+        "description": "Found {device_count} devices. Select an action:",
+        "title": "Select Devices"
+      },
+      "select_device_continue": {
         "data": {
           "devices": "Devices"
         },
@@ -41,7 +49,11 @@
       "user": {
         "data": {
           "account": "Account",
-          "password": "Password"
+          "password": "Password",
+          "scan_address": "Scan Address"
+        },
+        "data_description": {
+          "scan_address": "Enter router address (e.g., 192.168.1.1) to scan entire subnet, device IP to scan specific device, or 'auto' for automatic detection"
         },
         "description": "Enter your Midea Meiju account credentials to download necessary resource files",
         "title": "Midea Smart Home Setup"

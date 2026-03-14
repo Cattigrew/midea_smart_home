@@ -49,6 +49,7 @@ _LOGGER = logging.getLogger(__name__)
 STEP_USER_DATA_SCHEMA = vol.Schema({
     vol.Required(CONF_ACCOUNT): str,
     vol.Required(CONF_PASSWORD): str,
+    vol.Optional("scan_address", default="auto"): str,
 })
 
 def get_lua_storage_path(hass_config_dir: str) -> Path:
@@ -81,6 +82,7 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self._devices_data: list = []
         self._account: str = None
         self._password: str = None
+        self._scan_address: str = "auto"
         self._session: ClientSession = None
         self._preset_cloud = None
         self._user_cloud = None
@@ -100,6 +102,7 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             self._account = user_input.get(CONF_ACCOUNT)
             self._password = user_input.get(CONF_PASSWORD)
+            self._scan_address = user_input.get("scan_address", "auto")
 
             existing_entries = self.hass.config_entries.async_entries(DOMAIN)
             for entry in existing_entries:
@@ -123,7 +126,7 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
         self._discovered_devices = await self.hass.async_add_executor_job(
-            discover_devices, DISCOVERY_TIMEOUT
+            discover_devices, DISCOVERY_TIMEOUT, self._scan_address
         )
 
         if not self._discovered_devices:
@@ -133,47 +136,53 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 description_placeholders={"note": "No devices found in LAN"},
             )
 
-        self._session = ClientSession()
+        if self._session is None:
+            self._session = ClientSession()
 
-        try:
-            from .midea_lib.cloud import get_midea_cloud, get_preset_account_cloud
+            try:
+                from .midea_lib.cloud import get_midea_cloud, get_preset_account_cloud
 
-            preset = get_preset_account_cloud()
-            self._preset_cloud = get_midea_cloud(
-                cloud_name=preset["cloud_name"],
-                session=self._session,
-                account=preset["username"],
-                password=preset["password"],
-            )
+                preset = get_preset_account_cloud()
+                self._preset_cloud = get_midea_cloud(
+                    cloud_name=preset["cloud_name"],
+                    session=self._session,
+                    account=preset["username"],
+                    password=preset["password"],
+                )
 
-            if not await self._preset_cloud.login():
-                _LOGGER.warning("Preset cloud login failed")
+                if not await self._preset_cloud.login():
+                    _LOGGER.warning("Preset cloud login failed")
 
-            self._user_cloud = get_midea_cloud(
-                cloud_name="Meiju Cloud",
-                session=self._session,
-                account=self._account,
-                password=self._password,
-            )
+                self._user_cloud = get_midea_cloud(
+                    cloud_name="Meiju Cloud",
+                    session=self._session,
+                    account=self._account,
+                    password=self._password,
+                )
 
-            if not await self._user_cloud.login():
-                _LOGGER.warning("User account login failed")
+                if not await self._user_cloud.login():
+                    _LOGGER.warning("User account login failed")
+                    await self._cleanup_session()
+                    return self.async_abort(reason="auth_failed")
+
+                _LOGGER.info("Cloud login success")
+
+                self._cloud_devices = await self._user_cloud.list_appliances(home_id=None) or {}
+                _LOGGER.info("Cloud devices list: %s", self._cloud_devices)
+
+                lua_common_dir = get_lua_common_path(self.hass.config.config_dir)
+                await self._download_common_lua_files(lua_common_dir)
+
+            except (json.JSONDecodeError, OSError) as err:
+                _LOGGER.error("Failed to login to cloud: %s", err)
                 await self._cleanup_session()
                 return self.async_abort(reason="auth_failed")
 
-            _LOGGER.info("Cloud login success")
+        return await self.async_step_select_device()
 
-            self._cloud_devices = await self._user_cloud.list_appliances(home_id=None) or {}
-            _LOGGER.info("Cloud devices list: %s", self._cloud_devices)
-
-            lua_common_dir = get_lua_common_path(self.hass.config.config_dir)
-            await self._download_common_lua_files(lua_common_dir)
-
-        except (json.JSONDecodeError, OSError) as err:
-            _LOGGER.error("Failed to login to cloud: %s", err)
-            await self._cleanup_session()
-            return self.async_abort(reason="auth_failed")
-
+    async def async_step_select_device(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         device_options = {}
 
         for did, info in self._discovered_devices.items():
@@ -181,30 +190,49 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             device_name = cloud_device.get("name", DEVICE_TYPES.get(info[CONF_DEVICE_TYPE], f"T0x{info[CONF_DEVICE_TYPE]:02X}"))
             device_options[str(did)] = f"{device_name} ( {info[CONF_IP]} )"
 
-        return self.async_show_form(
+        return self.async_show_menu(
             step_id="select_device",
+            menu_options=["select_device_continue", "select_device_rescan"],
+            description_placeholders={
+                "device_count": str(len(device_options)),
+            },
+        )
+
+    async def async_step_select_device_continue(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        device_options = {}
+
+        for did, info in self._discovered_devices.items():
+            cloud_device = self._cloud_devices.get(did, {})
+            device_name = cloud_device.get("name", DEVICE_TYPES.get(info[CONF_DEVICE_TYPE], f"T0x{info[CONF_DEVICE_TYPE]:02X}"))
+            device_options[str(did)] = f"{device_name} ( {info[CONF_IP]} )"
+
+        if user_input is not None:
+            selected = user_input.get("devices", [])
+            if selected:
+                self._selected_devices = [
+                    self._discovered_devices[int(did)]
+                    for did in selected
+                ]
+                self._current_device_index = 0
+                return await self.async_step_get_token()
+
+        all_device_ids = list(device_options.keys())
+        return self.async_show_form(
+            step_id="select_device_continue",
             data_schema=vol.Schema({
-                vol.Required("devices"): cv.multi_select(device_options),
+                vol.Required(
+                    "devices",
+                    description={"suggested_value": all_device_ids}
+                ): cv.multi_select(device_options),
             }),
         )
 
-    async def async_step_select_device(
+    async def async_step_select_device_rescan(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        if user_input is None:
-            return self.async_abort(reason="no_devices_selected")
-
-        selected = user_input.get("devices", [])
-        if not selected:
-            return self.async_abort(reason="no_devices_selected")
-
-        self._selected_devices = [
-            self._discovered_devices[int(did)]
-            for did in selected
-        ]
-        self._current_device_index = 0
-
-        return await self.async_step_get_token()
+        return await self.async_step_discover()
 
     def _save_device_to_json(self, device_data: dict):
         """Save device data to JSON file."""
