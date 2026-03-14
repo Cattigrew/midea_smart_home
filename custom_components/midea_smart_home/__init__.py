@@ -95,6 +95,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         calculate_config = device_mapping.get("calculate", {})
         centralized = list(device_mapping.get("centralized", []))
         default_values = dict(device_mapping.get("default_values", {}))
+        initial_query = device_mapping.get("initial_query")
 
         entities_cfg = (device_mapping.get("entities") or {})
         for platform_cfg in entities_cfg.values():
@@ -149,9 +150,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             f"Device_{device_id}",
         )
 
-        device.refresh_status()
-
         import asyncio
+        if initial_query and isinstance(initial_query, list):
+            for item in initial_query:
+                if isinstance(item, dict):
+                    if len(item) == 0:
+                        device.refresh_status({})
+                    elif len(item) == 1:
+                        key = list(item.keys())[0]
+                        device.refresh_status({"query_type": key})
+                elif isinstance(item, set) and len(item) == 1:
+                    key = list(item)[0]
+                    device.refresh_status({"query_type": key})
+                await asyncio.sleep(0.5)
+        else:
+            device.refresh_status()
+
         for _ in range(30):
             if coordinator.data is not None:
                 break

@@ -229,8 +229,8 @@ class DeviceController(threading.Thread):
             _LOGGER.error("[%s] Error parsing message: %s", self._device_id, e)
             return False
 
-    def refresh_status(self) -> None:
-        query_hex = self._codec.build_query()
+    def refresh_status(self, query: Optional[dict] = None) -> None:
+        query_hex = self._codec.build_query(query)
         if query_hex:
             self._send_message(query_hex, query=True)
 
@@ -548,5 +548,5 @@ class MideaDevice:
         # Trigger update to reflect optimistic state
         self._on_device_update(control)
 
-    def refresh_status(self):
-        self._controller.refresh_status()
+    def refresh_status(self, query: Optional[dict] = None):
+        self._controller.refresh_status(query)
