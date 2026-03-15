@@ -106,7 +106,8 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             existing_entries = self.hass.config_entries.async_entries(DOMAIN)
             for entry in existing_entries:
-                if entry.title == f"Midea | {self._account}":
+                entry_account = entry.data.get(CONF_ACCOUNT)
+                if entry_account == self._account:
                     self._existing_entry = entry
                     self._devices_data = list(entry.data.get("devices", []))
                     break
@@ -295,8 +296,13 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     )
                     await self.hass.config_entries.async_reload(self._existing_entry.entry_id)
                     return self.async_abort(reason="devices_updated")
+
+                first_device_id = self._devices_data[0].get(CONF_DEVICE_ID) if self._devices_data else None
+                first_cloud_device = self._cloud_devices.get(first_device_id, {}) if first_device_id else {}
+                home_name = first_cloud_device.get("home_name", "")
+
                 return self.async_create_entry(
-                    title=f"Midea | {self._account}",
+                    title=f"Midea | {self._account} | {home_name}" if home_name else f"Midea | {self._account}",
                     data={
                         "devices": self._devices_data,
                         CONF_ACCOUNT: self._account,
@@ -598,10 +604,12 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
                 )
 
             devices = new_data.get("devices", [])
-            devices = await self._refresh_cloud_device_info(devices)
+            devices, home_name = await self._refresh_cloud_device_info(devices)
             new_data["devices"] = devices
+            new_title = f"Midea | {self._account} | {home_name}" if home_name else f"Midea | {self._account}"
             self.hass.config_entries.async_update_entry(
                 self._config_entry,
+                title=new_title,
                 data=new_data,
             )
             await self.hass.config_entries.async_reload(self._config_entry.entry_id)
@@ -637,11 +645,12 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
             step_id="clear_cache",
         )
 
-    async def _refresh_cloud_device_info(self, devices: list) -> list:
+    async def _refresh_cloud_device_info(self, devices: list) -> tuple[list, str]:
         """Refresh device info from cloud."""
         from .midea_lib.cloud import get_midea_cloud
 
         cloud_device_info = {}
+        home_name = ""
         session = ClientSession()
         try:
             cloud = get_midea_cloud(
@@ -656,6 +665,8 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
                 for device_id in device_ids:
                     if device_id in cloud_devices:
                         device = cloud_devices[device_id]
+                        if not home_name:
+                            home_name = device.get("home_name", "")
                         cloud_device_info[device_id] = {
                             CONF_SN: device.get("sn", ""),
                             CONF_SN8: device.get("sn8", ""),
@@ -675,4 +686,4 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
             if device_id in cloud_device_info:
                 device.update(cloud_device_info[device_id])
 
-        return devices
+        return devices, home_name
