@@ -550,32 +550,16 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
+        return self.async_show_menu(
+            step_id="init",
+            menu_options=["update_account", "sync_cloud", "clear_cache"],
+        )
+
+    async def async_step_update_account(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         if user_input is not None:
             new_data = dict(self._config_entry.data)
-
-            account = user_input.get(CONF_ACCOUNT) or self._account
-            password = user_input.get(CONF_PASSWORD) or self._password
-
-            if user_input.get("refresh_cloud"):
-                if account and password:
-                    self._account = account
-                    self._password = password
-                    devices = new_data.get("devices", [])
-                    devices = await self._refresh_cloud_device_info(devices)
-                    new_data["devices"] = devices
-                    new_data[CONF_ACCOUNT] = account
-                    new_data[CONF_PASSWORD] = password
-                    self.hass.config_entries.async_update_entry(
-                        self._config_entry,
-                        data=new_data,
-                    )
-                    return self.async_create_entry(title="", data={})
-                return self.async_show_form(
-                    step_id="init",
-                    errors={"base": "no_account_password"},
-                    description_placeholders={"note": "Please configure account and password first"},
-                )
-
             if user_input.get(CONF_ACCOUNT):
                 new_data[CONF_ACCOUNT] = user_input[CONF_ACCOUNT]
             if user_input.get(CONF_PASSWORD):
@@ -587,9 +571,8 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
             )
             return self.async_create_entry(title="", data={})
 
-        options = self._config_entry.options
         return self.async_show_form(
-            step_id="init",
+            step_id="update_account",
             data_schema=vol.Schema({
                 vol.Optional(
                     CONF_ACCOUNT,
@@ -599,11 +582,58 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
                     CONF_PASSWORD,
                     default=self._password,
                 ): str,
-                vol.Optional(
-                    "refresh_cloud",
-                    default=False,
-                ): bool,
             }),
+        )
+
+    async def async_step_sync_cloud(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        if user_input is not None:
+            new_data = dict(self._config_entry.data)
+
+            if not self._account or not self._password:
+                return self.async_show_form(
+                    step_id="sync_cloud",
+                    errors={"base": "no_account_password"},
+                )
+
+            devices = new_data.get("devices", [])
+            devices = await self._refresh_cloud_device_info(devices)
+            new_data["devices"] = devices
+            self.hass.config_entries.async_update_entry(
+                self._config_entry,
+                data=new_data,
+            )
+            return self.async_create_entry(title="", data={})
+
+        return self.async_show_form(
+            step_id="sync_cloud",
+        )
+
+    async def async_step_clear_cache(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        if user_input is not None:
+            storage_path = Path(self.hass.config.config_dir) / ".storage" / DOMAIN
+            backup_path = Path(self.hass.config.config_dir) / ".storage" / f"{DOMAIN}-backup"
+
+            if not storage_path.exists():
+                return self.async_show_form(
+                    step_id="clear_cache",
+                    errors={"base": "no_cache_found"},
+                )
+
+            def _clear_cache():
+                if backup_path.exists():
+                    import shutil
+                    shutil.rmtree(backup_path)
+                storage_path.rename(backup_path)
+
+            await self.hass.async_add_executor_job(_clear_cache)
+            return self.async_create_entry(title="", data={})
+
+        return self.async_show_form(
+            step_id="clear_cache",
         )
 
     async def _refresh_cloud_device_info(self, devices: list) -> list:

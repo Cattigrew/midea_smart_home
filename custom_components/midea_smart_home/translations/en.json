@@ -1108,21 +1108,36 @@
   },
   "options": {
     "error": {
-      "no_account_password": "Please configure account and password first"
+      "no_account_password": "Please configure account and password first",
+      "no_cache_found": "No local cache files found, no need to clean"
     },
     "step": {
       "init": {
+        "menu_options": {
+          "update_account": "🔑 Update Midea Account/Password",
+          "sync_cloud": "☁️ Sync device info from cloud",
+          "clear_cache": "🗑️ Clear local cache files"
+        },
+        "title": "Midea Smart Home Options"
+      },
+      "update_account": {
         "data": {
           "account": "Account",
-          "password": "Password",
-          "refresh_cloud": "Sync device names and info from cloud"
+          "password": "Password"
         },
         "data_description": {
           "account": "Midea Meiju account (usually phone number)",
-          "password": "Midea Meiju password",
-          "refresh_cloud": "Check and submit to sync device names and info from cloud to local"
+          "password": "Midea Meiju password"
         },
-        "title": "Midea Smart Home Options"
+        "title": "Update Account/Password"
+      },
+      "sync_cloud": {
+        "description": "Sync device names and info from cloud to local.\n\nNote: Account and password must be configured first.",
+        "title": "Sync from Cloud"
+      },
+      "clear_cache": {
+        "description": "Clear local cache files:\n\n    📁 Current cache will be backed up to: .storage/midea_smart_home-backup\n\n    ⚠️ Click Submit to proceed",
+        "title": "Clear Local Cache"
       }
     }
   }

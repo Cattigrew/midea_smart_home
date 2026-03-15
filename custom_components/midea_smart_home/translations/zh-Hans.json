@@ -1108,21 +1108,36 @@
   },
   "options": {
     "error": {
-      "no_account_password": "请先配置账号密码"
+      "no_account_password": "请先配置账号密码",
+      "no_cache_found": "未发现本地缓存文件，无需清理"
     },
     "step": {
       "init": {
+        "menu_options": {
+          "update_account": "🔑 更新美的账号密码",
+          "sync_cloud": "☁️ 同步云端设备名称",
+          "clear_cache": "🗑️ 清理本地缓存文件"
+        },
+        "title": "Midea Smart Home 选项"
+      },
+      "update_account": {
         "data": {
           "account": "账号",
-          "password": "密码",
-          "refresh_cloud": "同步云端设备名称等信息"
+          "password": "密码"
         },
         "data_description": {
           "account": "美的美居账号（一般为手机号）",
-          "password": "美的美居密码",
-          "refresh_cloud": "勾选后点击提交，将从云端同步设备名称等信息至本地"
+          "password": "美的美居密码"
         },
-        "title": "Midea Smart Home 选项"
+        "title": "更新账号密码"
+      },
+      "sync_cloud": {
+        "description": "从云端同步设备名称等信息至本地。\n\n注意：需要先配置账号密码。",
+        "title": "同步云端信息"
+      },
+      "clear_cache": {
+        "description": "清理本地缓存文件：\n\n    📁 当前缓存将备份到：.storage/midea_smart_home-backup\n\n    ⚠️ 点击提交执行清理",
+        "title": "清理本地缓存"
       }
     }
   }
