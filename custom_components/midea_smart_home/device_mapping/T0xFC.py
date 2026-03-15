@@ -43,8 +43,13 @@ DEVICE_MAPPING = {
                 },
                 "bias_gear":{
                     "options": {
-                        "yoga_scene": {"mode": "auto", "sub_mode": "denoise", "bias_gear": -20},
-                        "conversation_scene": {"mode": "auto", "sub_mode": "denoise", "bias_gear": -10}
+                        "none": {"bias_gear": 4},
+                        "conversation_scene": {"bias_gear": -10},
+                        "yoga_scene": {"bias_gear": -20}
+                    },
+                    "command": {
+                        "mode": "auto",
+                        "sub_mode": "denoise"
                     }
                 },
                 "bright": {

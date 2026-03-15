@@ -42,16 +42,52 @@ DEVICE_MAPPING = {
                 }
             },
             Platform.SELECT: {
-                "wind_direction": {
+                "heating_direction": {
                     "options": {
-                        "60": {"heating_direction": "60", "bath_direction": "60", "blowing_direction": "60", "drying_direction": "60"},
-                        "70": {"heating_direction": "70", "bath_direction": "70", "blowing_direction": "70", "drying_direction": "70"},
-                        "80": {"heating_direction": "80", "bath_direction": "80", "blowing_direction": "80", "drying_direction": "80"},
-                        "90": {"heating_direction": "90", "bath_direction": "90", "blowing_direction": "90", "drying_direction": "90"},
-                        "100": {"heating_direction": "100", "bath_direction": "100", "blowing_direction": "100", "drying_direction": "100"},
-                        "110": {"heating_direction": "110", "bath_direction": "110", "blowing_direction": "110", "drying_direction": "110"},
-                        "120": {"heating_direction": "120", "bath_direction": "120", "blowing_direction": "120", "drying_direction": "120"},
-                        "swing": {"heating_direction": "253", "bath_direction": "253", "blowing_direction": "253", "drying_direction": "253"}
+                        "60": {"heating_direction": 60},
+                        "70": {"heating_direction": 70},
+                        "80": {"heating_direction": 80},
+                        "90": {"heating_direction": 90},
+                        "100": {"heating_direction": 100},
+                        "110": {"heating_direction": 110},
+                        "120": {"heating_direction": 120},
+                        "swing": {"heating_direction": 253}
+                    }
+                },
+                "bath_direction": {
+                    "options": {
+                        "60": {"bath_direction": 60},
+                        "70": {"bath_direction": 70},
+                        "80": {"bath_direction": 80},
+                        "90": {"bath_direction": 90},
+                        "100": {"bath_direction": 100},
+                        "110": {"bath_direction": 110},
+                        "120": {"bath_direction": 120},
+                        "swing": {"bath_direction": 253}
+                    }
+                },
+                "blowing_direction": {
+                    "options": {
+                        "60": {"blowing_direction": 60},
+                        "70": {"blowing_direction": 70},
+                        "80": {"blowing_direction": 80},
+                        "90": {"blowing_direction": 90},
+                        "100": {"blowing_direction": 100},
+                        "110": {"blowing_direction": 110},
+                        "120": {"blowing_direction": 120},
+                        "swing": {"blowing_direction": 253}
+                    }
+                },
+                "drying_direction": {
+                    "options": {
+                        "60": {"drying_direction": 60},
+                        "70": {"drying_direction": 70},
+                        "80": {"drying_direction": 80},
+                        "90": {"drying_direction": 90},
+                        "100": {"drying_direction": 100},
+                        "110": {"drying_direction": 110},
+                        "120": {"drying_direction": 120},
+                        "swing": {"drying_direction": 253}
                     }
                 },
                 "light_mode": {
