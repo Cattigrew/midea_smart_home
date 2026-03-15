@@ -54,9 +54,7 @@ Home Assistant custom integration for Midea smart devices via local network.
 
 ## Configuration
 
-1. Enter your Midea account credentials (for downloading Lua scripts)
-2. Select devices from discovered list
-3. Automatically obtain Token and Key for each device (obtain the Token and Key using the [midea-local](https://github.com/midea-lan/midea-local) library)
+For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 
 ## Supported Devices
 
