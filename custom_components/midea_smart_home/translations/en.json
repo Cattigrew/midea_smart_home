@@ -562,6 +562,14 @@
           "sleep": "Sleep"
         }
       },
+      "hydration_setting": {
+        "name": "Hydration Setting",
+        "state": {
+          "empty": "Empty",
+          "half": "Half",
+          "full": "Full"
+        }
+      },
       "intensity": {
         "name": "Drying Intensity",
         "state": {
@@ -897,11 +905,11 @@
       "in_water_tem": {
         "name": "Inlet Water Temperature"
       },
-      "life_1": {
-        "name": "Filter 1 Life"
+      "life_pcb": {
+        "name": "PCB Filter Life"
       },
-      "life_2": {
-        "name": "Filter 2 Life"
+      "life_ro": {
+        "name": "RO Filter Life"
       },
       "main_light_brightness": {
         "name": "Main Light Brightness"
@@ -986,6 +994,9 @@
       "airdry_on_off": {
         "name": "Curtain Air Dry"
       },
+      "antifreeze": {
+        "name": "Antifreeze"
+      },
       "auto_power_off": {
         "name": "Auto Power Off"
       },
@@ -1042,6 +1053,9 @@
       },
       "germicidal": {
         "name": "High Temperature Sterilization"
+      },
+      "heat": {
+        "name": "Heating"
       },
       "human_sensing_switch": {
         "name": "Motion Screen Wake"

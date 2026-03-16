@@ -562,6 +562,14 @@
           "sleep": "睡眠"
         }
       },
+      "hydration_setting": {
+        "name": "补水设置",
+        "state": {
+          "empty": "空胆补水",
+          "half": "半胆补水",
+          "full": "智能补水"
+        }
+      },
       "intensity": {
         "name": "烘干强度",
         "state": {
@@ -897,10 +905,10 @@
       "in_water_tem": {
         "name": "进水温度"
       },
-      "life_1": {
+      "life_pcb": {
         "name": "PCB滤芯寿命"
       },
-      "life_2": {
+      "life_ro": {
         "name": "RO滤芯寿命"
       },
       "main_light_brightness": {
@@ -986,6 +994,9 @@
       "airdry_on_off": {
         "name": "湿帘风干"
       },
+      "antifreeze": {
+        "name": "防冻功能"
+      },
       "auto_power_off": {
         "name": "自动关机"
       },
@@ -1042,6 +1053,9 @@
       },
       "germicidal": {
         "name": "高温杀菌"
+      },
+      "heat": {
+        "name": "加热功能"
       },
       "human_sensing_switch": {
         "name": "感应亮屏"
