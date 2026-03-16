@@ -678,15 +678,24 @@
           "bath": "Comfort Bath",
           "blowing": "Blow",
           "close_all": "Off",
+          "cook_soup": "Cook Soup",
+          "coarse_rice": "Coarse Rice",
+          "double_layer_cook": "Double Layer Cook",
           "drying": "Dry",
           "factory_test": "Factory Test",
+          "firewood_rice": "Firewood Rice",
           "heating": "Heat",
+          "keep_warm": "Keep Warm",
           "manual": "Manual",
           "normal": "Normal",
           "normal_continus": "Normal Continuous",
+          "rice_porridge": "Rice/Porridge",
           "service": "Service",
           "sleep": "Sleep",
-          "ventilation": "Ventilation"
+          "stewing": "Stewing",
+          "stop": "Stop",
+          "ventilation": "Ventilation",
+          "warm_porridge": "Warm Porridge"
         }
       },
       "no_obsolete_water": {
@@ -907,6 +916,16 @@
           "work": "Work",
           "zymosis": "Fermentation"
         }
+      },
+      "rice_type": {
+        "name": "Rice Type",
+        "state": {
+          "none": "None",
+          "northeast": "Northeast/Japonica",
+          "longrain": "Longrain/Indica",
+          "fragrant": "Fragrant",
+          "five": "Wuchang"
+        }
       }
     },
     "sensor": {
@@ -1068,6 +1087,15 @@
       },
       "work_time": {
         "name": "Work Time"
+      },
+      "warming_time": {
+        "name": "Warming Time"
+      },
+      "top_temperature": {
+        "name": "Top Temperature"
+      },
+      "bottom_temperature": {
+        "name": "Bottom Temperature"
       }
     },
     "switch": {

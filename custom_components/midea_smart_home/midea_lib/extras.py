@@ -16,6 +16,14 @@ class DeviceLogicHandler:
         control_status_key = "db_control_status" if self.device_type == 0xD9 else "control_status"
         data[control_status_key] = control_status
 
+    def adjust_work_switch(self, data: dict) -> None:
+        if "work_status" in data:
+            work_status = data["work_status"]
+            if work_status == "cancel":
+                data["work_switch"] = 0
+            elif work_status in ("cooking", "keep_warm"):
+                data["work_switch"] = 2
+
     def apply_special_handling(
         self,
         data: dict,
@@ -31,6 +39,9 @@ class DeviceLogicHandler:
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
             if "running_status" in data:
                 self.adjust_control_status(data, data["running_status"])
+
+        elif self.device_type == 0xEA:
+            self.adjust_work_switch(data)
 
     def prepare_control_data(self, control: dict, current_data: dict = None) -> dict:
         """Prepare control data with device-specific requirements."""

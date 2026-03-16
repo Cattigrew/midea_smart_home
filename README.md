@@ -73,11 +73,12 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 10 | 0xDC | Clothes Dryer |
 | 11 | 0xE2 | Electric Water Heater |
 | 12 | 0xE3 | Gas Water Heater |
-| 13 | 0xED | Water Purifier / Pipeline Machine |
-| 14 | 0xFA | Electric Fan |
-| 15 | 0xFB | Electric Heater |
-| 16 | 0xFC | Air Purifier |
-| 17 | 0xFD | Humidifier |
+| 13 | 0xEA | Rice Cooker |
+| 14 | 0xED | Water Purifier / Pipeline Machine |
+| 15 | 0xFA | Electric Fan |
+| 16 | 0xFB | Electric Heater |
+| 17 | 0xFC | Air Purifier |
+| 18 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 

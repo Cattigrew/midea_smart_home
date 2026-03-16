@@ -678,15 +678,24 @@
           "bath": "安心沐浴",
           "blowing": "吹风",
           "close_all": "关闭",
+          "cook_soup": "煲汤",
+          "coarse_rice": "杂粮饭",
+          "double_layer_cook": "双层煮",
           "drying": "烘干",
           "factory_test": "工厂测试",
+          "firewood_rice": "柴火饭",
           "heating": "取暖",
+          "keep_warm": "保温",
           "manual": "手动",
           "normal": "正常",
           "normal_continus": "正常持续",
+          "rice_porridge": "饭/粥",
           "service": "服务",
           "sleep": "睡眠",
-          "ventilation": "换气"
+          "stewing": "蒸煮",
+          "stop": "停止",
+          "ventilation": "换气",
+          "warm_porridge": "适温粥"
         }
       },
       "no_obsolete_water": {
@@ -907,6 +916,16 @@
           "work": "工作",
           "zymosis": "发酵"
         }
+      },
+      "rice_type": {
+        "name": "米种类",
+        "state": {
+          "none": "无",
+          "northeast": "东北米/粳米",
+          "longrain": "丝苗米/籼米",
+          "fragrant": "香米",
+          "five": "五常米"
+        }
       }
     },
     "sensor": {
@@ -1068,6 +1087,15 @@
       },
       "work_time": {
         "name": "工作时间"
+      },
+      "warming_time": {
+        "name": "保温时间"
+      },
+      "top_temperature": {
+        "name": "顶部温度"
+      },
+      "bottom_temperature": {
+        "name": "底部温度"
       }
     },
     "switch": {
