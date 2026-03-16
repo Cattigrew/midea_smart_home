@@ -82,6 +82,12 @@
       },
       "softener_lack": {
         "name": "柔顺剂状态"
+      },
+      "storage_door_state": {
+        "name": "冷藏门状态"
+      },
+      "freezer_door_state": {
+        "name": "冷冻门状态"
       }
     },
     "button": {
@@ -128,6 +134,12 @@
             }
           }
         }
+      },
+      "storage_zone": {
+        "name": "温控器(冷藏)"
+      },
+      "freezing_zone": {
+        "name": "温控器(冷冻)"
       }
     },
     "fan": {
@@ -436,6 +448,54 @@
           "swing": "摆风"
         }
       },
+      "dsp_sterilization_mode": {
+        "name": "DSP除菌模式",
+        "state": {
+          "daily_mode": "日常模式",
+          "strong_mode": "强效模式"
+        }
+      },
+      "ice_making_function": {
+        "name": "制冰功能",
+        "state": {
+          "off": "关闭",
+          "rapid_ice_making": "急速制冰",
+          "normal_ice_making": "常规制冰"
+        }
+      },
+      "open_door_warning_time": {
+        "name": "开门超时提醒",
+        "state": {
+          "30": "30秒",
+          "40": "40秒",
+          "50": "50秒",
+          "60": "1分钟",
+          "70": "1分钟10秒",
+          "80": "1分钟20秒",
+          "90": "1分钟30秒",
+          "100": "1分钟40秒",
+          "110": "1分钟50秒",
+          "120": "2分钟",
+          "130": "2分钟10秒",
+          "140": "2分钟20秒",
+          "150": "2分钟30秒",
+          "160": "2分钟40秒",
+          "170": "2分钟50秒",
+          "180": "3分钟",
+          "190": "3分钟10秒",
+          "200": "3分钟20秒",
+          "210": "3分钟30秒",
+          "220": "3分钟40秒",
+          "230": "3分钟50秒",
+          "240": "4分钟",
+          "250": "4分钟10秒",
+          "260": "4分钟20秒",
+          "270": "4分钟30秒",
+          "280": "4分钟40秒",
+          "290": "4分钟50秒",
+          "300": "5分钟"
+        }
+      },
       "fire_power": {
         "name": "微波档位",
         "state": {
@@ -445,6 +505,14 @@
           "50": "50%",
           "80": "80%",
           "none": "无"
+        }
+      },
+      "flexzone_function": {
+        "name": "舱室功能",
+        "state": {
+          "zero_degree": "零度",
+          "treasure": "珍品",
+          "mother_baby": "母婴"
         }
       },
       "first_custom_out_water_ml_0": {
@@ -887,6 +955,18 @@
       "fire_power": {
         "name": "微波档位"
       },
+      "freezing_temperature": {
+        "name": "冷冻设定温度"
+      },
+      "freezing_real_temperature": {
+        "name": "冷冻实际温度"
+      },
+      "refrigeration_real_temperature": {
+        "name": "冷藏实际温度"
+      },
+      "storage_temperature": {
+        "name": "冷藏设定温度"
+      },
       "fresh_filter_time": {
         "name": "新风滤网使用率"
       },
@@ -1024,6 +1104,9 @@
       "cool": {
         "name": "制冷"
       },
+      "deep_cold_mode": {
+        "name": "-30℃深冻"
+      },
       "damp_dry_signal": {
         "name": "潮湿干燥信号"
       },
@@ -1047,6 +1130,9 @@
       },
       "frequency_hot": {
         "name": "变频加热"
+      },
+      "freezing_mode": {
+        "name": "速冻"
       },
       "fresh_air_remove_odor": {
         "name": "新风除菌"
@@ -1081,8 +1167,14 @@
       "offline_voice_function": {
         "name": "离线语音"
       },
+      "open_door_tips_switch": {
+        "name": "开门提示音"
+      },
       "power": {
         "name": "电源"
+      },
+      "preservation_mode": {
+        "name": "光量子增养"
       },
       "prevent_straight_wind": {
         "name": "防直吹"
@@ -1116,6 +1208,15 @@
       },
       "steam_switch": {
         "name": "蒸汽功能"
+      },
+      "storage_mode": {
+        "name": "速冷"
+      },
+      "storage_power": {
+        "name": "冷藏电源"
+      },
+      "freezing_power": {
+        "name": "冷冻电源"
       },
       "sterilize": {
         "name": "除菌"

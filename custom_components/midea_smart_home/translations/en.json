@@ -82,6 +82,12 @@
       },
       "softener_lack": {
         "name": "Softener Status"
+      },
+      "storage_door_state": {
+        "name": "Refrigerator Door State"
+      },
+      "freezer_door_state": {
+        "name": "Freezer Door State"
       }
     },
     "button": {
@@ -128,6 +134,12 @@
             }
           }
         }
+      },
+      "storage_zone": {
+        "name": "Thermostat (Refrigerator)"
+      },
+      "freezing_zone": {
+        "name": "Thermostat (Freezer)"
       }
     },
     "fan": {
@@ -445,6 +457,62 @@
           "50": "50%",
           "80": "80%",
           "none": "None"
+        }
+      },
+      "flexzone_function": {
+        "name": "FlexZone Function",
+        "state": {
+          "zero_degree": "Zero Degree",
+          "treasure": "Treasure",
+          "mother_baby": "Mother & Baby"
+        }
+      },
+      "dsp_sterilization_mode": {
+        "name": "DSP Sterilization Mode",
+        "state": {
+          "daily_mode": "Daily Mode",
+          "strong_mode": "Strong Mode"
+        }
+      },
+      "ice_making_function": {
+        "name": "Ice Making Function",
+        "state": {
+          "off": "Off",
+          "rapid_ice_making": "Rapid Ice Making",
+          "normal_ice_making": "Normal Ice Making"
+        }
+      },
+      "open_door_warning_time": {
+        "name": "Door Open Warning Time",
+        "state": {
+          "30": "30s",
+          "40": "40s",
+          "50": "50s",
+          "60": "1min",
+          "70": "1min 10s",
+          "80": "1min 20s",
+          "90": "1min 30s",
+          "100": "1min 40s",
+          "110": "1min 50s",
+          "120": "2min",
+          "130": "2min 10s",
+          "140": "2min 20s",
+          "150": "2min 30s",
+          "160": "2min 40s",
+          "170": "2min 50s",
+          "180": "3min",
+          "190": "3min 10s",
+          "200": "3min 20s",
+          "210": "3min 30s",
+          "220": "3min 40s",
+          "230": "3min 50s",
+          "240": "4min",
+          "250": "4min 10s",
+          "260": "4min 20s",
+          "270": "4min 30s",
+          "280": "4min 40s",
+          "290": "4min 50s",
+          "300": "5min"
         }
       },
       "first_custom_out_water_ml_0": {
@@ -887,6 +955,18 @@
       "fire_power": {
         "name": "Microwave Power"
       },
+      "freezing_temperature": {
+        "name": "Freezer Set Temperature"
+      },
+      "freezing_real_temperature": {
+        "name": "Freezer Actual Temperature"
+      },
+      "refrigeration_real_temperature": {
+        "name": "Refrigerator Actual Temperature"
+      },
+      "storage_temperature": {
+        "name": "Refrigerator Set Temperature"
+      },
       "fresh_filter_time": {
         "name": "Fresh Air Filter Usage Rate"
       },
@@ -1027,6 +1107,9 @@
       "damp_dry_signal": {
         "name": "Damp Dry Signal"
       },
+      "deep_cold_mode": {
+        "name": "-30°C Deep Freeze"
+      },
       "display_on_off": {
         "name": "Screen Display"
       },
@@ -1047,6 +1130,12 @@
       },
       "frequency_hot": {
         "name": "Inverter Heating"
+      },
+      "freezing_mode": {
+        "name": "Quick Freeze"
+      },
+      "freezing_power": {
+        "name": "Freezer Power"
       },
       "fresh_air_remove_odor": {
         "name": "Fresh Air Remove Odor"
@@ -1081,8 +1170,20 @@
       "offline_voice_function": {
         "name": "Offline Voice"
       },
+      "open_door_tips_switch": {
+        "name": "Door Open Alert"
+      },
       "power": {
         "name": "Power"
+      },
+      "preservation_mode": {
+        "name": "Light Quantum Preservation"
+      },
+      "storage_power": {
+        "name": "Refrigerator Power"
+      },
+      "storage_mode": {
+        "name": "Quick Cool"
       },
       "prevent_straight_wind": {
         "name": "Prevent Direct Wind"

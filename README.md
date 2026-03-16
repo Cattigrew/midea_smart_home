@@ -66,6 +66,7 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 4 | 0xB0 | Microwave Oven |
 | 5 | 0xB6 | Range Hood |
 | 6 | 0xB8 | Smart Robot Vacuum |
+| 7 | 0xCA | Multi-Door Fridge |
 | 7 | 0xD9 | Twin Tub Washing Machine |
 | 8 | 0xDA | Top Load Washing Machine |
 | 9 | 0xDB | Cylinder Washing Machine |
