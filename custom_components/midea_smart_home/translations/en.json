@@ -94,6 +94,12 @@
       },
       "change_water": {
         "name": "Change Water Reminder"
+      },
+      "softwater_lack": {
+        "name": "Softener Salt Shortage"
+      },
+      "wash_stage": {
+        "name": "Wash Stage"
       }
     },
     "button": {
@@ -272,6 +278,9 @@
       },
       "work_second": {
         "name": "Set Second"
+      },
+      "air_set_hour": {
+        "name": "Antibacterial Storage Time"
       }
     },
     "select": {
@@ -981,6 +990,34 @@
           "fragrant": "Fragrant",
           "five": "Wuchang"
         }
+      },
+      "work_status": {
+        "name": "Work Status",
+        "state": {
+          "power_off": "Power Off",
+          "power_on": "Power On",
+          "cancel": "Cancel",
+          "pause": "Pause",
+          "resume": "Resume"
+        }
+      },
+      "wash_mode": {
+        "name": "Wash Mode",
+        "state": {
+          "neutral_gear": "Neutral",
+          "strong_wash": "Strong Wash",
+          "standard_wash": "Standard Wash",
+          "single_disinfect": "Single Disinfect",
+          "eco_wash": "Eco Wash",
+          "glass_wash": "Glass Wash",
+          "fast_wash": "Fast Wash",
+          "soak_wash": "Soak Wash",
+          "self_clean": "Self Clean",
+          "fruit_wash": "Fruit Wash",
+          "germ": "Germ Wash",
+          "seafood_wash": "Seafood Wash",
+          "hotpot_wash": "Hotpot Wash"
+        }
       }
     },
     "sensor": {
@@ -1160,6 +1197,12 @@
       },
       "bottom_temperature": {
         "name": "Bottom Temperature"
+      },
+      "softwater": {
+        "name": "Softwater Level"
+      },
+      "air_left_hour": {
+        "name": "Air Remaining Time"
       }
     },
     "switch": {
@@ -1207,6 +1250,9 @@
       },
       "drainage": {
         "name": "One-Key Drainage"
+      },
+      "dryswitch": {
+        "name": "Dry & Sterilize"
       },
       "dry": {
         "name": "Dry Mode"

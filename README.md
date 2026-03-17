@@ -72,14 +72,15 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 10 | 0xDA | Top Load Washing Machine |
 | 11 | 0xDB | Cylinder Washing Machine |
 | 12 | 0xDC | Clothes Dryer |
-| 13 | 0xE2 | Electric Water Heater |
-| 14 | 0xE3 | Gas Water Heater |
-| 15 | 0xEA | Rice Cooker |
-| 16 | 0xED | Water Purifier / Pipeline Machine |
-| 17 | 0xFA | Electric Fan |
-| 18 | 0xFB | Electric Heater |
-| 19 | 0xFC | Air Purifier |
-| 20 | 0xFD | Humidifier |
+| 13 | 0xE1 | Dishwasher |
+| 14 | 0xE2 | Electric Water Heater |
+| 15 | 0xE3 | Gas Water Heater |
+| 16 | 0xEA | Rice Cooker |
+| 17 | 0xED | Water Purifier / Pipeline Machine |
+| 18 | 0xFA | Electric Fan |
+| 19 | 0xFB | Electric Heater |
+| 20 | 0xFC | Air Purifier |
+| 21 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 

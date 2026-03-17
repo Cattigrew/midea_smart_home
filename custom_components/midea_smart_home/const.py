@@ -49,6 +49,7 @@ DEVICE_TYPES = {
     0xDA: "Top Load Washing Machine",
     0xDB: "Cylinder Washing Machine",
     0xDC: "Clothes Dryer",
+    0xE1: "Dishwasher",
     0xE2: "Electric Water Heater",
     0xE3: "Gas Water Heater",
     0xEA: "Rice Cooker",
