@@ -1265,6 +1265,9 @@
       "offline_voice_function": {
         "name": "Offline Voice"
       },
+      "intelligent_mode": {
+        "name": "Intelligent Mode"
+      },
       "open_door_tips_switch": {
         "name": "Door Open Alert"
       },

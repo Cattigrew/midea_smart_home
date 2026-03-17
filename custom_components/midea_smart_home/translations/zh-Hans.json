@@ -1262,6 +1262,9 @@
       "offline_voice_function": {
         "name": "离线语音"
       },
+      "intelligent_mode": {
+        "name": "智能"
+      },
       "open_door_tips_switch": {
         "name": "开门提示音"
       },

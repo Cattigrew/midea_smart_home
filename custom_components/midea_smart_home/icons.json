@@ -213,6 +213,7 @@
             "lock": { "default": "mdi:account-lock" },
             "nightly": { "default": "mdi:weather-night" },
             "offline_voice_function": { "default": "mdi:microphone" },
+            "intelligent_mode": { "default": "mdi:brain" },
             "open_door_tips_switch": { "default": "mdi:door-closed-alert" },
             "power": { "default": "mdi:power" },
             "preservation_mode": { "default": "mdi:leaf" },

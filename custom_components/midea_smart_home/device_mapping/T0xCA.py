@@ -144,5 +144,86 @@ DEVICE_MAPPING = {
                 }
             }
         }
+    },
+    "310A0808": {
+        "rationale": ["off", "on"],
+        "entities": {
+            Platform.SWITCH: {
+                "storage_power": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "freezing_power": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "storage_mode": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "freezing_mode": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "intelligent_mode": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "storage_door_state": {
+                    "device_class": BinarySensorDeviceClass.DOOR,
+                },
+                "freezer_door_state": {
+                    "device_class": BinarySensorDeviceClass.DOOR,
+                }
+            },
+            Platform.CLIMATE: {
+                "storage_zone": {
+                    "power": "storage_power",
+                    "hvac_modes": {
+                        "off": {"storage_power": "off"},
+                        "cool": {"storage_power": "on"}
+                    },
+                    "target_temperature": "storage_temperature",
+                    "current_temperature": "refrigeration_real_temperature",
+                    "pre_mode": "mode",
+                    "min_temp": 2,
+                    "max_temp": 8,
+                    "temperature_unit": UnitOfTemperature.CELSIUS,
+                    "precision": PRECISION_WHOLE
+                },
+                "freezing_zone": {
+                    "power": "freezing_power",
+                    "hvac_modes": {
+                        "off": {"freezing_power":    "off"},
+                        "cool": {"freezing_power": "on"}
+                    },
+                    "target_temperature": "freezing_temperature",
+                    "current_temperature": "freezing_real_temperature",
+                    "min_temp": -24,
+                    "max_temp": -16,
+                    "temperature_unit": UnitOfTemperature.CELSIUS,
+                    "precision": PRECISION_WHOLE
+                }
+            },
+            Platform.SENSOR: {
+                "storage_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "freezing_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "refrigeration_real_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "freezing_real_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
     }
 }
