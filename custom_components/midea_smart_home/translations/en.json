@@ -318,6 +318,14 @@
           "off": "Off"
         }
       },
+      "bright_led": {
+        "name": "LED Brightness",
+        "state": {
+          "exit": "Off",
+          "dark": "Dark",
+          "light": "Bright"
+        }
+      },
       "cold_water_conservation": {
         "name": "Zero Cold Water Preheat",
         "state": {
@@ -627,6 +635,7 @@
         "state": {
           "auto": "AI Auto",
           "manual": "Manual",
+          "moist_skin": "Moist Skin",
           "sleep": "Sleep"
         }
       },
@@ -1188,6 +1197,9 @@
       },
       "light": {
         "name": "Light Switch"
+      },
+      "light_color": {
+        "name": "Light Color"
       },
       "lock": {
         "name": "Child Lock"

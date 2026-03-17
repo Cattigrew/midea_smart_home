@@ -318,6 +318,14 @@
           "off": "熄灭"
         }
       },
+      "bright_led": {
+        "name": "灯光设置",
+        "state": {
+          "exit": "关闭",
+          "dark": "半亮",
+          "light": "全亮"
+        }
+      },
       "cold_water_conservation": {
         "name": "零冷水预热时间设置",
         "state": {
@@ -627,6 +635,7 @@
         "state": {
           "auto": "AI湿随温变",
           "manual": "手动",
+          "moist_skin": "润肤",
           "sleep": "睡眠"
         }
       },
@@ -1185,6 +1194,9 @@
       },
       "light": {
         "name": "照明开关"
+      },
+      "light_color": {
+        "name": "夜灯开关"
       },
       "lock": {
         "name": "童锁"
