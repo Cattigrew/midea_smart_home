@@ -247,7 +247,8 @@
             "wash": { "default": "mdi:water-pump" },
             "water_box": { "default": "mdi:water" },
             "waterions": { "default": "mdi:water-check" },
-            "wifi_led_enable": { "default": "mdi:wifi" }
+            "wifi_led_enable": { "default": "mdi:wifi" },
+            "ac_dry": { "default": "mdi:water-off" }
         },
         "vacuum": {
             "vacuum": { "default": "mdi:robot-vacuum" }
