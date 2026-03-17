@@ -660,7 +660,10 @@
           "20": "20'",
           "30": "30'",
           "40": "40'",
-          "off": "Off"
+          "off": "Off",
+          "iron_now": "Iron Now",
+          "wear_now": "Wear Now",
+          "store": "Store"
         }
       },
       "inverter": {
@@ -777,15 +780,24 @@
           "ssp": "Self Clean",
           "steam_sterilize_wash": "Steam Sterilize",
           "sterilize_wash": "Sterilize Wash",
+          "sterilize": "Sterilize Dry",
           "steep": "Soak Wash",
           "strong_wash": "Strong Wash",
           "summer_wash": "Summer",
           "super_clean": "Super Clean",
           "towel": "Towel",
           "underwear": "Underwear",
+          "uniforms": "Uniforms",
           "warm_clothes": "Warm Clothes",
           "winter_wash": "Winter",
-          "wool": "Wool"
+          "wool": "Wool",
+          "windbreaker": "Windbreaker",
+          "windcoat": "Windcoat",
+          "fleece_blanket": "Fleece Blanket",
+          "polar_fleece": "Polar Fleece",
+          "small_piece_dry": "Small Piece Dry",
+          "fixed_time_dry": "Timed Dry",
+          "quick_dry": "Quick Dry"
         }
       },
       "quantify_1": {

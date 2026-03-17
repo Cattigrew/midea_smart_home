@@ -660,7 +660,10 @@
           "20": "20'",
           "30": "30'",
           "40": "40'",
-          "off": "关闭"
+          "off": "关闭",
+          "iron_now": "即熨",
+          "wear_now": "即穿",
+          "store": "储藏"
         }
       },
       "inverter": {
@@ -778,14 +781,23 @@
           "steam_sterilize_wash": "蒸汽消毒洗",
           "sterilize_wash": "消毒洗",
           "steep": "浸泡洗",
+          "sterilize": "除菌烘",
           "strong_wash": "强洗",
           "summer_wash": "夏日洗",
           "super_clean": "超净洗",
           "towel": "毛巾",
           "underwear": "内衣",
+          "uniforms": "校服",
           "warm_clothes": "暖衣",
           "winter_wash": "冬季洗",
-          "wool": "羊毛"
+          "wool": "羊毛",
+          "windbreaker": "风衣",
+          "windcoat": "冲锋衣",
+          "fleece_blanket": "绒毯",
+          "polar_fleece": "摇粒绒",
+          "small_piece_dry": "小件烘",
+          "fixed_time_dry": "定时烘",
+          "quick_dry": "快烘"
         }
       },
       "quantify_1": {
