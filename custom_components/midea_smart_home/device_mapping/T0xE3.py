@@ -3,7 +3,7 @@ from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
-    "default_gas_water_heater ": {
+    "default_gas_water_heater": {
         "rationale": ["off", "on"],
         "entities": {
             Platform.WATER_HEATER: {
