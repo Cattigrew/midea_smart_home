@@ -284,13 +284,6 @@
       }
     },
     "select": {
-      "aidry": {
-        "name": "智感干洗",
-        "state": {
-          "off": "关闭",
-          "on": "开启"
-        }
-      },
       "bath_direction": {
         "name": "沐浴风向",
         "state": {
@@ -601,13 +594,6 @@
           "off": "关闭"
         }
       },
-      "gesture": {
-        "name": "手势开关",
-        "state": {
-          "off": "关闭",
-          "on": "开启"
-        }
-      },
       "gesture_sensitivity_value": {
         "name": "手势灵敏度",
         "state": {
@@ -673,20 +659,6 @@
           "iron_now": "即熨",
           "wear_now": "即穿",
           "store": "储藏"
-        }
-      },
-      "inverter": {
-        "name": "变频巡航",
-        "state": {
-          "off": "关闭",
-          "on": "开启"
-        }
-      },
-      "light": {
-        "name": "照明开关",
-        "state": {
-          "off": "关闭",
-          "on": "开启"
         }
       },
       "light_mode": {
@@ -1206,6 +1178,9 @@
       }
     },
     "switch": {
+      "aidry": {
+        "name": "智感干洗"
+      },
       "airdry_on_off": {
         "name": "湿帘风干"
       },
@@ -1278,6 +1253,9 @@
       "germicidal": {
         "name": "高温杀菌"
       },
+      "gesture": {
+        "name": "手势开关"
+      },
       "heat": {
         "name": "加热功能"
       },
@@ -1289,6 +1267,9 @@
       },
       "humidify": {
         "name": "清凉风"
+      },
+      "inverter": {
+        "name": "变频巡航"
       },
       "laundry": {
         "name": "一键晾衣"

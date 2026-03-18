@@ -68,7 +68,6 @@
             "air_set_hour": { "default": "mdi:air-filter" }
         },
         "select": {
-            "aidry": { "default": "mdi:tshirt-crew" },
             "bath_direction": { "default": "mdi:air-filter" },
             "bias_gear": { "default": "mdi:tune" },
             "blowing_direction": { "default": "mdi:air-filter" },
@@ -92,7 +91,6 @@
             "first_custom_out_water_ml_1": { "default": "mdi:cup-water" },
             "follow_body_sense": { "default": "mdi:account" },
             "gear": { "default": "mdi:tune" },
-            "gesture": { "default": "mdi:hand-wave" },
             "gesture_sensitivity_value": { "default": "mdi:tune" },
             "gesture_value": { "default": "mdi:hand-wave" },
             "heating_direction": { "default": "mdi:air-filter" },
@@ -100,8 +98,6 @@
             "hydration_setting": { "default": "mdi:water-plus" },
             "ice_making_function": { "default": "mdi:ice-pop" },
             "intensity": { "default": "mdi:speedometer" },
-            "inverter": { "default": "mdi:sync" },
-            "light": { "default": "mdi:lightbulb" },
             "light_color": { "default": "mdi:palette" },
             "light_mode": { "default": "mdi:lightbulb" },
             "mode": { "default": "mdi:tune" },
@@ -193,6 +189,7 @@
             "air_left_hour": { "default": "mdi:air-filter" }
         },
         "switch": {
+            "aidry": { "default": "mdi:tshirt-crew" },
             "airdry_on_off": { "default": "mdi:wind-turbine" },
             "antifreeze": { "default": "mdi:snowflake-thermometer" },
             "auto_power_off": { "default": "mdi:timer-off" },
@@ -214,10 +211,12 @@
             "frequency_hot": { "default": "mdi:fire" },
             "fresh_air_remove_odor": { "default": "mdi:air-purifier" },
             "germicidal": { "default": "mdi:fire-circle" },
+            "gesture": { "default": "mdi:hand-wave" },
             "heat": { "default": "mdi:fire" },
             "human_sensing_switch": { "default": "mdi:motion-sensor" },
             "humidification": { "default": "mdi:air-humidifier" },
             "humidify": { "default": "mdi:air-humidifier" },
+            "inverter": { "default": "mdi:sync" },
             "laundry": { "default": "mdi:washing-machine" },
             "light": { "default": "mdi:lightbulb" },
             "lock": { "default": "mdi:account-lock" },

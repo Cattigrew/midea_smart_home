@@ -284,13 +284,6 @@
       }
     },
     "select": {
-      "aidry": {
-        "name": "AI Dry",
-        "state": {
-          "off": "Off",
-          "on": "On"
-        }
-      },
       "bath_direction": {
         "name": "Bath Wind Direction",
         "state": {
@@ -601,13 +594,6 @@
           "off": "Off"
         }
       },
-      "gesture": {
-        "name": "Gesture Switch",
-        "state": {
-          "off": "Off",
-          "on": "On"
-        }
-      },
       "gesture_sensitivity_value": {
         "name": "Gesture Sensitivity",
         "state": {
@@ -673,20 +659,6 @@
           "iron_now": "Iron Now",
           "wear_now": "Wear Now",
           "store": "Store"
-        }
-      },
-      "inverter": {
-        "name": "Inverter Cruise",
-        "state": {
-          "off": "Off",
-          "on": "On"
-        }
-      },
-      "light": {
-        "name": "Light Switch",
-        "state": {
-          "off": "Off",
-          "on": "On"
         }
       },
       "light_mode": {
@@ -1206,6 +1178,9 @@
       }
     },
     "switch": {
+      "aidry": {
+        "name": "AI Dry"
+      },
       "airdry_on_off": {
         "name": "Curtain Air Dry"
       },
@@ -1281,6 +1256,9 @@
       "germicidal": {
         "name": "High Temperature Sterilization"
       },
+      "gesture": {
+        "name": "Gesture Switch"
+      },
       "heat": {
         "name": "Heating"
       },
@@ -1292,6 +1270,9 @@
       },
       "humidify": {
         "name": "Cool Breeze"
+      },
+      "inverter": {
+        "name": "Inverter Cruise"
       },
       "laundry": {
         "name": "One-Key Laundry"

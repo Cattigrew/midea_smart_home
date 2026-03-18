@@ -22,6 +22,32 @@ DEVICE_MAPPING = {
             Platform.SWITCH: {
                 "power": {
                     "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "gesture": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "setting",
+                        "setting": "gesture"
+                    }
+                },
+                "inverter": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "control"
+                    }
+                },
+                "light": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "setting",
+                        "setting": "light"
+                    }
                 }
             },
             Platform.SENSOR: {
@@ -87,18 +113,6 @@ DEVICE_MAPPING = {
                         "extreme": {"gear": 4},
                     }
                 },
-                "gesture": {
-                    "options": {
-                        "off": {"gesture": "off"},
-                        "on": {"gesture": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "gesture"
-                    }
-                },
                 "gesture_value": {
                     "options": {
                         "power_toggle": {"gesture_value": 1},
@@ -125,29 +139,6 @@ DEVICE_MAPPING = {
                         "b6_action": "setting",
                         "setting": "gesture"
                     }
-                },
-                "inverter": {
-                    "options": {
-                        "off": {"inverter": "off"},
-                        "on": {"inverter": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "control"
-                    }
-                },
-                "light": {
-                    "options": {
-                        "off": {"light": "off"},
-                        "on": {"light": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light"
-                    }
                 }
             }
         }
@@ -167,6 +158,32 @@ DEVICE_MAPPING = {
             Platform.SWITCH: {
                 "power": {
                     "device_class": SwitchDeviceClass.SWITCH
+                },
+                "gesture": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "setting",
+                        "setting": "gesture"
+                    }
+                },
+                "light": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "setting",
+                        "setting": "light"
+                    }
+                },
+                "aidry": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "control"
+                    }
                 }
             },
             Platform.SENSOR: {
@@ -210,18 +227,6 @@ DEVICE_MAPPING = {
                         "extreme": {"gear": 3}
                     }
                 },
-                "gesture": {
-                    "options": {
-                        "off": {"gesture": "off"},
-                        "on": {"gesture": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "gesture"
-                    }
-                },
                 "gesture_value": {
                     "options": {
                         "power_toggle": {"gesture_value": 1},
@@ -246,29 +251,6 @@ DEVICE_MAPPING = {
                         "type": "b6",
                         "b6_action": "setting",
                         "setting": "gesture"
-                    }
-                },
-                "light": {
-                    "options": {
-                        "off": {"light": "off"},
-                        "on": {"light": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light"
-                    }
-                },
-                "aidry": {
-                    "options": {
-                        "off": {"aidry": "off"},
-                        "on": {"aidry": "on"}
-                    },
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "control"
                     }
                 }
             }
