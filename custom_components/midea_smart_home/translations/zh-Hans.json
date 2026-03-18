@@ -1385,6 +1385,9 @@
       },
       "wifi_led_enable": {
         "name": "WiFi指示灯"
+      },
+      "ac_dry":{
+        "name": "内机防霉（干燥）"
       }
     },
     "vacuum": {

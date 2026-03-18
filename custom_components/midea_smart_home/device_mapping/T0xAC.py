@@ -360,11 +360,12 @@ DEVICE_MAPPING = {
             }
         }
     },
-    ("22396505", "22396517", "22396521"): {
+    ("22396505", "22396517", "22396521", "22396525", "22396533"): {
         "rationale": ["off", "on"],
         "initial_query": [
             {},
             {"indoor_temperature"},
+            {"indoor_humidity"},
             {"prevent_super_cool"},
             {"run_status"}
         ],
@@ -409,6 +410,10 @@ DEVICE_MAPPING = {
                 "prevent_super_cool": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "rationale": [0, 1]
+                },
+                "dry": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "ac_dry"
                 }
             },
             Platform.SELECT: {
@@ -428,6 +433,12 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "cur_temperature"
+                },
+                "indoor_humidity": {
+                    "device_class": SensorDeviceClass.HUMIDITY,
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_humidity"
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
