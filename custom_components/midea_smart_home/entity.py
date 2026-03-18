@@ -83,15 +83,8 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
         device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
         device_type_code = f"T0x{device_type_int:02X}" if device_type_int else device_type
 
-        if model:
-            device_display_name = f"{device_name} ( {model} )"
-            model_display = model
-        elif sn8:
-            device_display_name = f"{device_name} ( {device_type_code} | {sn8} )"
-            model_display = device_type_code
-        else:
-            device_display_name = device_name
-            model_display = device_type_code
+        device_display_name = device_name
+        model_display = model if model else device_type_code
 
         self._attr_unique_id = f"midea_{device_id}_{entity_key}"
         self._attr_device_info = DeviceInfo(
