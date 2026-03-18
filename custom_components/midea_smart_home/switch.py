@@ -30,10 +30,11 @@ async def async_setup_entry(
                 translation_key = config.get("translation_key")
                 switch_rationale = config.get("rationale", rationale)
                 condition = config.get("condition")
+                command = config.get("command")
                 entities.append(
                     MideaSwitchEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        switch_id, translation_key, switch_rationale, condition, model
+                        switch_id, translation_key, switch_rationale, condition, command, model
                     )
                 )
 
@@ -55,6 +56,7 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         translation_key: str = None,
         rationale: list = None,
         condition: dict = None,
+        command: dict = None,
         model: str = None,
     ):
         super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, switch_id, model)
@@ -62,6 +64,7 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         self._attr_translation_key = translation_key or switch_id
         self._rationale = rationale or ["off", "on"]
         self._condition = condition
+        self._command = command
         self._attr_unique_id = f"switch.midea_{device_id}_{switch_id}"
         self.entity_id = f"switch.midea_{device_id}_{switch_id}"
 
@@ -91,7 +94,11 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
 
     async def _async_set_status_on_off(self, attribute_key: str, turn_on: bool) -> None:
         value = self._rationale[int(turn_on)]
-        await self.coordinator.async_set_control(attribute_key, value)
+        merged_command = {}
+        if isinstance(self._command, dict):
+            merged_command.update(self._command)
+        merged_command[attribute_key] = value
+        await self.coordinator.async_set_control(merged_command)
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         await self._async_set_status_on_off(self._switch_id, True)
