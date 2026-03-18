@@ -54,18 +54,18 @@ class MideaHumidifierEntity(MideaBaseEntity, HumidifierEntity):
         config: dict,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, humidifier_id, model)
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, humidifier_id, model,
+            platform_name="humidifier", config=config
+        )
         self._humidifier_id = humidifier_id
-        self._config = config
-        self._attr_unique_id = f"humidifier.midea_{device_id}_{humidifier_id}"
-        self._attr_translation_key = config.get("translation_key", humidifier_id)
-        self._key_power = config.get("power")
-        self._key_target_humidity = config.get("target_humidity")
-        self._key_current_humidity = config.get("current_humidity")
-        self._key_mode = config.get("mode")
-        self._key_modes = config.get("modes", {})
-        self._min_humidity = config.get("min_humidity", 30)
-        self._max_humidity = config.get("max_humidity", 80)
+        self._key_power = self._config.get("power")
+        self._key_target_humidity = self._config.get("target_humidity")
+        self._key_current_humidity = self._config.get("current_humidity")
+        self._key_mode = self._config.get("mode")
+        self._key_modes = self._config.get("modes", {})
+        self._min_humidity = self._config.get("min_humidity", 30)
+        self._max_humidity = self._config.get("max_humidity", 80)
 
         if self._key_modes:
             self._attr_supported_features = HumidifierEntityFeature.MODES

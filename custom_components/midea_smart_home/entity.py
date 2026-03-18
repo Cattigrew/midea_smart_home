@@ -47,6 +47,50 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
     _attr_has_entity_name = True
     _attr_should_poll = False
 
+    def __init__(
+        self,
+        coordinator: MideaCoordinator,
+        device_id: int,
+        device_type: str,
+        sn: str,
+        sn8: str,
+        device_name: str,
+        entity_key: str,
+        model: Optional[str] = None,
+        platform_name: Optional[str] = None,
+        config: Optional[dict] = None,
+        rationale: Optional[list] = None,
+        condition: Optional[dict] = None,
+    ) -> None:
+        super().__init__(coordinator)
+        self._device_id = device_id
+        self._device_type = device_type
+        self._sn = sn
+        self._sn8 = sn8
+        self._entity_key = entity_key
+        self._model = model
+        self._config = config or {}
+        self._rationale = rationale or ["off", "on"]
+        self._condition = condition
+
+        device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
+        device_type_code = f"T0x{device_type_int:02X}" if device_type_int else device_type
+
+        device_display_name = device_name
+        model_display = model if model else device_type_code
+
+        self._attr_unique_id = f"{platform_name}.midea_{device_id}_{entity_key}" if platform_name else f"midea_{device_id}_{entity_key}"
+
+        self._attr_translation_key = self._config.get("translation_key", entity_key)
+
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, str(device_id))},
+            name=device_display_name,
+            manufacturer="Midea",
+            model=model_display,
+            serial_number=sn,
+        )
+
     @property
     def available(self) -> bool:
         if not self.coordinator.last_update_success:
@@ -59,41 +103,7 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
         if data is None:
             return False
 
-        return True
-
-    def __init__(
-        self,
-        coordinator: MideaCoordinator,
-        device_id: int,
-        device_type: str,
-        sn: str,
-        sn8: str,
-        device_name: str,
-        entity_key: str,
-        model: Optional[str] = None,
-    ) -> None:
-        super().__init__(coordinator)
-        self._device_id = device_id
-        self._device_type = device_type
-        self._sn = sn
-        self._sn8 = sn8
-        self._entity_key = entity_key
-        self._model = model
-
-        device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
-        device_type_code = f"T0x{device_type_int:02X}" if device_type_int else device_type
-
-        device_display_name = device_name
-        model_display = model if model else device_type_code
-
-        self._attr_unique_id = f"midea_{device_id}_{entity_key}"
-        self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, str(device_id))},
-            name=device_display_name,
-            manufacturer="Midea",
-            model=model_display,
-            serial_number=sn,
-        )
+        return self._check_condition(self._condition)
 
     def _get_nested_value(
         self,

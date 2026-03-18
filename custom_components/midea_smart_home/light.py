@@ -52,17 +52,15 @@ class MideaLightEntity(MideaBaseEntity, LightEntity):
         rationale: list,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model)
-        self._config = config
-        self._rationale = rationale
-        self._attr_unique_id = f"light.midea_{device_id}_{entity_key}"
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model,
+            platform_name="light", config=config, rationale=rationale
+        )
 
         self._key_power = self._config.get("power")
         self._key_preset_modes = self._config.get("preset_modes")
         self._key_brightness = self._config.get("brightness")
         self._key_color_temp = self._config.get("color_temp")
-
-        self._attr_translation_key = config.get("translation_key", entity_key)
 
         self._brightness_is_range = False
         self._brightness_min = 0

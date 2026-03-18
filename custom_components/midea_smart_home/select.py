@@ -62,20 +62,17 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         condition: dict = None,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, select_id, model)
+        config = {"translation_key": translation_key} if translation_key else {}
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, select_id, model,
+            platform_name="select", config=config, condition=condition
+        )
         self._select_id = select_id
         self._options = options
         self._options_map = options_map
         self._command = command
-        self._attr_translation_key = translation_key or select_id
         self._attr_options = options
-        self._attr_unique_id = f"select.midea_{device_id}_{select_id}"
         self._last_option: str | None = None
-        self._condition = condition
-
-    @property
-    def available(self) -> bool:
-        return super().available and self._check_condition(self._condition)
 
     def _dict_get_selected_for_select(self) -> str | None:
         if not isinstance(self._options_map, dict):

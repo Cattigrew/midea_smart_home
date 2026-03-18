@@ -57,10 +57,10 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         rationale: list,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model)
-        self._config = config
-        self._rationale = rationale
-        self._attr_unique_id = f"climate.midea_{device_id}_{entity_key}"
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model,
+            platform_name="climate", config=config, rationale=rationale, condition=config.get("condition")
+        )
 
         self._key_power = self._config.get("power")
         self._key_hvac_modes = self._config.get("hvac_modes")
@@ -72,9 +72,7 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
         self._key_min_temp = self._config.get("min_temp", 16)
         self._key_max_temp = self._config.get("max_temp", 30)
         self._aux_heat = self._config.get("aux_heat")
-        self._condition = config.get("condition")
 
-        self._attr_translation_key = config.get("translation_key", entity_key)
         self._attr_temperature_unit = self._config.get("temperature_unit", UnitOfTemperature.CELSIUS)
         self._attr_precision = self._config.get("precision", 1.0)
         self._attr_target_temperature_step = self._config.get("precision", 1.0)
@@ -83,10 +81,6 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
 
         self._setup_supported_features()
         self._setup_modes()
-
-    @property
-    def available(self) -> bool:
-        return super().available and self._check_condition(self._condition)
 
     def _setup_supported_features(self):
         features = ClimateEntityFeature(0)

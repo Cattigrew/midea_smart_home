@@ -49,25 +49,20 @@ class MideaNumberEntity(MideaBaseEntity, NumberEntity):
         config: dict,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model)
-        self._config = config
-        self._attr_translation_key = config.get("translation_key", entity_key)
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model,
+            platform_name="number", config=config, condition=config.get("condition")
+        )
         self._attr_native_min_value = config.get("min", 0.0)
         self._attr_native_max_value = config.get("max", 100.0)
         self._attr_native_step = config.get("step", 1.0)
         self._attr_mode = config.get("mode", "auto")
-        self._attr_unique_id = f"number.midea_{device_id}_{entity_key}"
-        self._condition = config.get("condition")
 
         if "unit_of_measurement" in config:
             self._attr_native_unit_of_measurement = config["unit_of_measurement"]
 
         if "device_class" in config:
             self._attr_device_class = config["device_class"]
-
-    @property
-    def available(self) -> bool:
-        return super().available and self._check_condition(self._condition)
 
     @property
     def native_value(self) -> float | None:

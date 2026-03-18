@@ -59,17 +59,13 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         command: dict = None,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, switch_id, model)
+        config = {"translation_key": translation_key} if translation_key else {}
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, switch_id, model,
+            platform_name="switch", config=config, rationale=rationale, condition=condition
+        )
         self._switch_id = switch_id
-        self._attr_translation_key = translation_key or switch_id
-        self._rationale = rationale or ["off", "on"]
-        self._condition = condition
         self._command = command
-        self._attr_unique_id = f"switch.midea_{device_id}_{switch_id}"
-
-    @property
-    def available(self) -> bool:
-        return super().available and self._check_condition(self._condition)
 
     def _get_status_on_off(self, attribute_key: str) -> bool:
         data = self.coordinator.data or {}

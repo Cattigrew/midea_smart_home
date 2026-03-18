@@ -49,16 +49,16 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
         config: dict,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, fan_id, model)
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, fan_id, model,
+            platform_name="fan", config=config
+        )
         self._fan_id = fan_id
-        self._config = config
-        self._attr_unique_id = f"fan.midea_{device_id}_{fan_id}"
-        self._attr_translation_key = config.get("translation_key", fan_id)
-        self._key_power = config.get("power")
-        self._key_preset_modes = config.get("preset_modes", {})
-        speeds_config = config.get("speeds", [])
-        self._key_oscillate = config.get("oscillate")
-        self._key_directions = config.get("directions", {})
+        self._key_power = self._config.get("power")
+        self._key_preset_modes = self._config.get("preset_modes", {})
+        speeds_config = self._config.get("speeds", [])
+        self._key_oscillate = self._config.get("oscillate")
+        self._key_directions = self._config.get("directions", {})
 
         if isinstance(speeds_config, list) and len(speeds_config) > 0:
             if isinstance(speeds_config[0], dict) and "key" in speeds_config[0]:

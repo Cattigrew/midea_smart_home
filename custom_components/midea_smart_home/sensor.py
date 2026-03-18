@@ -63,9 +63,12 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
         state_class: Optional[SensorStateClass] = None,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, sensor_id, model)
+        config = {"translation_key": translation_key} if translation_key else {}
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, sensor_id, model,
+            platform_name="sensor", config=config
+        )
         self._sensor_id = sensor_id
-        self._attr_translation_key = translation_key or sensor_id
 
         if device_class and isinstance(device_class, str):
             try:
@@ -75,7 +78,6 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
 
         self._attr_device_class = device_class
         self._attr_native_unit_of_measurement = unit
-        self._attr_unique_id = f"sensor.midea_{device_id}_{sensor_id}"
 
         if state_class is not None:
             if isinstance(state_class, str):

@@ -49,10 +49,10 @@ class MideaButtonEntity(MideaBaseEntity, ButtonEntity):
         config: dict,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model)
-        self._config = config
-        self._attr_translation_key = config.get("translation_key", entity_key)
-        self._attr_unique_id = f"button.midea_{device_id}_{entity_key}"
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model,
+            platform_name="button", config=config
+        )
 
     async def async_press(self) -> None:
         command = self._config.get("command")

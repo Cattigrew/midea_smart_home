@@ -56,10 +56,10 @@ class MideaWaterHeaterEntity(MideaBaseEntity, WaterHeaterEntity):
         rationale: list,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model)
-        self._config = config
-        self._rationale = rationale
-        self._attr_unique_id = f"water_heater.midea_{device_id}_{entity_key}"
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, entity_key, model,
+            platform_name="water_heater", config=config, rationale=rationale
+        )
 
         self._key_power = self._config.get("power")
         self._key_operation_list = self._config.get("operation_list")
@@ -68,7 +68,6 @@ class MideaWaterHeaterEntity(MideaBaseEntity, WaterHeaterEntity):
         self._key_current_temperature = self._config.get("current_temperature")
         self._key_target_temperature = self._config.get("target_temperature")
 
-        self._attr_translation_key = config.get("translation_key", entity_key)
         self._attr_temperature_unit = self._config.get("temperature_unit", UnitOfTemperature.CELSIUS)
         self._attr_precision = self._config.get("precision", 1.0)
         self._attr_target_temperature_step = self._config.get("precision", 1.0)

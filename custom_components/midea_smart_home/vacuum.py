@@ -53,15 +53,15 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
         config: dict,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, vacuum_id, model)
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, vacuum_id, model,
+            platform_name="vacuum", config=config
+        )
         self._vacuum_id = vacuum_id
-        self._config = config
-        self._attr_unique_id = f"vacuum.midea_{device_id}_{vacuum_id}"
-        self._attr_translation_key = config.get("translation_key", vacuum_id)
-        self._key_battery_level = config.get("battery_level")
-        self._key_control = config.get("control")
-        self._key_fan_speeds = config.get("fan_speeds", {})
-        self._control_actions = config.get("control_actions", {})
+        self._key_battery_level = self._config.get("battery_level")
+        self._key_control = self._config.get("control")
+        self._key_fan_speeds = self._config.get("fan_speeds", {})
+        self._control_actions = self._config.get("control_actions", {})
 
     @property
     def supported_features(self):

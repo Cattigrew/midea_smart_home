@@ -63,8 +63,10 @@ class MideaDeviceStatusSensorEntity(MideaBaseEntity, BinarySensorEntity):
         device_name: str,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, "device_status", model)
-        self._attr_unique_id = f"binary_sensor.midea_{device_id}_device_status"
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, "device_status", model,
+            platform_name="binary_sensor"
+        )
 
     @property
     def is_on(self) -> bool:
@@ -123,7 +125,11 @@ class MideaBinarySensorEntity(MideaBaseEntity, BinarySensorEntity):
         rationale: list = None,
         model: str = None,
     ):
-        super().__init__(coordinator, device_id, device_type, sn, sn8, device_name, sensor_id, model)
+        config = {"translation_key": translation_key} if translation_key else {}
+        super().__init__(
+            coordinator, device_id, device_type, sn, sn8, device_name, sensor_id, model,
+            platform_name="binary_sensor", config=config
+        )
         self._sensor_id = sensor_id
         self._rationale = rationale or []
         if device_class:
@@ -131,8 +137,6 @@ class MideaBinarySensorEntity(MideaBaseEntity, BinarySensorEntity):
                 self._attr_device_class = BinarySensorDeviceClass(device_class)
             except ValueError:
                 pass
-        self._attr_translation_key = translation_key or sensor_id
-        self._attr_unique_id = f"binary_sensor.midea_{device_id}_{sensor_id}"
 
     @property
     def is_on(self) -> bool | None:
