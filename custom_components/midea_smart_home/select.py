@@ -32,6 +32,7 @@ async def async_setup_entry(
                 translation_key = config.get("translation_key")
                 condition = config.get("condition")
                 status_key = config.get("status_key")
+                ignore_values = config.get("ignore_values")
                 if isinstance(options, dict):
                     option_list = list(options.keys())
                 else:
@@ -39,7 +40,7 @@ async def async_setup_entry(
                 entities.append(
                     MideaSelectEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        select_id, option_list, options, command, translation_key, condition, status_key, model
+                        select_id, option_list, options, command, translation_key, condition, status_key, ignore_values, model
                     )
                 )
 
@@ -62,6 +63,7 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         translation_key: str = None,
         condition: dict = None,
         status_key: str = None,
+        ignore_values: list = None,
         model: str = None,
     ):
         config = {"translation_key": translation_key} if translation_key else {}
@@ -74,21 +76,24 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         self._options_map = options_map
         self._command = command
         self._status_key = status_key
+        self._ignore_values = ignore_values or []
         self._attr_options = options
         self._last_option: str | None = None
 
-    def _dict_get_selected_for_select(self) -> str | None:
+    def _dict_get_selected_for_select(self) -> tuple[str | None, bool]:
         if not isinstance(self._options_map, dict):
-            return None
+            return None, False
 
         if self._status_key:
             current_value = self._get_nested_value(self._status_key)
             if current_value is not None:
+                if current_value in self._ignore_values:
+                    return None, True
                 for mode, status in self._options_map.items():
                     extracted = self._extract_deepest_value(status)
                     if extracted == current_value:
-                        return mode
-            return None
+                        return mode, False
+            return None, False
 
         for mode, status in self._options_map.items():
             match = True
@@ -97,6 +102,8 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
                 if state_value is None:
                     match = False
                     break
+                if state_value in self._ignore_values:
+                    return None, True
                 try:
                     if isinstance(value, int) and state_value != value:
                         match = False
@@ -108,8 +115,8 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
                     match = False
                     break
             if match:
-                return mode
-        return None
+                return mode, False
+        return None, False
 
     def _extract_deepest_value(self, config: dict) -> Any:
         for value in config.values():
@@ -121,15 +128,19 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
     @property
     def current_option(self) -> str | None:
         if isinstance(self._options_map, dict):
-            matched = self._dict_get_selected_for_select()
+            matched, ignored = self._dict_get_selected_for_select()
             if matched is not None:
                 self._last_option = matched
                 return matched
+            if ignored:
+                return self._last_option
 
         data = self.coordinator.data or {}
         value = data.get(self._select_id)
 
         if value is not None:
+            if value in self._ignore_values:
+                return self._last_option
             if isinstance(value, str):
                 if value in self._options:
                     self._last_option = value

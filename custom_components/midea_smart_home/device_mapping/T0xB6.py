@@ -120,6 +120,7 @@ DEVICE_MAPPING = {
                         "light_toggle": {"gesture_value": 3},
                         "power_and_speed": {"gesture_value": 4}
                     },
+                    "ignore_values": [0],
                     "command": {
                         "electronic_control_version": 2,
                         "type": "b6",
@@ -233,6 +234,7 @@ DEVICE_MAPPING = {
                         "adjust_speed": {"gesture_value": 2},
                         "light_toggle": {"gesture_value": 3}
                     },
+                    "ignore_values": [0],
                     "command": {
                         "electronic_control_version": 2,
                         "type": "b6",
