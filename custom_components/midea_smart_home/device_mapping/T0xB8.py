@@ -10,6 +10,7 @@ DEVICE_MAPPING = {
                 "vacuum": {
                     "control": "work_status",
                     "fan_speeds": {
+                        "status_key": "fan_level",
                         "soft": {"fan_setting": {"level": "soft"}},
                         "normal": {"fan_setting": {"level": "normal"}},
                         "high": {"fan_setting": {"level": "high"}}
@@ -24,6 +25,7 @@ DEVICE_MAPPING = {
             },
             Platform.SELECT: {
                 "sweep_mop_mode": {
+                    "status_key": "work_mode",
                     "options": {
                         "sweep_and_mop": {"work_mode_setting": {"work_mode": "sweep_and_mop"}},
                         "sweep": {"work_mode_setting": {"work_mode": "sweep"}},

@@ -126,6 +126,24 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
         default: Optional[str] = None
     ) -> Optional[str]:
         data = self.coordinator.data or {}
+        status_key = config_dict.get("status_key")
+        if status_key:
+            current_value = self._get_nested_value(status_key)
+            if current_value is not None:
+                for mode, mode_config in config_dict.items():
+                    if mode == "status_key":
+                        continue
+                    if isinstance(mode_config, dict):
+                        extracted = self._extract_deepest_value(mode_config)
+                        if extracted == current_value:
+                            return mode
+            if default is not None:
+                return default
+            if config_dict:
+                for key in config_dict.keys():
+                    if key != "status_key":
+                        return key
+            return None
         for mode, mode_config in config_dict.items():
             if isinstance(mode_config, dict):
                 match = True
@@ -142,6 +160,13 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
             return default
         if config_dict:
             return list(config_dict.keys())[0]
+        return None
+
+    def _extract_deepest_value(self, config: dict) -> Any:
+        for value in config.values():
+            if isinstance(value, dict):
+                return self._extract_deepest_value(value)
+            return value
         return None
 
     def _is_off(self, value: Any) -> bool:

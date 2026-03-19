@@ -106,7 +106,7 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
 
     @property
     def fan_speed_list(self):
-        return list(self._key_fan_speeds.keys())
+        return [k for k in self._key_fan_speeds.keys() if k != "status_key"]
 
     async def async_start(self):
         if self._key_control:
@@ -131,4 +131,13 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
     async def async_set_fan_speed(self, fan_speed: str):
         new_status = self._key_fan_speeds.get(fan_speed)
         if new_status is not None:
+            status_key = self._key_fan_speeds.get("status_key")
+            if status_key:
+                value = self._extract_deepest_value(new_status)
+                if value is not None:
+                    await self.coordinator.async_set_controls({
+                        status_key: value,
+                        **new_status
+                    })
+                    return
             await self.coordinator.async_set_controls(new_status)

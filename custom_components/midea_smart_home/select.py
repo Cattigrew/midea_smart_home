@@ -31,6 +31,7 @@ async def async_setup_entry(
                 command = config.get("command")
                 translation_key = config.get("translation_key")
                 condition = config.get("condition")
+                status_key = config.get("status_key")
                 if isinstance(options, dict):
                     option_list = list(options.keys())
                 else:
@@ -38,7 +39,7 @@ async def async_setup_entry(
                 entities.append(
                     MideaSelectEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        select_id, option_list, options, command, translation_key, condition, model
+                        select_id, option_list, options, command, translation_key, condition, status_key, model
                     )
                 )
 
@@ -60,6 +61,7 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         command: dict | None,
         translation_key: str = None,
         condition: dict = None,
+        status_key: str = None,
         model: str = None,
     ):
         config = {"translation_key": translation_key} if translation_key else {}
@@ -71,11 +73,21 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         self._options = options
         self._options_map = options_map
         self._command = command
+        self._status_key = status_key
         self._attr_options = options
         self._last_option: str | None = None
 
     def _dict_get_selected_for_select(self) -> str | None:
         if not isinstance(self._options_map, dict):
+            return None
+
+        if self._status_key:
+            current_value = self._get_nested_value(self._status_key)
+            if current_value is not None:
+                for mode, status in self._options_map.items():
+                    extracted = self._extract_deepest_value(status)
+                    if extracted == current_value:
+                        return mode
             return None
 
         for mode, status in self._options_map.items():
@@ -97,6 +109,13 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
                     break
             if match:
                 return mode
+        return None
+
+    def _extract_deepest_value(self, config: dict) -> Any:
+        for value in config.values():
+            if isinstance(value, dict):
+                return self._extract_deepest_value(value)
+            return value
         return None
 
     @property
