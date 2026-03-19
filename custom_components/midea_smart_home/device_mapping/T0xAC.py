@@ -608,7 +608,6 @@ DEVICE_MAPPING = {
             {"run_status"},
             {"wind_strength"}
         ],
-        "centralized": ["buzzer"],
         "entities": {
             Platform.FAN: {
                 "fan": {
@@ -662,18 +661,18 @@ DEVICE_MAPPING = {
             },
             Platform.SENSOR: {
                 "fresh_filter_time": {
-                    "native_unit_of_measurement": PERCENTAGE,
+                    "unit_of_measurement": PERCENTAGE,
                     "state_class": SensorStateClass.MEASUREMENT
                 },
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
-                    "native_unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "cur_temperature"
                 },
                 "new_wind_humidity": {
                     "device_class": SensorDeviceClass.HUMIDITY,
-                    "native_unit_of_measurement": PERCENTAGE,
+                    "unit_of_measurement": PERCENTAGE,
                     "state_class": SensorStateClass.MEASUREMENT
                 }
             }
