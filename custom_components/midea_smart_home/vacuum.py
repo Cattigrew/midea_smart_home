@@ -58,33 +58,19 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
             platform_name="vacuum", config=config
         )
         self._vacuum_id = vacuum_id
-        self._key_battery_level = self._config.get("battery_level")
         self._key_control = self._config.get("control")
         self._key_fan_speeds = self._config.get("fan_speeds", {})
         self._control_actions = self._config.get("control_actions", {})
 
     @property
     def supported_features(self):
-        features = VacuumEntityFeature(0)
+        features = VacuumEntityFeature.STATE
         features |= VacuumEntityFeature.STOP
         features |= VacuumEntityFeature.PAUSE
         features |= VacuumEntityFeature.START
         features |= VacuumEntityFeature.RETURN_HOME
         features |= VacuumEntityFeature.FAN_SPEED
-        features |= VacuumEntityFeature.STATUS
-        features |= VacuumEntityFeature.BATTERY
         return features
-
-    @property
-    def battery_level(self):
-        if self._key_battery_level:
-            value = self._get_nested_value(self._key_battery_level)
-            if value is not None:
-                try:
-                    return int(value)
-                except (ValueError, TypeError):
-                    return None
-        return None
 
     @property
     def status(self):
@@ -93,7 +79,7 @@ class MideaVacuumEntity(MideaBaseEntity, StateVacuumEntity):
         return None
 
     @property
-    def state(self):
+    def activity(self):
         status = self.status
         if not status:
             return None
