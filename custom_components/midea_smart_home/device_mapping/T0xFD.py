@@ -52,7 +52,6 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT
                 },
                 "tank_status": {
-                    "device_class": SensorDeviceClass.BATTERY,
                     "unit_of_measurement": PERCENTAGE,
                     "state_class": SensorStateClass.MEASUREMENT
                 }
@@ -118,7 +117,6 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT
                 },
                 "tank_status": {
-                    "device_class": SensorDeviceClass.BATTERY,
                     "unit_of_measurement": PERCENTAGE,
                     "state_class": SensorStateClass.MEASUREMENT
                 }

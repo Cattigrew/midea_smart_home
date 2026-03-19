@@ -129,7 +129,6 @@ DEVICE_MAPPING = {
                     "translation_key": "remain_time"
                 },
                 "db_progress": {
-                    "device_class": SensorDeviceClass.BATTERY,
                     "unit_of_measurement": "%",
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "progress"
