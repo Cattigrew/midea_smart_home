@@ -35,13 +35,66 @@ class DeviceLogicHandler:
         if self.device_type == 0xD9:
             if "db_running_status" in data:
                 self.adjust_control_status(data, data["db_running_status"])
+            self.process_progress(data, "db_running_status", "db_progress")
 
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
             if "running_status" in data:
                 self.adjust_control_status(data, data["running_status"])
+            self.process_progress(data, "running_status", "progress")
 
         elif self.device_type == 0xEA:
             self.adjust_work_switch(data)
+
+    def process_progress(self, data: dict, status_key: str, progress_key: str) -> None:
+        """Process progress sensor special logic"""
+        if progress_key not in data:
+            return
+
+        running_status = data.get(status_key)
+        if running_status != "start":
+            data[progress_key] = "idle"
+            return
+
+        if self.device_type == 0xDC:
+            return
+
+        value = data[progress_key]
+        try:
+            if isinstance(value, str):
+                value = int(value, 16) if value.startswith("0x") else int(value)
+
+            calculated_value = 0
+            if value > 0:
+                calculated_value = (value & -value).bit_length()
+        except (ValueError, TypeError):
+            if isinstance(value, str):
+                return
+            calculated_value = -1
+
+        if self.device_type == 0xDA:
+            progress_map = {
+                0: "idle",
+                1: "spin",
+                2: "rinse",
+                3: "wash",
+                4: "weight",
+                5: "unknown",
+                6: "dry",
+                7: "soak",
+            }
+        else:
+            progress_map = {
+                0: "idle",
+                1: "spin",
+                2: "rinse",
+                3: "wash",
+                4: "pre-wash",
+                5: "dry",
+                6: "weight",
+                7: "spin_high",
+                8: "unknown",
+            }
+        data[progress_key] = progress_map.get(calculated_value, "unknown")
 
     def prepare_control_data(self, control: dict, current_data: dict = None) -> dict:
         """Prepare control data with device-specific requirements."""

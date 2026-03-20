@@ -129,8 +129,7 @@ DEVICE_MAPPING = {
                     "translation_key": "remain_time"
                 },
                 "db_progress": {
-                    "unit_of_measurement": "%",
-                    "state_class": SensorStateClass.MEASUREMENT,
+                    "device_class": SensorDeviceClass.ENUM,
                     "translation_key": "progress"
                 },
                 "db_running_status": {

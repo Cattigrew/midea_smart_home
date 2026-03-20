@@ -126,8 +126,7 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT
                 },
                 "progress": {
-                    "unit_of_measurement": "%",
-                    "state_class": SensorStateClass.MEASUREMENT
+                    "device_class": SensorDeviceClass.ENUM
                 },
                 "error_code": {
                     "device_class": SensorDeviceClass.ENUM
