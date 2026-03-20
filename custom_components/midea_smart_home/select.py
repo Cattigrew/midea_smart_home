@@ -80,6 +80,22 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         self._attr_options = options
         self._last_option: str | None = None
 
+    def _is_ignored_value(self, value: Any) -> bool:
+        if value is None:
+            return False
+        for ignore_val in self._ignore_values:
+            if value == ignore_val:
+                return True
+            try:
+                if isinstance(ignore_val, (int, float)) and isinstance(value, (int, float)):
+                    if value == ignore_val:
+                        return True
+                elif str(value) == str(ignore_val):
+                    return True
+            except (TypeError, ValueError):
+                pass
+        return False
+
     def _dict_get_selected_for_select(self) -> tuple[str | None, bool]:
         if not isinstance(self._options_map, dict):
             return None, False
@@ -87,7 +103,7 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         if self._status_key:
             current_value = self._get_nested_value(self._status_key)
             if current_value is not None:
-                if current_value in self._ignore_values:
+                if self._is_ignored_value(current_value):
                     return None, True
                 for mode, status in self._options_map.items():
                     extracted = self._extract_deepest_value(status)
@@ -102,7 +118,7 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
                 if state_value is None:
                     match = False
                     break
-                if state_value in self._ignore_values:
+                if self._is_ignored_value(state_value):
                     return None, True
                 try:
                     if isinstance(value, int) and state_value != value:
@@ -139,7 +155,7 @@ class MideaSelectEntity(MideaBaseEntity, SelectEntity):
         value = data.get(self._select_id)
 
         if value is not None:
-            if value in self._ignore_values:
+            if self._is_ignored_value(value):
                 return self._last_option
             if isinstance(value, str):
                 if value in self._options:
