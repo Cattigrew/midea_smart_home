@@ -24,6 +24,12 @@ class DeviceLogicHandler:
             elif work_status in ("cooking", "keep_warm"):
                 data["work_switch"] = 2
 
+    def adjust_ac_mode(self, data: dict) -> None:
+        if "mode" in data:
+            power = data.get("power")
+            if power == "off" or power == 0:
+                data["mode"] = "idle"
+
     def apply_special_handling(
         self,
         data: dict,
@@ -44,6 +50,9 @@ class DeviceLogicHandler:
 
         elif self.device_type == 0xEA:
             self.adjust_work_switch(data)
+
+        elif self.device_type == 0xAC:
+            self.adjust_ac_mode(data)
 
     def process_progress(self, data: dict, status_key: str, progress_key: str) -> None:
         """Process progress sensor special logic"""
