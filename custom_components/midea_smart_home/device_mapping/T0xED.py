@@ -1,11 +1,19 @@
 from homeassistant.const import Platform, PERCENTAGE, UnitOfTemperature, UnitOfTime, UnitOfVolume
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 
 DEVICE_MAPPING = {
     "default_water_purifier": {
         "rationale": ["off", "on"],
         "entities": {
+            Platform.BINARY_SENSOR: {
+                "standby_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING,
+                    "rationale": [1, 0],
+                    "translation_key": "water_output_switch"
+                }
+            },
             Platform.SWITCH: {
                 "wash": {
                     "device_class": SwitchDeviceClass.SWITCH
@@ -116,6 +124,13 @@ DEVICE_MAPPING = {
     "632009F5": {
         "rationale": ["off", "on"],
         "entities": {
+            Platform.BINARY_SENSOR: {
+                "standby_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING,
+                    "rationale": [1, 0],
+                    "translation_key": "water_output_switch"
+                }
+            },
             Platform.SWITCH: {
                 "wash": {
                     "device_class": SwitchDeviceClass.SWITCH
@@ -201,6 +216,13 @@ DEVICE_MAPPING = {
             ],
         },
         "entities": {
+            Platform.BINARY_SENSOR: {
+                "standby_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING,
+                    "rationale": [1, 0],
+                    "translation_key": "water_output_switch"
+                }
+            },
             Platform.SWITCH: {
                 "wash": {
                     "device_class": SwitchDeviceClass.SWITCH
