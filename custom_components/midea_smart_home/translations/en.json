@@ -1110,6 +1110,9 @@
       "night_light_brightness": {
         "name": "Night Light Brightness"
       },
+      "outdoor_temperature": {
+        "name": "Outdoor Temperature"
+      },
       "out_tds": {
         "name": "Outlet TDS"
       },

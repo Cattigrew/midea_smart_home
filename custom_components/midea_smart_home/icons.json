@@ -163,6 +163,7 @@
             "new_wind_humidity": { "default": "mdi:water-percent" },
             "night_light_brightness": { "default": "mdi:brightness-5" },
             "out_tds": { "default": "mdi:water-check" },
+            "outdoor_temperature": { "default": "mdi:thermometer" },
             "pm1": { "default": "mdi:blur" },
             "pm10": { "default": "mdi:blur" },
             "pm25": { "default": "mdi:blur" },

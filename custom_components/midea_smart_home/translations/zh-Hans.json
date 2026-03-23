@@ -1110,6 +1110,9 @@
       "night_light_brightness": {
         "name": "夜灯亮度"
       },
+      "outdoor_temperature": {
+        "name": "室外温度"
+      },
       "out_tds": {
         "name": "纯水TDS"
       },
