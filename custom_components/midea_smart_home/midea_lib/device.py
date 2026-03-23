@@ -272,14 +272,18 @@ class DeviceController(threading.Thread):
 
     def _connect_loop(self) -> None:
         connection_retries = 0
-        while self._is_run and self._sock is None:
+        while self._is_run:
+            if self._sock is not None:
+                break
             if self._connect_internal():
+                _LOGGER.info("[%s] Connection established, querying status", self._device_id)
                 self.set_available(True)
+                self.refresh_status()
                 break
             self._close_socket()
             connection_retries += 1
-            sleep_time = min(5 * (2 ** (connection_retries - 1)), 600)
-            _LOGGER.warning("[%s] Unable to connect, sleep %s seconds", self._device_id, sleep_time)
+            sleep_time = min(5 * (2 ** (connection_retries - 1)), 60)
+            _LOGGER.warning("[%s] Unable to connect, sleep %s seconds (retry %d)", self._device_id, sleep_time, connection_retries)
             time.sleep(sleep_time)
 
     def run(self) -> None:
@@ -449,9 +453,15 @@ class MideaDevice:
 
     def _on_device_update(self, status: dict):
         """Handle updates from the controller."""
+        notify = False
         if "available" in status:
+            prev_available = self._available
             self._available = status["available"]
-            if not self._available:
+            if self._available and not prev_available:
+                notify = True
+            elif not self._available:
+                notify = True
+            if notify:
                 self._notify_update()
             return
 

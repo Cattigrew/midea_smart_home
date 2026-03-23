@@ -140,9 +140,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         device = await hass.async_add_executor_job(init_device)
 
         if not device.available:
-            _LOGGER.warning("Device %s failed to connect after 15 seconds", device_id)
-            device.close()
-            continue
+            _LOGGER.warning("Device %s failed to connect after 15 seconds, will retry in background", device_id)
 
         coordinator = MideaCoordinator(
             hass,
@@ -166,15 +164,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         else:
             device.refresh_status()
 
-        for _ in range(30):
-            if coordinator.data is not None:
-                break
-            await asyncio.sleep(0.5)
+        if device.available:
+            for _ in range(30):
+                if coordinator.data is not None:
+                    break
+                await asyncio.sleep(0.5)
 
-        if coordinator.data is None:
-            _LOGGER.warning("Device %s did not receive initial data", device_id)
-            device.close()
-            continue
+            if coordinator.data is None:
+                _LOGGER.warning("Device %s did not receive initial data, will retry in background", device_id)
 
         hass.data[DOMAIN][entry.entry_id][str(device_id)] = {
             "coordinator": coordinator,
