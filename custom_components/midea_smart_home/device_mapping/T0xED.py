@@ -381,6 +381,13 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTemperature.CELSIUS
                 }
             },
+            Platform.BINARY_SENSOR: {
+                "sleep": {
+                    "device_class": BinarySensorDeviceClass.OPENING,
+                    "rationale": ["on", "off"],
+                    "translation_key": "screen_status"
+                }
+            },
             Platform.SENSOR: {
                 "germicidal_left_time": {
                     "device_class": SensorDeviceClass.DURATION,

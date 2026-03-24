@@ -80,6 +80,9 @@
       "failed_device": {
         "name": "初始化失败"
       },
+      "screen_status": {
+        "name": "屏幕状态"
+      },
       "softener_lack": {
         "name": "柔顺剂状态"
       },

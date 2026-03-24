@@ -95,6 +95,9 @@
       "change_water": {
         "name": "Change Water Reminder"
       },
+      "screen_status": {
+        "name": "Screen Status"
+      },
       "softwater_lack": {
         "name": "Softener Salt Shortage"
       },
