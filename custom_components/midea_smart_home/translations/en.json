@@ -1135,7 +1135,19 @@
         "name": "Current Power"
       },
       "progress": {
-        "name": "Progress"
+        "name": "Progress",
+        "state": {
+          "idle": "Idle",
+          "spin": "Spin",
+          "rinse": "Rinse",
+          "wash": "Wash",
+          "weight": "Weight",
+          "unknown": "Unknown",
+          "dry": "Dry",
+          "soak": "Soak",
+          "pre-wash": "Pre Wash",
+          "spin_high": "Spin High"
+        }
       },
       "remain_time": {
         "name": "Remaining Time"

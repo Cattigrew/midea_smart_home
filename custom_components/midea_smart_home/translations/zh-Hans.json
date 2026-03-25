@@ -1135,7 +1135,19 @@
         "name": "当前功率"
       },
       "progress": {
-        "name": "运行进度"
+        "name": "当前洗衣阶段",
+        "state": {
+          "idle": "待机中",
+          "spin": "脱水中",
+          "rinse": "漂洗中",
+          "wash": "洗涤中",
+          "weight": "称重中",
+          "unknown": "未知",
+          "dry": "烘干中",
+          "soak": "浸泡中",
+          "pre-wash": "预洗中",
+          "spin_high": "高速脱水中"
+        }
       },
       "remain_time": {
         "name": "剩余时间"
