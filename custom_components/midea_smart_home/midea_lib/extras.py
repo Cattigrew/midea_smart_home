@@ -64,9 +64,6 @@ class DeviceLogicHandler:
             data[progress_key] = "idle"
             return
 
-        if self.device_type == 0xDC:
-            return
-
         value = data[progress_key]
         try:
             if isinstance(value, str):
@@ -90,6 +87,13 @@ class DeviceLogicHandler:
                 5: "unknown",
                 6: "dry",
                 7: "soak",
+            }
+        elif self.device_type == 0xDC:
+            progress_map = {
+                0: "idle",
+                1: "dry",
+                2: "anti-wrinkle",
+                3: "cold_air",
             }
         else:
             progress_map = {

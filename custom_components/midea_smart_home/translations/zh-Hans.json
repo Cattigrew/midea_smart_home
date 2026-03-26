@@ -1148,8 +1148,10 @@
         "name": "当前功率"
       },
       "progress": {
-        "name": "当前洗衣阶段",
+        "name": "当前进程",
         "state": {
+          "anti-wrinkle": "防皱中",
+          "cold_air": "吹冷风中",
           "idle": "待机中",
           "spin": "脱水中",
           "rinse": "漂洗中",

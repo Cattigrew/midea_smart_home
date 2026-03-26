@@ -1150,6 +1150,8 @@
       "progress": {
         "name": "Progress",
         "state": {
+          "anti-wrinkle": "Anti-Wrinkle",
+          "cold_air": "Cold Air",
           "idle": "Idle",
           "spin": "Spin",
           "rinse": "Rinse",
