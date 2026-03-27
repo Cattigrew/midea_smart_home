@@ -166,9 +166,11 @@
         "state_attributes": {
           "preset_mode": {
             "state": {
+              "comfort": "Comfort",
               "baby": "Baby",
               "normal": "Normal",
-              "sleep": "Sleep"
+              "sleep": "Sleep",
+              "strong": "Strong"
             }
           }
         }

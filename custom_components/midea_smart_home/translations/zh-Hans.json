@@ -167,8 +167,10 @@
           "preset_mode": {
             "state": {
               "baby": "宝宝风",
+              "comfort": "舒适风",
               "normal": "正常风",
-              "sleep": "睡眠风"
+              "sleep": "睡眠风",
+              "strong": "强劲风"
             }
           }
         }
