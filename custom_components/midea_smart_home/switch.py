@@ -31,10 +31,11 @@ async def async_setup_entry(
                 switch_rationale = config.get("rationale", rationale)
                 condition = config.get("condition")
                 command = config.get("command")
+                include_current = config.get("include_current")
                 entities.append(
                     MideaSwitchEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        switch_id, translation_key, switch_rationale, condition, command, model
+                        switch_id, translation_key, switch_rationale, condition, command, include_current, model
                     )
                 )
 
@@ -57,6 +58,7 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         rationale: list = None,
         condition: dict = None,
         command: dict = None,
+        include_current: list = None,
         model: str = None,
     ):
         config = {"translation_key": translation_key} if translation_key else {}
@@ -66,6 +68,7 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         )
         self._switch_id = switch_id
         self._command = command
+        self._include_current = include_current or []
 
     def _get_status_on_off(self, attribute_key: str) -> bool:
         data = self.coordinator.data or {}
@@ -93,6 +96,12 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         if isinstance(self._command, dict):
             merged_command.update(self._command)
         merged_command[attribute_key] = value
+        
+        for attr in self._include_current:
+            current_value = self._get_nested_value(attr)
+            if current_value is not None:
+                merged_command[attr] = current_value
+        
         await self.coordinator.async_set_control(merged_command)
 
     async def async_turn_on(self, **kwargs: Any) -> None:
