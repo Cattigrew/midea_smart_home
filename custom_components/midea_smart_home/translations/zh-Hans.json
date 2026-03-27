@@ -106,6 +106,15 @@
       },
       "water_output_switch": {
         "name": "龙头出水"
+      },
+      "out_water": {
+        "name": "出水状态"
+      },
+      "ice_status": {
+        "name": "制冰状态"
+      },
+      "ice_gall_status": {
+        "name": "制冷状态"
       }
     },
     "button": {
@@ -211,6 +220,12 @@
       },
       "custom_temperature_1": {
         "name": "自定义温度"
+      },
+      "boiling_water_temperture": {
+        "name": "沸水设定温度"
+      },
+      "warm_water_temperture": {
+        "name": "温水设定温度"
       },
       "custom_timing": {
         "name": "延时关灯"
@@ -379,7 +394,54 @@
           "large_amount": "大量用水",
           "normal_amount": "普通用水",
           "off_quantify": "关定量(连续出水)",
-          "small_amount": "小量用水"
+          "small_amount": "小量用水",
+          "small_cup": "小杯",
+          "medium_cup": "中杯",
+          "large_cup": "大杯"
+        }
+      },
+      "quantify_small_cup": {
+        "name": "小杯水量",
+        "state": {
+          "100": "100mL",
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL"
+        }
+      },
+      "quantify_medium_cup": {
+        "name": "中杯水量",
+        "state": {
+          "300": "300mL",
+          "350": "350mL",
+          "400": "400mL",
+          "450": "450mL"
+        }
+      },
+      "quantify_large_cup": {
+        "name": "大杯水量",
+        "state": {
+          "500": "500mL",
+          "550": "550mL",
+          "600": "600mL"
+        }
+      },
+      "autoclean_remind_cycle": {
+        "name": "自清洗提醒周期",
+        "state": {
+          "7": "7天",
+          "15": "15天",
+          "30": "30天",
+          "60": "60天",
+          "90": "90天"
+        }
+      },
+      "autoclean_time": {
+        "name": "自清洗设定时长",
+        "state": {
+          "5": "5分钟",
+          "10": "10分钟",
+          "15": "15分钟"
         }
       },
       "db_dehydration_speed": {
@@ -1223,6 +1285,12 @@
       "water_consumption_l": {
         "name": "总用水量"
       },
+      "autoclean_remind_cycle_remainder": {
+        "name": "自清洗周期剩余天数"
+      },
+      "autoclean_time_remainder": {
+        "name": "自清洗剩余时长"
+      },
       "water_feedback": {
         "name": "水位反馈"
       },
@@ -1293,6 +1361,15 @@
       },
       "cool": {
         "name": "制冷"
+      },
+      "ice": {
+        "name": "制冰"
+      },
+      "autoclean_remind": {
+        "name": "自清洗提醒"
+      },
+      "autoclean_ctrl": {
+        "name": "自清洗"
       },
       "deep_cold_mode": {
         "name": "-30℃深冻(深冻锁鲜)"

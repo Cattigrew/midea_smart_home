@@ -17,7 +17,10 @@
             "softwater_lack": { "default": "mdi:shaker-outline" },
             "screen_status": { "default": "mdi:monitor" },
             "wash_stage": { "default": "mdi:dishwasher" },
-            "water_output_switch": { "default": "mdi:water-pump" }
+            "water_output_switch": { "default": "mdi:water-pump" },
+            "out_water": { "default": "mdi:water" },
+            "ice_status": { "default": "mdi:ice-pop" },
+            "ice_gall_status": { "default": "mdi:snowflake" }
         },
         "button": {
             "left_stove_off": { "default": "mdi:stove" },
@@ -67,7 +70,9 @@
             "work_hour": { "default": "mdi:clock-outline" },
             "work_minute": { "default": "mdi:clock-outline" },
             "work_second": { "default": "mdi:timer" },
-            "air_set_hour": { "default": "mdi:air-filter" }
+            "air_set_hour": { "default": "mdi:air-filter" },
+            "boiling_water_temperture": { "default": "mdi:thermometer-high" },
+            "warm_water_temperture": { "default": "mdi:thermometer" }
         },
         "select": {
             "bath_direction": { "default": "mdi:air-filter" },
@@ -111,6 +116,11 @@
             "quantify_1": { "default": "mdi:cup-water" },
             "quantify_2": { "default": "mdi:cup-water" },
             "quantify_3": { "default": "mdi:cup-water" },
+            "quantify_small_cup": { "default": "mdi:cup" },
+            "quantify_medium_cup": { "default": "mdi:cup" },
+            "quantify_large_cup": { "default": "mdi:cup" },
+            "autoclean_remind_cycle": { "default": "mdi:calendar-clock" },
+            "autoclean_time": { "default": "mdi:timer-cog" },
             "rice_type": { "default": "mdi:rice" },
             "screenout_time": { "default": "mdi:timer-off" },
             "soak_count": { "default": "mdi:water-sync" },
@@ -199,7 +209,9 @@
             "cur_temperature_underside": { "default": "mdi:thermometer-low" },
             "softwater": { "default": "mdi:shaker-outline" },
             "left_time": { "default": "mdi:timer" },
-            "air_left_hour": { "default": "mdi:air-filter" }
+            "air_left_hour": { "default": "mdi:air-filter" },
+            "autoclean_remind_cycle_remainder": { "default": "mdi:calendar-clock" },
+            "autoclean_time_remainder": { "default": "mdi:timer-sand" }
         },
         "switch": {
             "aidry": { "default": "mdi:tshirt-crew" },
@@ -210,6 +222,10 @@
             "bucket_clean_switch": { "default": "mdi:bucket" },
             "buzzer": { "default": "mdi:volume-high" },
             "control_status": { "default": "mdi:play-pause" },
+            "cool": { "default": "mdi:snowflake" },
+            "ice": { "default": "mdi:ice-pop" },
+            "autoclean_remind": { "default": "mdi:calendar-alert" },
+            "autoclean_ctrl": { "default": "mdi:auto-fix" },
             "damp_dry_signal": { "default": "mdi:water-percent" },
             "deep_cold_mode": { "default": "mdi:snowflake-alert" },
             "display_on_off": { "default": "mdi:monitor" },

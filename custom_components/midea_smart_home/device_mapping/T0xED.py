@@ -407,5 +407,165 @@ DEVICE_MAPPING = {
                 }
             }
         }
+    },
+    "default_net_drinking_machine": {
+        "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[water_consumption_l]",
+                    "rvalue": "float([water_consumption] / 1000.0)"
+                }
+            ],
+        },
+        "entities": {
+            Platform.SWITCH: {
+                "cool": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "ice": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "autoclean_remind": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "include_current": ["autoclean_remind_cycle"]
+                },
+                "drainage": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "autoclean_ctrl": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                }
+            },
+            Platform.SELECT: {
+                "cur_quantify": {
+                    "options": {
+                        "off_quantify": {"cur_quantify": 0},
+                        "small_cup": {"cur_quantify": 3},
+                        "medium_cup": {"cur_quantify": 4},
+                        "large_cup": {"cur_quantify": 5}
+                    }
+                },
+                "quantify_3": {
+                    "options": {
+                        "100": {"quantify_3": 10},
+                        "150": {"quantify_3": 15},
+                        "200": {"quantify_3": 20},
+                        "250": {"quantify_3": 25}
+                    },
+                    "translation_key": "quantify_small_cup"
+                },
+                "quantify_4": {
+                    "options": {
+                        "300": {"quantify_4": 30},
+                        "350": {"quantify_4": 35},
+                        "400": {"quantify_4": 40},
+                        "450": {"quantify_4": 45}
+                    },
+                    "translation_key": "quantify_medium_cup"
+                },
+                "quantify_5": {
+                    "options": {
+                        "500": {"quantify_5": 50},
+                        "550": {"quantify_5": 55},
+                        "600": {"quantify_5": 60}
+                    },
+                    "translation_key": "quantify_large_cup"
+                },
+                "screenout_time": {
+                    "options": {
+                        "10": {"screenout_time": 10},
+                        "30": {"screenout_time": 30},
+                        "60": {"screenout_time": 60},
+                        "120": {"screenout_time": 120},
+                        "180": {"screenout_time": 180},
+                        "300": {"screenout_time": 300}
+                    }
+                },
+                "autoclean_remind_cycle": {
+                    "options": {
+                        "7": {"autoclean_remind_cycle": 7},
+                        "15": {"autoclean_remind_cycle": 15},
+                        "30": {"autoclean_remind_cycle": 30},
+                        "60": {"autoclean_remind_cycle": 60},
+                        "90": {"autoclean_remind_cycle": 90}
+                    },
+                    "command": {"autoclean_remind": "on"}
+                },
+                "autoclean_time": {
+                    "options": {
+                        "5": {"autoclean_time": 5},
+                        "10": {"autoclean_time": 10},
+                        "15": {"autoclean_time": 15}
+                    }
+                }
+            },
+            Platform.NUMBER: {
+                "custom_temperature_1": {
+                    "min": 86,
+                    "max": 98,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "translation_key": "boiling_water_temperture"
+                },
+                "milk_temperature": {
+                    "min": 40,
+                    "max": 85,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "translation_key": "warm_water_temperture"
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "sleep": {
+                    "device_class": BinarySensorDeviceClass.OPENING,
+                    "rationale": ["on", "off"],
+                    "translation_key": "screen_status"
+                },
+                "lack_water": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "out_water": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "ice_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "ice_gall_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                }
+            },
+            Platform.SENSOR: {
+                "out_tds": {
+                    "unit_of_measurement": "mg/L",
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "life_1": {
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "life_pcb"
+                },
+                "life_2": {
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "life_ro"
+                },
+                "water_consumption_l": {
+                    "device_class": SensorDeviceClass.WATER,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL
+                },
+                "autoclean_remind_cycle_remainder": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.DAYS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "autoclean_time_remainder": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.MINUTES,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
     }
 }

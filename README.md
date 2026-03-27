@@ -76,7 +76,7 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 14 | 0xE2 | Electric Water Heater |
 | 15 | 0xE3 | Gas Water Heater |
 | 16 | 0xEA | Rice Cooker |
-| 17 | 0xED | Water Purifier / Pipeline Machine |
+| 17 | 0xED | Net Drinking Machine / Water Purifier / Pipeline Machine |
 | 18 | 0xFA | Electric Fan |
 | 19 | 0xFB | Electric Heater |
 | 20 | 0xFC | Air Purifier |
