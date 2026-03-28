@@ -82,7 +82,7 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
         self._attr_unique_id = f"{platform_name}.midea_{device_id}_{entity_key}" if platform_name else f"midea_{device_id}_{entity_key}"
 
         if platform_name:
-            self.entity_id = f"{platform_name}.midea_{device_id}_{entity_key}"
+            self.entity_id = f"{platform_name}.midea_{device_id}_{entity_key.lower()}"
 
         self._attr_translation_key = self._config.get("translation_key", entity_key)
 
