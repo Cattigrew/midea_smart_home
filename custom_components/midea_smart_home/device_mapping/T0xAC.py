@@ -635,8 +635,7 @@ DEVICE_MAPPING = {
         "initial_query": [
             {},
             {"indoor_temperature"},
-            {"prevent_super_cool"},
-            {"run_status"}
+            {"prevent_super_cool"}
         ],
         "calculate": {
             "get": [
@@ -732,8 +731,7 @@ DEVICE_MAPPING = {
             {},
             {"indoor_temperature"},
             {"indoor_humidity"},
-            {"prevent_super_cool"},
-            {"run_status"}
+            {"prevent_super_cool"}
         ],
         "entities": {
             Platform.CLIMATE: {
@@ -875,8 +873,7 @@ DEVICE_MAPPING = {
         "rationale": ["off", "on"],
         "initial_query": [
             {},
-            {"indoor_temperature"},
-            {"run_status"}
+            {"indoor_temperature"}
         ],
         "calculate": {
             "get": [
@@ -971,7 +968,6 @@ DEVICE_MAPPING = {
             {"fresh_filter_time"},
             {"indoor_temperature"},
             {"new_wind_humidity"},
-            {"run_status"},
             {"wind_strength"}
         ],
         "entities": {
