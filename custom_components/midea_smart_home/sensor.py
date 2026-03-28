@@ -35,10 +35,12 @@ async def async_setup_entry(
                 unit = config.get("unit_of_measurement")
                 translation_key = config.get("translation_key")
                 state_class = config.get("state_class")
+                suggested_display_precision = config.get("suggested_display_precision")
                 entities.append(
                     MideaSensorEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        sensor_id, name, device_class, unit, translation_key, state_class, model
+                        sensor_id, name, device_class, unit, translation_key, state_class, model,
+                        suggested_display_precision
                     )
                 )
 
@@ -62,6 +64,7 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
         translation_key: str = None,
         state_class: Optional[SensorStateClass] = None,
         model: str = None,
+        suggested_display_precision: Optional[int] = None,
     ):
         config = {"translation_key": translation_key} if translation_key else {}
         super().__init__(
@@ -78,6 +81,7 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
 
         self._attr_device_class = device_class
         self._attr_native_unit_of_measurement = unit
+        self._attr_suggested_display_precision = suggested_display_precision
 
         if state_class is not None:
             if isinstance(state_class, str):
