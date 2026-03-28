@@ -528,6 +528,9 @@ DEVICE_MAPPING = {
                 "out_water": {
                     "device_class": BinarySensorDeviceClass.RUNNING
                 },
+                "out_ice": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
                 "ice_status": {
                     "device_class": BinarySensorDeviceClass.RUNNING
                 },

@@ -110,6 +110,9 @@
       "out_water": {
         "name": "出水状态"
       },
+      "out_ice": {
+        "name": "出冰状态"
+      },
       "ice_status": {
         "name": "制冰状态"
       },

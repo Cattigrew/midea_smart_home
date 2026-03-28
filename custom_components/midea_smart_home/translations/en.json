@@ -110,6 +110,9 @@
       "out_water": {
         "name": "Water Output Status"
       },
+      "out_ice": {
+        "name": "Ice Output Status"
+      },
       "ice_status": {
         "name": "Ice Making Status"
       },

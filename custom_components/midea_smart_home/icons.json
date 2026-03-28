@@ -19,6 +19,7 @@
             "wash_stage": { "default": "mdi:dishwasher" },
             "water_output_switch": { "default": "mdi:water-pump" },
             "out_water": { "default": "mdi:water" },
+            "out_ice": { "default": "mdi:ice-pop" },
             "ice_status": { "default": "mdi:ice-pop" },
             "ice_gall_status": { "default": "mdi:snowflake" }
         },
