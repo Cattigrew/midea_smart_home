@@ -8,6 +8,7 @@ from homeassistant.const import Platform
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.entity import EntityCategory
 
 from .const import DOMAIN
 from .coordinator import MideaCoordinator
@@ -52,6 +53,7 @@ class MideaDeviceStatusSensorEntity(MideaBaseEntity, BinarySensorEntity):
 
     _attr_device_class = BinarySensorDeviceClass.CONNECTIVITY
     _attr_translation_key = "device_status"
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
 
     def __init__(
         self,
