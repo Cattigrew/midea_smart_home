@@ -155,15 +155,25 @@ Clear locally cached Lua scripts and JSON files. Current cache will be backed up
 **Solutions**:
 1. Make sure devices are powered on
 2. Confirm devices are bound in the Midea Meiju App
-3. Try entering your router IP to scan the entire subnet
-4. Check that Home Assistant and devices are on the same LAN
+3. Ensure Home Assistant and devices are on the same LAN (same subnet)
+4. Try entering your router IP (e.g., `192.168.1.1`) to scan the entire subnet or specify device IP (e.g., `192.168.1.100`)
+5. If using Docker, ensure network mode is `host` or port forwarding is configured correctly
+6. Some devices may need firmware updates via the Midea Meiju App first
 
 ### Q: Device authentication failed?
 
 **Solutions**:
 1. Check if account credentials are correct
 2. Confirm devices are bound to the current account
-3. Try re-logging into the Midea Meiju App
+3. Try re-logging into the Midea Meiju App and retry
+4. If using Midea Meiju overseas account, you may need to use the overseas version of the App
+
+### Q: Device shows but cannot be controlled?
+
+**Solutions**:
+1. Check if the device is online (via Midea Meiju App)
+2. Try reloading the integration
+3. If it's a new device type, it may not be supported yet. Please submit an Issue
 
 ### Q: Device names not updated?
 
@@ -175,6 +185,35 @@ Clear locally cached Lua scripts and JSON files. Current cache will be backed up
 ### Q: What device types are supported?
 
 Please see [Supported Devices](README.md#supported-devices)
+
+---
+
+## Debug Logging
+
+To troubleshoot issues, you can enable debug logging for detailed information.
+
+### How to Enable
+
+Add the following to your `configuration.yaml`:
+
+```yaml
+logger:
+  default: warning
+  logs:
+    custom_components.midea_smart_home: debug
+    midealocal: debug
+```
+
+Save and restart Home Assistant or call the `logger.set_level` service.
+
+### Viewing Logs
+
+1. **Via Web UI**: Settings → System → Logs
+2. **Via File**: `home-assistant.log` file in your Home Assistant config directory
+
+### When Submitting an Issue
+
+Please attach relevant logs and remove sensitive information (such as Token, Key, account, etc.).
 
 ---
 
