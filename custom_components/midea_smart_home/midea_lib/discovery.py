@@ -39,7 +39,6 @@ BROADCAST_MSG = bytes([
     0x56, 0x9E, 0xB8, 0xEC, 0x91, 0x8E, 0x92, 0xE5,
 ])
 
-
 def _get_broadcast_addresses() -> list:
     nets = []
     adapters = ifaddr.get_adapters()
@@ -56,7 +55,6 @@ def _get_broadcast_addresses() -> list:
                     if addr not in nets:
                         nets.append(addr)
     return nets
-
 
 def _parse_v1_response(data: bytes, addr: tuple) -> dict | None:
     try:
@@ -79,7 +77,6 @@ def _parse_v1_response(data: bytes, addr: tuple) -> dict | None:
         }
     except Exception:
         return None
-
 
 def _parse_v2_v3_response(data: bytes, addr: tuple, security: LocalSecurity) -> dict | None:
     if data[:2].hex() == "8370" and data[8:10].hex() == "5a5a":
@@ -122,7 +119,6 @@ def _parse_v2_v3_response(data: bytes, addr: tuple, security: LocalSecurity) -> 
         CONF_PROTOCOL: protocol,
     }
 
-
 def _parse_scan_address(scan_address: str) -> list:
     if not scan_address or scan_address.lower() == "auto":
         return None
@@ -144,7 +140,6 @@ def _parse_scan_address(scan_address: str) -> list:
             return [scan_address]
     except ValueError:
         return None
-
 
 def discover_devices(timeout: float = DISCOVERY_TIMEOUT, scan_address: str = "auto") -> dict:
     target_addresses = _parse_scan_address(scan_address)

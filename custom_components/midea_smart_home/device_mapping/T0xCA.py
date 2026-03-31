@@ -109,7 +109,7 @@ DEVICE_MAPPING = {
                         "190": {"open_door_warning_time": "19"},
                         "200": {"open_door_warning_time": "20"},
                         "210": {"open_door_warning_time": "21"},
-                        "220": {"open_door_warning_time": "22"},   
+                        "220": {"open_door_warning_time": "22"},
                         "230": {"open_door_warning_time": "23"},
                         "240": {"open_door_warning_time": "24"},
                         "250": {"open_door_warning_time": "25"},

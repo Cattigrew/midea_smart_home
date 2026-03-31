@@ -96,12 +96,12 @@ class MideaSwitchEntity(MideaBaseEntity, SwitchEntity):
         if isinstance(self._command, dict):
             merged_command.update(self._command)
         merged_command[attribute_key] = value
-        
+
         for attr in self._include_current:
             current_value = self._get_nested_value(attr)
             if current_value is not None:
                 merged_command[attr] = current_value
-        
+
         await self.coordinator.async_set_control(merged_command)
 
     async def async_turn_on(self, **kwargs: Any) -> None:

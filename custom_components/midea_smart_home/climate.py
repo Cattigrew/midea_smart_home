@@ -210,17 +210,17 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
     def hvac_action(self) -> HVACAction:
         if self.hvac_mode == HVACMode.OFF:
             return HVACAction.OFF
-        
+
         current_mode = self.hvac_mode
         if current_mode == HVACMode.FAN_ONLY:
             return HVACAction.FAN
         elif current_mode == HVACMode.DRY:
             return HVACAction.DRYING
-        
+
         # Get current and target temperatures
         current_temp = self.current_temperature
         target_temp = self.target_temperature
-        
+
         # If we have both temperatures, use them to determine action
         if current_temp is not None and target_temp is not None:
             if current_mode == HVACMode.HEAT:
@@ -244,7 +244,7 @@ class MideaClimateEntity(MideaBaseEntity, ClimateEntity):
                     return HVACAction.COOLING
                 else:
                     return HVACAction.IDLE
-        
+
         # Fallback to mode-based determination if temperature data is unavailable
         if current_mode == HVACMode.HEAT:
             return HVACAction.HEATING
