@@ -84,26 +84,3 @@ body:
           required: false
         - label: 我愿意提供设备的调试信息
           required: false
-
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        ## 📋 已支持的设备类型
-        
-        | Code | 设备类型 |
-        |------|----------|
-        | 0xAC | 空调 |
-        | 0x17 | 晾衣架 |
-        | 0xD9 | 双桶洗衣机 |
-        | 0xDA | 波轮洗衣机 |
-        | 0xDB | 滚筒洗衣机 |
-        | 0xE2 | 电热水器 |
-        | 0x26 | 浴霸 |
-        | 0xB6 | 油烟机 |
-        | 0xB8 | 扫地机器人 |
-        | 0xDC | 干衣机 |
-        | 0xFA | 电风扇 |
-        | 0xFB | 取暖器 |
-        | 0xFC | 空气净化器 |
-        | 0xFD | 加湿器 |

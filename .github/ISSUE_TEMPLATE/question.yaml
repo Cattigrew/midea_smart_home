@@ -11,12 +11,12 @@ body:
   - type: input
     attributes:
       label: Home Assistant 版本
-      placeholder: "如：2024.1.0"
+      placeholder: "如：2025.12.4"
 
   - type: input
     attributes:
       label: 集成版本
-      placeholder: "如：v1.0.0"
+      placeholder: "如：v26.3.0"
 
   - type: dropdown
     attributes:
