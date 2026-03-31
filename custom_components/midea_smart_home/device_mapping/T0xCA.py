@@ -258,6 +258,12 @@ DEVICE_MAPPING = {
                 },
                 "freezer_door_state": {
                     "device_class": BinarySensorDeviceClass.DOOR,
+                },
+                "storage_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "freezer_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
                 }
             },
             Platform.CLIMATE: {

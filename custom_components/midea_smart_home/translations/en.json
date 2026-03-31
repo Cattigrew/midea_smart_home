@@ -92,6 +92,12 @@
       "freezer_door_state": {
         "name": "Freezer Door State"
       },
+      "storage_door_open_overtime": {
+        "name": "Refrigerator Door Open Overtime"
+      },
+      "freezer_door_open_overtime": {
+        "name": "Freezer Door Open Overtime"
+      },
       "lack_water": {
         "name": "Water Shortage Status"
       },

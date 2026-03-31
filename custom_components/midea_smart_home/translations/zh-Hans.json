@@ -95,6 +95,12 @@
       "freezer_door_state": {
         "name": "冷冻门状态"
       },
+      "storage_door_open_overtime": {
+        "name": "冷藏门打开超时"
+      },
+      "freezer_door_open_overtime": {
+        "name": "冷冻门打开超时"
+      },
       "lack_water": {
         "name": "缺水状态"
       },
