@@ -44,6 +44,7 @@ DEVICE_MAPPING = {
                 },
                 "program": {
                     "options": {
+                        "air_wash": {"program": "air_wash"},
                         "baby_clothes": {"program": "baby_clothes"},
                         "big": {"program": "big"},
                         "clean_stains": {"program": "clean_stains"},
@@ -66,6 +67,7 @@ DEVICE_MAPPING = {
                         "shirt": {"program": "shirt"},
                         "silk": {"program": "silk"},
                         "single_dehytration": {"program": "single_dehytration"},
+                        "single_drying": {"program": "single_drying"},
                         "sport_clothes": {"program": "sport_clothes"},
                         "spring_autumn_wash": {"program": "spring_autumn_wash"},
                         "ssp": {"program": "ssp"},
@@ -131,6 +133,18 @@ DEVICE_MAPPING = {
                         "sauce": {"stains": "83"},
                         "fruit": {"stains": "85"},
                         "makeup": {"stains": "84"}
+                    }
+                },
+                "dryer": {
+                    "options": {
+                        "off": {"dryer": "0"},
+                        "low_temp_dry": {"dryer": "3"},
+                        "high_temp_dry": {"dryer": "1"},
+                        "30_min": {"dryer": "4"},
+                        "60_min": {"dryer": "5"},
+                        "90_min": {"dryer": "6"},
+                        "120_min": {"dryer": "7"},
+                        "180_min": {"dryer": "11"}
                     }
                 }
             },
@@ -202,6 +216,7 @@ DEVICE_MAPPING = {
                 },
                 "program": {
                     "options": {
+                        "air_wash": {"program": "air_wash"},
                         "baby_clothes": {"program": "water_cotton"},
                         "big": {"program": "big"},
                         "clean_stains": {"program": "clean_stains"},
@@ -224,6 +239,7 @@ DEVICE_MAPPING = {
                         "shirt": {"program": "fast_wash_60"},
                         "silk": {"program": "silk"},
                         "single_dehytration": {"program": "single_dehytration"},
+                        "single_drying": {"program": "single_drying"},
                         "sport_clothes": {"program": "sport_clothes"},
                         "spring_autumn_wash": {"program": "spring_autumn_wash"},
                         "ssp": {"program": "water_ssp"},
@@ -289,6 +305,18 @@ DEVICE_MAPPING = {
                         "sauce": {"stains": "83"},
                         "fruit": {"stains": "85"},
                         "makeup": {"stains": "84"}
+                    }
+                },
+                "dryer": {
+                    "options": {
+                        "off": {"dryer": "0"},
+                        "low_temp_dry": {"dryer": "3"},
+                        "high_temp_dry": {"dryer": "1"},
+                        "30_min": {"dryer": "4"},
+                        "60_min": {"dryer": "5"},
+                        "90_min": {"dryer": "6"},
+                        "120_min": {"dryer": "7"},
+                        "180_min": {"dryer": "11"}
                     }
                 }
             },

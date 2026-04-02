@@ -96,6 +96,7 @@
             "db_temperature": { "default": "mdi:thermometer" },
             "dehydration_speed": { "default": "mdi:speedometer" },
             "detergent": { "default": "mdi:water" },
+            "dryer": { "default": "mdi:tumble-dryer" },
             "drying_direction": { "default": "mdi:air-filter" },
             "dsp_sterilization_mode": { "default": "mdi:shield-bacteria" },
             "fire_power": { "default": "mdi:microwave" },

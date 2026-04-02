@@ -507,6 +507,19 @@
           "smart": "智能"
         }
       },
+      "dryer": {
+        "name": "烘干",
+        "state": {
+          "off": "关闭",
+          "low_temp_dry": "低温烘干(AU)",
+          "high_temp_dry": "高温烘干(AUH)",
+          "30_min": "30分",
+          "60_min": "60分",
+          "90_min": "90分",
+          "120_min": "120分",
+          "180_min": "180分"
+        }
+      },
       "drying_direction": {
         "name": "干燥风向",
         "state": {
@@ -787,6 +800,7 @@
       "program": {
         "name": "洗涤程序",
         "state": {
+          "air_wash": "空气洗",
           "baby_clothes": "婴儿服",
           "bed_clothes": "床上用品",
           "big": "大件",
@@ -826,6 +840,7 @@
           "shirt": "衬衫",
           "silk": "丝绸",
           "single_dehytration": "单脱水",
+          "single_drying": "单烘干",
           "small_piece_dry": "小件烘",
           "sport_clothes": "运动服",
           "spring_autumn_wash": "春秋洗",
