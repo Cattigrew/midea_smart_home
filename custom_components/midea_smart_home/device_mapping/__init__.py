@@ -1,10 +1,28 @@
 from importlib import import_module
 from pathlib import Path
 import logging
+import re
 
 _LOGGER = logging.getLogger(__name__)
 
 DEVICE_MAPPINGS = {}
+
+def format_model(model: str) -> str:
+    """Format model string for device mapping lookup.
+    
+    Args:
+        model: Original model string
+        
+    Returns:
+        Formatted model string: lowercase, non-alphanumeric chars replaced with underscore
+    """
+    if not model:
+        return ""
+    formatted = model.lower()
+    formatted = re.sub(r'[^a-z0-9]', '_', formatted)
+    formatted = re.sub(r'_+', '_', formatted)
+    formatted = formatted.strip('_')
+    return formatted
 
 def load_device_mappings():
     """Load all device mapping files."""
@@ -37,16 +55,18 @@ def load_device_mappings():
 
 load_device_mappings()
 
-def get_device_mapping(device_type: int, sn8: str = "", category: str = "") -> dict:
+def get_device_mapping(device_type: int, model: str = "", sn8: str = "", category: str = "") -> dict:
     """Get device mapping for specified device type.
 
     Args:
         device_type: Device type (e.g., 0xFB)
+        model: Device model string, used to get specific device mapping (highest priority)
         sn8: Device model code (8 digits), used to get specific device mapping
         category: Product category from cloud, used for default mapping fallback
 
     Returns:
-        Device mapping dict, returns sn8 mapping if available,
+        Device mapping dict, returns model mapping if available,
+        otherwise sn8 mapping if available,
         otherwise default+category if exists, finally fallback to default
     """
     mapping = DEVICE_MAPPINGS.get(device_type, {})
@@ -56,7 +76,17 @@ def get_device_mapping(device_type: int, sn8: str = "", category: str = "") -> d
 
     result = None
 
-    if sn8:
+    formatted_model = format_model(model)
+    if formatted_model:
+        if formatted_model in mapping:
+            result = mapping[formatted_model]
+        else:
+            for key in mapping:
+                if isinstance(key, tuple) and formatted_model in key:
+                    result = mapping[key]
+                    break
+
+    if result is None and sn8:
         if sn8 in mapping:
             result = mapping[sn8]
         else:

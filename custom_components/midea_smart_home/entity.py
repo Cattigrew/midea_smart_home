@@ -39,7 +39,7 @@ def iter_midea_device_configs(
         device_type_int = (
             int(device_type, 16) if isinstance(device_type, str) else device_type
         )
-        device_mapping = get_device_mapping(device_type_int, sn8, category)
+        device_mapping = get_device_mapping(device_type_int, model, sn8, category)
         yield coordinator, device_id, device_type, sn, sn8, device_name, model, device_mapping
 
 

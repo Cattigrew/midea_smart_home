@@ -79,6 +79,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         lua_file = device_data.get(CONF_LUA_FILE, "")
         sn = device_data.get(CONF_SN, "")
         sn8 = device_data.get(CONF_SN8, "")
+        model = device_data.get(CONF_PRODUCT_MODEL, "")
         device_type = device_data.get(CONF_DEVICE_TYPE)
         device_type_int = int(device_type, 16) if isinstance(device_type, str) else 0
 
@@ -91,7 +92,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         lua_common_dir = str(Path(hass.config.config_dir) / LUA_COMMON_PATH)
 
-        device_mapping = get_device_mapping(device_type_int, sn8, category)
+        device_mapping = get_device_mapping(device_type_int, model, sn8, category)
         calculate_config = device_mapping.get("calculate", {})
         centralized = list(device_mapping.get("centralized", []))
         default_values = dict(device_mapping.get("default_values", {}))
