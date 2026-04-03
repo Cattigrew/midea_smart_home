@@ -70,7 +70,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     language = hass.config.language or "en"
 
-    for device_data in devices:
+    async def init_single_device(device_data: dict) -> dict | None:
         device_id = device_data[CONF_DEVICE_ID]
         ip_address = device_data.get(CONF_IP, "")
         port = device_data.get(CONF_PORT, DEFAULT_PORT)
@@ -132,61 +132,77 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             )
             device.open()
             import time
-            for _ in range(30):
+            for _ in range(10):
                 if device.available:
                     break
                 time.sleep(0.5)
             return device
 
-        device = await hass.async_add_executor_job(init_device)
+        try:
+            device = await hass.async_add_executor_job(init_device)
 
-        if not device.available:
-            _LOGGER.warning("Device %s failed to connect after 15 seconds, will retry in background", device_id)
+            if not device.available:
+                _LOGGER.warning("Device %s failed to connect after 5 seconds, will retry in background", device_id)
 
-        coordinator = MideaCoordinator(
-            hass,
-            device,
-            f"Device_{device_id}",
-        )
+            coordinator = MideaCoordinator(
+                hass,
+                device,
+                f"Device_{device_id}",
+            )
 
-        import asyncio
-        if initial_query and isinstance(initial_query, list):
-            for item in initial_query:
-                if isinstance(item, dict):
-                    if len(item) == 0:
-                        device.refresh_status({})
-                    elif len(item) == 1:
-                        key = list(item.keys())[0]
+            import asyncio
+            if initial_query and isinstance(initial_query, list):
+                for item in initial_query:
+                    if isinstance(item, dict):
+                        if len(item) == 0:
+                            device.refresh_status({})
+                        elif len(item) == 1:
+                            key = list(item.keys())[0]
+                            device.refresh_status({"query_type": key})
+                    elif isinstance(item, set) and len(item) == 1:
+                        key = list(item)[0]
                         device.refresh_status({"query_type": key})
-                elif isinstance(item, set) and len(item) == 1:
-                    key = list(item)[0]
-                    device.refresh_status({"query_type": key})
-                await asyncio.sleep(0.5)
-        else:
-            device.refresh_status()
+                    await asyncio.sleep(0.3)
+            else:
+                device.refresh_status()
 
-        if device.available:
-            for _ in range(30):
-                if coordinator.data is not None:
-                    break
-                await asyncio.sleep(0.5)
+            if device.available:
+                for _ in range(10):
+                    if coordinator.data is not None:
+                        break
+                    await asyncio.sleep(0.3)
 
-            if coordinator.data is None:
-                _LOGGER.warning("Device %s did not receive initial data, will retry in background", device_id)
+                if coordinator.data is None:
+                    _LOGGER.warning("Device %s did not receive initial data after 3 seconds, will retry in background", device_id)
 
-        hass.data[DOMAIN][entry.entry_id][str(device_id)] = {
-            "coordinator": coordinator,
-            "device": device,
-            CONF_DEVICE_ID: device_id,
-            CONF_DEVICE_TYPE: device_type,
-            CONF_SN8: sn8,
-            CONF_SN: sn,
-            CONF_PRODUCT_MODEL: device_data.get(CONF_PRODUCT_MODEL, ""),
-            CONF_MODEL_NUMBER: device_data.get(CONF_MODEL_NUMBER, ""),
-            CONF_DEVICE_NAME: device_name,
-            CONF_PROTOCOL: protocol,
-            CONF_CATEGORY: category,
-        }
+            return {
+                "coordinator": coordinator,
+                "device": device,
+                CONF_DEVICE_ID: device_id,
+                CONF_DEVICE_TYPE: device_type,
+                CONF_SN8: sn8,
+                CONF_SN: sn,
+                CONF_PRODUCT_MODEL: device_data.get(CONF_PRODUCT_MODEL, ""),
+                CONF_MODEL_NUMBER: device_data.get(CONF_MODEL_NUMBER, ""),
+                CONF_DEVICE_NAME: device_name,
+                CONF_PROTOCOL: protocol,
+                CONF_CATEGORY: category,
+            }
+        except Exception as e:
+            _LOGGER.error("Failed to initialize device %s: %s", device_id, e)
+            return None
+
+    import asyncio
+
+    tasks = [init_single_device(device_data) for device_data in devices]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    for i, result in enumerate(results):
+        if isinstance(result, Exception):
+            _LOGGER.error("Error initializing device %d: %s", i, result)
+        elif result is not None:
+            device_id = result[CONF_DEVICE_ID]
+            hass.data[DOMAIN][entry.entry_id][str(device_id)] = result
 
     try:
         await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
