@@ -7,7 +7,8 @@ DEVICE_MAPPING = {
     "default_compound_washer": {
         "rationale": ["off", "on"],
         "initial_query": [
-            {"db"}
+            {"query_type": "db", "db_location": 1},
+            {"query_type": "db", "db_location": 2}
         ],
         "entities": {
             Platform.BINARY_SENSOR: {

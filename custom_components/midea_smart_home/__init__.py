@@ -156,6 +156,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     if isinstance(item, dict):
                         if len(item) == 0:
                             device.refresh_status({})
+                        elif "query_type" in item:
+                            device.refresh_status(item)
                         elif len(item) == 1:
                             key = list(item.keys())[0]
                             device.refresh_status({"query_type": key})
