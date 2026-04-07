@@ -55,6 +55,7 @@ class DeviceLogicHandler:
                 self.adjust_control_status(data, data["db_running_status"])
             self.process_progress(data, "db_running_status", "db_progress")
             self.process_location_data(data)
+            self._adjust_db_running_status_for_power_off(data)
 
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
             if "running_status" in data:
@@ -66,6 +67,12 @@ class DeviceLogicHandler:
 
         elif self.device_type == 0xAC:
             self.adjust_ac_mode(data)
+
+    def _adjust_db_running_status_for_power_off(self, data: dict) -> None:
+        db_power = data.get("db_power")
+        if db_power == "off" or db_power == 0:
+            data["db_running_status_l"] = "standby"
+            data["db_running_status_r"] = "standby"
 
     def process_location_data(self, data: dict) -> None:
         """Process T0xD9 location-specific sensor data."""
