@@ -49,6 +49,7 @@ class DeviceLogicHandler:
             if "running_status" in data:
                 self.adjust_control_status(data, data["running_status"])
             self.process_progress(data, "running_status", "progress")
+            self._adjust_remain_time(data)
 
         elif self.device_type == 0xEA:
             self.adjust_work_switch(data)
@@ -64,6 +65,17 @@ class DeviceLogicHandler:
         if db_power == "off" or db_power == 0:
             data["db_running_status_l"] = "standby"
             data["db_running_status_r"] = "standby"
+
+    def _adjust_remain_time(self, data: dict) -> None:
+        if "remain_time" not in data or "running_status" not in data:
+            return
+        running_status = data["running_status"]
+        if running_status == "start":
+            return
+        elif running_status == "end":
+            data["remain_time"] = 0
+        else:
+            data["remain_time"] = None
 
     def process_progress(self, data: dict, status_key: str, progress_key: str) -> None:
         """Process progress sensor special logic"""
