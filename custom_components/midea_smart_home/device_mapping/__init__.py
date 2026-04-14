@@ -9,10 +9,10 @@ DEVICE_MAPPINGS = {}
 
 def format_model(model: str) -> str:
     """Format model string for device mapping lookup.
-    
+
     Args:
         model: Original model string
-        
+
     Returns:
         Formatted model string: lowercase, non-alphanumeric chars replaced with underscore
     """

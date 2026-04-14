@@ -15,7 +15,7 @@ DEVICE_MAPPING = {
                 {
                     "lvalue": "[water_consumption_once]",
                     "rvalue": "float([water_consumption] / 10.0)"
-                },       
+                },
             ],
         },
         "entities": {
