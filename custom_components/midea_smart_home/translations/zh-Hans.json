@@ -1277,6 +1277,9 @@
       "power_statistics": {
         "name": "当前功率"
       },
+      "power_consumption_once": {
+        "name": "本次耗电量"
+      },
       "progress": {
         "name": "当前进程",
         "state": {
@@ -1355,6 +1358,9 @@
       },
       "water_consumption_l": {
         "name": "总用水量"
+      },
+      "water_consumption_once": {
+        "name": "本次用水量"
       },
       "water_feedback": {
         "name": "水位反馈"

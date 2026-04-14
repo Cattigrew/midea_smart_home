@@ -1,4 +1,4 @@
-from homeassistant.const import Platform, UnitOfTime
+from homeassistant.const import Platform, UnitOfTime, UnitOfVolume, UnitOfPower
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
@@ -6,6 +6,18 @@ from homeassistant.components.switch import SwitchDeviceClass
 DEVICE_MAPPING = {
     "default_front_load_washer": {
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },       
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -189,12 +201,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "td10ve40": { # sn8: "38133671"
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -378,12 +414,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "tg10ve40": { # sn8: "38133671"
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -553,12 +613,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "38133671": {
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -742,12 +826,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "38124584": {
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -893,12 +1001,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "38132344": {
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -1075,12 +1207,36 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }
     },
     "38124077": {
         "rationale": ["off", "on"],
+        "calculate": {
+            "get": [
+                {
+                    "lvalue": "[power_consumption_once]",
+                    "rvalue": "float([power_consumption] / 1000.0)"
+                },
+                {
+                    "lvalue": "[water_consumption_once]",
+                    "rvalue": "float([water_consumption] / 10.0)"
+                },
+            ],
+        },
         "entities": {
             Platform.BINARY_SENSOR: {
                 "door_opened": {
@@ -1247,6 +1403,18 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.DURATION,
                     "unit_of_measurement": UnitOfTime.MINUTES,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "water_consumption_once": {
+                    "device_class": SensorDeviceClass.VOLUME,
+                    "unit_of_measurement": UnitOfVolume.LITERS,
+                    "state_class": SensorStateClass.TOTAL,
+                    "suggested_display_precision": 1
+                },
+                "power_consumption_once": {
+                    "device_class": SensorDeviceClass.ENERGY,
+                    "unit_of_measurement": "kWh",
+                    "state_class": SensorStateClass.TOTAL_INCREASING,
+                    "suggested_display_precision": 3
                 }
             }
         }

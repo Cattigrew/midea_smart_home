@@ -1265,6 +1265,9 @@
       "power_statistics": {
         "name": "Current Power"
       },
+      "power_consumption_once": {
+        "name": "Power Consumption Once"
+      },
       "progress": {
         "name": "Progress",
         "state": {
@@ -1343,6 +1346,9 @@
       },
       "water_consumption_l": {
         "name": "Water Consumption"
+      },
+      "water_consumption_once": {
+        "name": "Water Consumption Once"
       },
       "water_feedback": {
         "name": "Water Level Feedback"
