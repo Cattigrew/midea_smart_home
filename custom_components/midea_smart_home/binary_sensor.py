@@ -1,3 +1,4 @@
+import json
 import logging
 
 from homeassistant.components.binary_sensor import (
@@ -15,6 +16,8 @@ from .coordinator import MideaCoordinator
 from .entity import MideaBaseEntity, iter_midea_device_configs
 
 _LOGGER = logging.getLogger(__name__)
+
+MAX_ATTRIBUTES_BYTES = 16000
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -96,6 +99,7 @@ class MideaDeviceStatusSensorEntity(MideaBaseEntity, BinarySensorEntity):
             "device_type": device_type_str,
         }
 
+        current_size = len(json.dumps(attributes, default=str))
         other_attrs = {}
         for key, value in data.items():
             if value is not None:
@@ -107,7 +111,11 @@ class MideaDeviceStatusSensorEntity(MideaBaseEntity, BinarySensorEntity):
                             other_attrs[f"{key}_{sub_key}"] = sub_value
 
         for key in sorted(other_attrs.keys()):
+            pair_size = len(json.dumps({key: other_attrs[key]}, default=str))
+            if current_size + pair_size > MAX_ATTRIBUTES_BYTES:
+                break
             attributes[key] = other_attrs[key]
+            current_size += pair_size
 
         return attributes
 
