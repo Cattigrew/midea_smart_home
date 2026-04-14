@@ -36,11 +36,12 @@ async def async_setup_entry(
                 translation_key = config.get("translation_key")
                 state_class = config.get("state_class")
                 suggested_display_precision = config.get("suggested_display_precision")
+                options = config.get("options")
                 entities.append(
                     MideaSensorEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
                         sensor_id, name, device_class, unit, translation_key, state_class, model,
-                        suggested_display_precision
+                        suggested_display_precision, options
                     )
                 )
 
@@ -79,6 +80,7 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
         state_class: Optional[SensorStateClass] = None,
         model: str = None,
         suggested_display_precision: Optional[int] = None,
+        options: Optional[list] = None,
     ):
         config = {"translation_key": translation_key} if translation_key else {}
         super().__init__(
@@ -86,6 +88,9 @@ class MideaSensorEntity(MideaBaseEntity, SensorEntity):
             platform_name="sensor", config=config
         )
         self._sensor_id = sensor_id
+
+        if options is not None:
+            self._attr_options = options
 
         if device_class and isinstance(device_class, str):
             try:
