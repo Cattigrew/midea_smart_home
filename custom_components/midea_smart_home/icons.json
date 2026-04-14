@@ -2,8 +2,8 @@
     "entity": {
         "binary_sensor": {
             "air_status": { "default": "mdi:air-conditioner" },
-            "bucket_water_overheating": { "default": "mdi:thermometer-alert" },
             "bright_lack": { "default": "mdi:creation" },
+            "bucket_water_overheating": { "default": "mdi:thermometer-alert" },
             "change_water": { "default": "mdi:water-sync" },
             "detergent_lack": { "default": "mdi:water-alert" },
             "device_status": { "default": "mdi:information" },
@@ -106,6 +106,7 @@
             "first_custom_out_water_ml_1": { "default": "mdi:cup-water" },
             "flexzone_function": { "default": "mdi:tune-vertical" },
             "follow_body_sense": { "default": "mdi:account" },
+            "fresh_air_time": { "default": "mdi:air-filter" },
             "gear": { "default": "mdi:tune" },
             "gesture_sensitivity_value": { "default": "mdi:tune" },
             "gesture_value": { "default": "mdi:hand-wave" },
@@ -148,8 +149,7 @@
             "wind_swing_lr_angle": { "default": "mdi:arrow-left-right" },
             "wind_swing_ud_angle": { "default": "mdi:arrow-up-down" },
             "work_mode": { "default": "mdi:tune" },
-            "work_status": { "default": "mdi:play-circle-outline" },
-            "fresh_air_time": { "default": "mdi:air-filter" }
+            "work_status": { "default": "mdi:play-circle-outline" }
         },
         "sensor": {
             "air_dry_left_time": { "default": "mdi:timer" },
@@ -200,8 +200,8 @@
             "pm1": { "default": "mdi:blur" },
             "pm10": { "default": "mdi:blur" },
             "pm25": { "default": "mdi:blur" },
-            "power_statistics": { "default": "mdi:flash" },
             "power_consumption_once": { "default": "mdi:flash" },
+            "power_statistics": { "default": "mdi:flash" },
             "progress": { "default": "mdi:progress-check" },
             "refrigeration_real_temperature": { "default": "mdi:thermometer" },
             "remain_time": { "default": "mdi:timer" },
@@ -216,8 +216,8 @@
             "total_elec_value": { "default": "mdi:flash" },
             "total_working_time": { "default": "mdi:clock-outline" },
             "warming_time": { "default": "mdi:timer" },
-            "wash_time_value": { "default": "mdi:timer" },
             "wash_stage": { "default": "mdi:dishwasher" },
+            "wash_time_value": { "default": "mdi:timer" },
             "water_consumption_l": { "default": "mdi:water" },
             "water_consumption_once": { "default": "mdi:water" },
             "water_feedback": { "default": "mdi:water" },
@@ -233,9 +233,9 @@
             "airswitch": { "default": "mdi:air-filter" },
             "antifreeze": { "default": "mdi:snowflake-thermometer" },
             "auto_power_off": { "default": "mdi:timer-off" },
+            "auto_throw": { "default": "mdi:flask" },
             "autoclean_ctrl": { "default": "mdi:auto-fix" },
             "autoclean_remind": { "default": "mdi:calendar-alert" },
-            "auto_throw": { "default": "mdi:flask" },
             "baby_lock": { "default": "mdi:account-lock" },
             "bucket_clean_switch": { "default": "mdi:bucket" },
             "buzzer": { "default": "mdi:volume-high" },
@@ -245,10 +245,10 @@
             "damp_dry_signal": { "default": "mdi:water-percent" },
             "deep_cold_mode": { "default": "mdi:snowflake-alert" },
             "display_on_off": { "default": "mdi:monitor" },
+            "door_auto_open": { "default": "mdi:door-open" },
             "drainage": { "default": "mdi:water-pump" },
             "dry": { "default": "mdi:water-off" },
             "dryswitch": { "default": "mdi:dishwasher" },
-            "door_auto_open": { "default": "mdi:door-open" },
             "eco_dry_switch": { "default": "mdi:leaf" },
             "eplus": { "default": "mdi:water-plus" },
             "fengguan_remove_odor": { "default": "mdi:air-filter" },
@@ -297,8 +297,8 @@
             "wash": { "default": "mdi:water-pump" },
             "water_box": { "default": "mdi:water" },
             "waterions": { "default": "mdi:water-check" },
-            "wind_dispel": { "default": "mdi:weather-windy" },
-            "wifi_led_enable": { "default": "mdi:wifi" }
+            "wifi_led_enable": { "default": "mdi:wifi" },
+            "wind_dispel": { "default": "mdi:weather-windy" }
         },
         "vacuum": {
             "vacuum": { "default": "mdi:robot-vacuum" }

@@ -62,6 +62,12 @@
   },
   "entity": {
     "binary_sensor": {
+      "air_status": {
+        "name": "抑菌存储状态"
+      },
+      "bright_lack": {
+        "name": "漂洗剂不足"
+      },
       "bucket_water_overheating": {
         "name": "桶内水温过高"
       },
@@ -118,12 +124,6 @@
       },
       "softwater_lack": {
         "name": "软水盐不足"
-      },
-      "bright_lack": {
-        "name": "漂洗剂不足"
-      },
-      "air_status": {
-        "name": "抑菌存储状态"
       },
       "storage_door_open_overtime": {
         "name": "冷藏门打开超时"
@@ -516,14 +516,14 @@
       "dryer": {
         "name": "烘干",
         "state": {
-          "off": "关闭",
-          "low_temp_dry": "低温烘干(AU)",
-          "high_temp_dry": "高温烘干(AUH)",
+          "120_min": "120分",
+          "180_min": "180分",
           "30_min": "30分",
           "60_min": "60分",
           "90_min": "90分",
-          "120_min": "120分",
-          "180_min": "180分"
+          "high_temp_dry": "高温烘干(AUH)",
+          "low_temp_dry": "低温烘干(AU)",
+          "off": "关闭"
         }
       },
       "drying_direction": {
@@ -953,6 +953,16 @@
           "northeast": "东北米/粳米"
         }
       },
+      "rinse_aid": {
+        "name": "漂洗剂挡位",
+        "state": {
+          "1": "1档",
+          "2": "2档",
+          "3": "3档",
+          "4": "4档",
+          "5": "5档"
+        }
+      },
       "screenout_time": {
         "name": "熄屏时间",
         "state": {
@@ -993,16 +1003,6 @@
           "4": "4档",
           "5": "5档",
           "6": "6档"
-        }
-      },
-      "rinse_aid": {
-        "name": "漂洗剂挡位",
-        "state": {
-          "1": "1档",
-          "2": "2档",
-          "3": "3档",
-          "4": "4档",
-          "5": "5档"
         }
       },
       "stains": {
@@ -1301,11 +1301,11 @@
       "pm25": {
         "name": "PM2.5浓度"
       },
-      "power_statistics": {
-        "name": "当前功率"
-      },
       "power_consumption_once": {
         "name": "本次耗电量"
+      },
+      "power_statistics": {
+        "name": "当前功率"
       },
       "progress": {
         "name": "当前进程",
@@ -1366,9 +1366,6 @@
       "warming_time": {
         "name": "保温时间"
       },
-      "wash_time_value": {
-        "name": "洗涤时间"
-      },
       "wash_stage": {
         "name": "洗涤阶段",
         "state": {
@@ -1379,6 +1376,9 @@
           "4": "干燥",
           "5": "洗涤完成"
         }
+      },
+      "wash_time_value": {
+        "name": "洗涤时间"
       },
       "water_consumption_l": {
         "name": "总用水量"
@@ -1412,11 +1412,17 @@
       "airdry_on_off": {
         "name": "湿帘风干"
       },
+      "airswitch": {
+        "name": "抑菌存储开关"
+      },
       "antifreeze": {
         "name": "防冻功能"
       },
       "auto_power_off": {
         "name": "自动关机"
+      },
+      "auto_throw": {
+        "name": "自动投放"
       },
       "autoclean_ctrl": {
         "name": "自清洗"
@@ -1460,6 +1466,9 @@
       "display_on_off": {
         "name": "屏幕显示"
       },
+      "door_auto_open": {
+        "name": "自动开门"
+      },
       "drainage": {
         "name": "一键排水"
       },
@@ -1468,18 +1477,6 @@
       },
       "dryswitch": {
         "name": "消毒烘干"
-      },
-      "airswitch": {
-        "name": "抑菌存储开关"
-      },
-      "door_auto_open": {
-        "name": "自动开门"
-      },
-      "auto_throw": {
-        "name": "自动投放"
-      },
-      "uvswitch": {
-        "name": "UV杀菌"
       },
       "eco_dry_switch": {
         "name": "节能干燥开关"
@@ -1615,6 +1612,9 @@
       },
       "ultraviolet_lamp": {
         "name": "UV除菌"
+      },
+      "uvswitch": {
+        "name": "UV杀菌"
       },
       "wash": {
         "name": "滤芯冲洗"

@@ -62,6 +62,12 @@
   },
   "entity": {
     "binary_sensor": {
+      "air_status": {
+        "name": "Antibacterial Storage Status"
+      },
+      "bright_lack": {
+        "name": "Rinse Aid Shortage"
+      },
       "bucket_water_overheating": {
         "name": "Bucket Water Overheating"
       },
@@ -118,12 +124,6 @@
       },
       "softwater_lack": {
         "name": "Softener Salt Shortage"
-      },
-      "bright_lack": {
-        "name": "Rinse Aid Shortage"
-      },
-      "air_status": {
-        "name": "Antibacterial Storage Status"
       },
       "storage_door_open_overtime": {
         "name": "Refrigerator Door Open Overtime"
@@ -510,14 +510,14 @@
       "dryer": {
         "name": "Dryer",
         "state": {
-          "off": "Off",
-          "low_temp_dry": "Low Temp Dry(AU)",
-          "high_temp_dry": "High Temp Dry(AUH)",
+          "120_min": "120 min",
+          "180_min": "180 min",
           "30_min": "30 min",
           "60_min": "60 min",
           "90_min": "90 min",
-          "120_min": "120 min",
-          "180_min": "180 min"
+          "high_temp_dry": "High Temp Dry(AUH)",
+          "low_temp_dry": "Low Temp Dry(AU)",
+          "off": "Off"
         }
       },
       "drying_direction": {
@@ -947,6 +947,16 @@
           "northeast": "Northeast/Japonica"
         }
       },
+      "rinse_aid": {
+        "name": "Rinse Aid Level",
+        "state": {
+          "1": "Level 1",
+          "2": "Level 2",
+          "3": "Level 3",
+          "4": "Level 4",
+          "5": "Level 5"
+        }
+      },
       "screenout_time": {
         "name": "Screen Timeout",
         "state": {
@@ -987,16 +997,6 @@
           "4": "Level 4",
           "5": "Level 5",
           "6": "Level 6"
-        }
-      },
-      "rinse_aid": {
-        "name": "Rinse Aid Level",
-        "state": {
-          "1": "Level 1",
-          "2": "Level 2",
-          "3": "Level 3",
-          "4": "Level 4",
-          "5": "Level 5"
         }
       },
       "stains": {
@@ -1289,11 +1289,11 @@
       "pm25": {
         "name": "PM2.5 Level"
       },
-      "power_statistics": {
-        "name": "Current Power"
-      },
       "power_consumption_once": {
         "name": "Power Consumption Once"
+      },
+      "power_statistics": {
+        "name": "Current Power"
       },
       "progress": {
         "name": "Progress",
@@ -1354,9 +1354,6 @@
       "warming_time": {
         "name": "Warming Time"
       },
-      "wash_time_value": {
-        "name": "Wash Time"
-      },
       "wash_stage": {
         "name": "Wash Stage",
         "state": {
@@ -1367,6 +1364,9 @@
           "4": "Dry",
           "5": "Wash Complete"
         }
+      },
+      "wash_time_value": {
+        "name": "Wash Time"
       },
       "water_consumption_l": {
         "name": "Water Consumption"
@@ -1400,11 +1400,17 @@
       "airdry_on_off": {
         "name": "Curtain Air Dry"
       },
+      "airswitch": {
+        "name": "Antibacterial Storage Switch"
+      },
       "antifreeze": {
         "name": "Antifreeze"
       },
       "auto_power_off": {
         "name": "Auto Power Off"
+      },
+      "auto_throw": {
+        "name": "Auto throw"
       },
       "autoclean_ctrl": {
         "name": "Auto Clean"
@@ -1448,6 +1454,9 @@
       "display_on_off": {
         "name": "Screen Display"
       },
+      "door_auto_open": {
+        "name": "Door Auto Open"
+      },
       "drainage": {
         "name": "One-Key Drainage"
       },
@@ -1456,18 +1465,6 @@
       },
       "dryswitch": {
         "name": "Dry & Sterilize"
-      },
-      "airswitch": {
-        "name": "Antibacterial Storage Switch"
-      },
-      "door_auto_open": {
-        "name": "Door Auto Open"
-      },
-      "auto_throw": {
-        "name": "Auto throw"
-      },
-      "uvswitch": {
-        "name": "UV Sterilization"
       },
       "eco_dry_switch": {
         "name": "Eco Dry Switch"
@@ -1602,6 +1599,9 @@
         "name": "Refrigerator Power"
       },
       "ultraviolet_lamp": {
+        "name": "UV Sterilization"
+      },
+      "uvswitch": {
         "name": "UV Sterilization"
       },
       "wash": {
