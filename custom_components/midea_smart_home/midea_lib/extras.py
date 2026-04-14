@@ -10,6 +10,7 @@ class DeviceLogicHandler:
     def __init__(self, device_type: int, device_name: str):
         self.device_type = device_type
         self.device_name = device_name
+        self._last_standby_status: Any = None
 
     def adjust_control_status(self, data: dict, running_status: str) -> None:
         control_status = "start" if running_status == "start" else "pause"
@@ -54,6 +55,9 @@ class DeviceLogicHandler:
 
         elif self.device_type == 0xAC:
             self.adjust_ac_mode(data)
+
+        elif self.device_type == 0xED:
+            self.adjust_standby_status_for_wash(data)
 
     def _adjust_db_running_status_for_power_off(self, data: dict) -> None:
         db_power = data.get("db_power")
@@ -123,3 +127,18 @@ class DeviceLogicHandler:
             if "db_location" not in control and current_data and "db_location" in current_data:
                 control["db_location"] = current_data["db_location"]
         return control
+
+    def adjust_standby_status_for_wash(self, data: dict) -> None:
+        """For T0xED devices, prevent standby_status update when wash is on."""
+        if self.device_type != 0xED:
+            return
+
+        if "standby_status" not in data or "wash" not in data:
+            return
+
+        wash_status = data.get("wash")
+        if wash_status == "on" or wash_status == 1:
+            if self._last_standby_status is not None:
+                data["standby_status"] = self._last_standby_status
+        else:
+            self._last_standby_status = data.get("standby_status")
