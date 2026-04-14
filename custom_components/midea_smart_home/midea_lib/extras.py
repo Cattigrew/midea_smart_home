@@ -44,6 +44,7 @@ class DeviceLogicHandler:
                 self.adjust_control_status(data, data["db_running_status"])
             self.process_progress(data, "db_running_status", "db_progress")
             self._adjust_db_running_status_for_power_off(data)
+            self._adjust_db_remain_time(data)
 
         elif self.device_type in [0xDA, 0xDB, 0xDC]:
             if "running_status" in data:
@@ -76,6 +77,17 @@ class DeviceLogicHandler:
             data["remain_time"] = 0
         else:
             data["remain_time"] = None
+
+    def _adjust_db_remain_time(self, data: dict) -> None:
+        if "db_remain_time" not in data or "db_running_status" not in data:
+            return
+        running_status = data["db_running_status"]
+        if running_status == "start":
+            return
+        elif running_status == "end":
+            data["db_remain_time"] = 0
+        else:
+            data["db_remain_time"] = None
 
     def process_progress(self, data: dict, status_key: str, progress_key: str) -> None:
         """Process progress sensor special logic"""
