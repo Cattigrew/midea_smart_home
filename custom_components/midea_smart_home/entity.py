@@ -100,7 +100,7 @@ class MideaBaseEntity(CoordinatorEntity[MideaCoordinator]):
         if not self.coordinator.last_update_success:
             return False
 
-        if not self.coordinator.controller.available:
+        if not self.coordinator.device.available:
             return False
 
         data = self.coordinator.data

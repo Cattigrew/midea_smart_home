@@ -97,7 +97,7 @@ class DeviceController(threading.Thread):
 
     def set_available(self, available: bool = True) -> None:
         self._available = available
-        self.update_all({"available": available})
+        self.update_all({"available": self.available})
 
     def open(self) -> None:
         if not self._is_run:
@@ -418,6 +418,9 @@ class MideaDevice:
 
         self._data = {}
         self._available = False
+        self._last_available_time: float = 0.0
+        self._pending_unavailable = False
+        self._unavailable_delay = 5.0
         self._recent_controls = {}  # {attr: (value, timestamp)}
         self._control_timeout = 5.0
         self._control_hold = 5.0 if self._centralized else 1.0
@@ -432,7 +435,12 @@ class MideaDevice:
 
     @property
     def available(self):
-        return self._available
+        if self._available:
+            return True
+        if self._pending_unavailable:
+            if time.time() - self._last_available_time < self._unavailable_delay:
+                return True
+        return False
 
     @property
     def data(self):
@@ -455,14 +463,29 @@ class MideaDevice:
         """Handle updates from the controller."""
         notify = False
         if "available" in status:
-            prev_available = self._available
-            self._available = status["available"]
-            if self._available and not prev_available:
-                notify = True
-            elif not self._available:
-                notify = True
+            if status["available"]:
+                if not self._available:
+                    self._available = True
+                    self._pending_unavailable = False
+                    self._last_available_time = time.time()
+                    notify = True
+            else:
+                if not self._pending_unavailable:
+                    self._pending_unavailable = True
+                    if self._last_available_time == 0.0:
+                        self._last_available_time = time.time()
+                if time.time() - self._last_available_time >= self._unavailable_delay:
+                    self._available = False
+                    notify = True
             if notify:
                 self._notify_update()
+            return
+
+        self._last_available_time = time.time()
+        if self._pending_unavailable:
+            self._pending_unavailable = False
+            self._available = True
+
             return
 
         # Merge with existing data
