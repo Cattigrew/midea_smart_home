@@ -77,7 +77,7 @@ async def validate_device(
                 start = time.time()
                 got_status = False
 
-                def status_callback(status):
+                def status_callback(status, poll_location=None):
                     nonlocal got_status
                     got_status = True
 

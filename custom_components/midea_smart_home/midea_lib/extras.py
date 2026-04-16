@@ -61,6 +61,96 @@ class DeviceLogicHandler:
         elif self.device_type == 0xED:
             self.adjust_standby_status_for_wash(data)
 
+    def apply_special_handling_for_poll(self, data: dict, suffix: str, raw_status: dict = None) -> bool:
+        """Apply special handling for poll data with suffix (_l or _r).
+
+        Only process the specific bucket's data (left or right),
+        do not affect the other bucket's data.
+
+        Returns:
+            True if data should be processed, False if data should be skipped.
+        """
+        if self.device_type != 0xD9:
+            return True
+
+        status_key = f"db_running_status{suffix}"
+        progress_key = f"db_progress{suffix}"
+        remain_time_key = f"db_remain_time{suffix}"
+
+        if status_key not in data:
+            return True
+
+        running_status = data[status_key]
+
+        if running_status == "end":
+            if not raw_status:
+                return False
+            raw_progress = raw_status.get("db_progress")
+            raw_remain_time = raw_status.get("db_remain_time")
+            if raw_progress is None or raw_remain_time is None:
+                return False
+            try:
+                if isinstance(raw_progress, str):
+                    raw_progress = int(raw_progress, 16) if raw_progress.startswith("0x") else int(raw_progress)
+                if raw_progress != 0:
+                    return False
+            except (ValueError, TypeError):
+                return False
+            try:
+                if isinstance(raw_remain_time, str):
+                    raw_remain_time = int(raw_remain_time, 16) if raw_remain_time.startswith("0x") else int(raw_remain_time)
+                if raw_remain_time > 1:
+                    return False
+            except (ValueError, TypeError):
+                return False
+
+        if raw_status and raw_status.get('db_position') == 1:
+            if "db_running_status" in data:
+                self.adjust_control_status(data, data["db_running_status"])
+            self.process_progress(data, "db_running_status", "db_progress")
+            self._adjust_db_running_status_for_power_off(data)
+            self._adjust_db_remain_time(data)
+
+        if progress_key in data:
+            if running_status != "start":
+                data[progress_key] = "idle"
+            else:
+                value = data[progress_key]
+                try:
+                    if isinstance(value, str):
+                        value = int(value, 16) if value.startswith("0x") else int(value)
+                    calculated_value = 0
+                    if value > 0:
+                        calculated_value = (value & -value).bit_length()
+                except (ValueError, TypeError):
+                    if isinstance(value, str):
+                        calculated_value = -1
+                    else:
+                        calculated_value = -1
+
+                progress_map = {
+                    0: "idle",
+                    1: "spin",
+                    2: "rinse",
+                    3: "wash",
+                    4: "pre-wash",
+                    5: "dry",
+                    6: "weight",
+                    7: "spin_high",
+                    8: "unknown",
+                }
+                data[progress_key] = progress_map.get(calculated_value, "unknown")
+
+        if remain_time_key in data:
+            if running_status == "start":
+                pass
+            elif running_status == "end":
+                data[remain_time_key] = 0
+            else:
+                data[remain_time_key] = None
+
+        return True
+
     def _adjust_db_running_status_for_power_off(self, data: dict) -> None:
         db_power = data.get("db_power")
         if db_power == "off" or db_power == 0:
