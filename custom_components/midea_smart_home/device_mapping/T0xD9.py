@@ -84,7 +84,7 @@ DEVICE_MAPPING = {
                 },
                 "db_temperature": {
                     "options": {
-                        "cold_water": {"db_temperature": 0},
+                        "cold_water": {"db_temperature": 1},
                         "30c": {"db_temperature": 3},
                         "40c": {"db_temperature": 4},
                         "60c": {"db_temperature": 5},

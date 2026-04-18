@@ -406,23 +406,6 @@
           "small_cup": "Small Cup"
         }
       },
-      "db_dehydration_speed": {
-        "name": "Dehydration Speed",
-        "state": {
-          "1000rpm": "1000 RPM",
-          "800rpm": "800 RPM",
-          "no_spin": "No Spin"
-        }
-      },
-      "db_detergent": {
-        "name": "Detergent (Smart)",
-        "state": {
-          "l1": "L1",
-          "l2": "L2",
-          "l3": "L3",
-          "off": "Off"
-        }
-      },
       "db_dry": {
         "name": "Drying Time",
         "state": {
@@ -462,26 +445,6 @@
           "underpants": "Underpants",
           "underwear": "Underwear",
           "water_ssp": "Deep Clean"
-        }
-      },
-      "db_rinse_count": {
-        "name": "Rinse Count",
-        "state": {
-          "1_time": "1 Time",
-          "2_times": "2 Times",
-          "3_times": "3 Times",
-          "4_times": "4 Times",
-          "5_times": "5 Times"
-        }
-      },
-      "db_temperature": {
-        "name": "Temperature",
-        "state": {
-          "30c": "30°C",
-          "40c": "40°C",
-          "60c": "60°C",
-          "95c": "95°C",
-          "cold_water": "Cold Water"
         }
       },
       "dehydration_speed": {
@@ -974,7 +937,8 @@
           "1_time": "1 Time",
           "2_times": "2 Times",
           "3_times": "3 Times",
-          "4_times": "4 Times"
+          "4_times": "4 Times",
+          "5_times": "5 Times"
         }
       },
       "softener": {

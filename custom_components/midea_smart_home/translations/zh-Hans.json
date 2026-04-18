@@ -412,23 +412,6 @@
           "small_cup": "小杯"
         }
       },
-      "db_dehydration_speed": {
-        "name": "脱水转速",
-        "state": {
-          "1000rpm": "1000转",
-          "800rpm": "800转",
-          "no_spin": "免脱水"
-        }
-      },
-      "db_detergent": {
-        "name": "洗衣液(智投)",
-        "state": {
-          "l1": "L1",
-          "l2": "L2",
-          "l3": "L3",
-          "off": "关闭"
-        }
-      },
       "db_dry": {
         "name": "烘干时间",
         "state": {
@@ -468,26 +451,6 @@
           "underpants": "内裤",
           "underwear": "文胸",
           "water_ssp": "深度洁筒"
-        }
-      },
-      "db_rinse_count": {
-        "name": "漂洗次数",
-        "state": {
-          "1_time": "1次",
-          "2_times": "2次",
-          "3_times": "3次",
-          "4_times": "4次",
-          "5_times": "5次"
-        }
-      },
-      "db_temperature": {
-        "name": "温度设定",
-        "state": {
-          "30c": "30°C",
-          "40c": "40°C",
-          "60c": "60°C",
-          "95c": "95°C",
-          "cold_water": "冷水"
         }
       },
       "dehydration_speed": {
@@ -980,7 +943,8 @@
           "1_time": "1次",
           "2_times": "2次",
           "3_times": "3次",
-          "4_times": "4次"
+          "4_times": "4次",
+          "5_times": "5次"
         }
       },
       "softener": {
