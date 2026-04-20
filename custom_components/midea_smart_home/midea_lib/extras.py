@@ -82,28 +82,10 @@ class DeviceLogicHandler:
 
         running_status = data[status_key]
 
-        if running_status == "end":
-            if not raw_status:
-                return False
-            raw_progress = raw_status.get("db_progress")
-            raw_remain_time = raw_status.get("db_remain_time")
-            if raw_progress is None or raw_remain_time is None:
-                return False
-            try:
-                if isinstance(raw_progress, str):
-                    raw_progress = int(raw_progress, 16) if raw_progress.startswith("0x") else int(raw_progress)
-                if raw_progress != 0:
-                    return False
-            except (ValueError, TypeError):
-                return False
-            try:
-                if isinstance(raw_remain_time, str):
-                    raw_remain_time = int(raw_remain_time, 16) if raw_remain_time.startswith("0x") else int(raw_remain_time)
-                if raw_remain_time > 1:
-                    return False
-            except (ValueError, TypeError):
-                return False
+        if running_status == "end" and not self._validate_end_status(raw_status):
+            return False
 
+        # Handle common (non-suffixed) fields from the first poll response
         if raw_status and raw_status.get('db_position') == 1:
             if "db_running_status" in data:
                 self.adjust_control_status(data, data["db_running_status"])
@@ -111,45 +93,59 @@ class DeviceLogicHandler:
             self._adjust_db_running_status_for_power_off(data)
             self._adjust_db_remain_time(data)
 
+        # Handle suffixed progress for the specific bucket
         if progress_key in data:
             if running_status != "start":
                 data[progress_key] = "idle"
             else:
-                value = data[progress_key]
-                try:
-                    if isinstance(value, str):
-                        value = int(value, 16) if value.startswith("0x") else int(value)
-                    calculated_value = 0
-                    if value > 0:
-                        calculated_value = (value & -value).bit_length()
-                except (ValueError, TypeError):
-                    if isinstance(value, str):
-                        calculated_value = -1
-                    else:
-                        calculated_value = -1
+                self.process_progress(data, status_key, progress_key)
 
-                progress_map = {
-                    0: "idle",
-                    1: "spin",
-                    2: "rinse",
-                    3: "wash",
-                    4: "pre-wash",
-                    5: "dry",
-                    6: "weight",
-                    7: "spin_high",
-                    8: "unknown",
-                }
-                data[progress_key] = progress_map.get(calculated_value, "unknown")
-
+        # Handle suffixed remain time for the specific bucket
         if remain_time_key in data:
-            if running_status == "start":
-                pass
-            elif running_status == "end":
-                data[remain_time_key] = 0
-            else:
-                data[remain_time_key] = None
+            self._adjust_remain_time_by_status(data, remain_time_key, running_status)
 
         return True
+
+    def _validate_end_status(self, raw_status: dict) -> bool:
+        """Validate that an 'end' running status is legitimate.
+
+        Checks that progress is 0 and remain_time <= 1 to filter out
+        false 'end' signals from the device.
+
+        Returns:
+            True if the end status is valid, False otherwise.
+        """
+        if not raw_status:
+            return False
+        raw_progress = raw_status.get("db_progress")
+        raw_remain_time = raw_status.get("db_remain_time")
+        if raw_progress is None or raw_remain_time is None:
+            return False
+        try:
+            if isinstance(raw_progress, str):
+                raw_progress = int(raw_progress, 16) if raw_progress.startswith("0x") else int(raw_progress)
+            if raw_progress != 0:
+                return False
+        except (ValueError, TypeError):
+            return False
+        try:
+            if isinstance(raw_remain_time, str):
+                raw_remain_time = int(raw_remain_time, 16) if raw_remain_time.startswith("0x") else int(raw_remain_time)
+            if raw_remain_time > 1:
+                return False
+        except (ValueError, TypeError):
+            return False
+        return True
+
+    @staticmethod
+    def _adjust_remain_time_by_status(data: dict, remain_time_key: str, running_status: str) -> None:
+        """Adjust remain time based on running status for any key prefix."""
+        if running_status == "start":
+            return
+        elif running_status == "end":
+            data[remain_time_key] = 0
+        else:
+            data[remain_time_key] = None
 
     def _adjust_db_running_status_for_power_off(self, data: dict) -> None:
         db_power = data.get("db_power")
@@ -158,26 +154,12 @@ class DeviceLogicHandler:
                 data["db_running_status"] = "standby"
 
     def _adjust_remain_time(self, data: dict) -> None:
-        if "remain_time" not in data or "running_status" not in data:
-            return
-        running_status = data["running_status"]
-        if running_status == "start":
-            return
-        elif running_status == "end":
-            data["remain_time"] = 0
-        else:
-            data["remain_time"] = None
+        if "remain_time" in data and "running_status" in data:
+            self._adjust_remain_time_by_status(data, "remain_time", data["running_status"])
 
     def _adjust_db_remain_time(self, data: dict) -> None:
-        if "db_remain_time" not in data or "db_running_status" not in data:
-            return
-        running_status = data["db_running_status"]
-        if running_status == "start":
-            return
-        elif running_status == "end":
-            data["db_remain_time"] = 0
-        else:
-            data["db_remain_time"] = None
+        if "db_remain_time" in data and "db_running_status" in data:
+            self._adjust_remain_time_by_status(data, "db_remain_time", data["db_running_status"])
 
     def process_progress(self, data: dict, status_key: str, progress_key: str) -> None:
         """Process progress sensor special logic"""

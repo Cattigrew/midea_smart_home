@@ -24,6 +24,7 @@ CONNECTION_TIMEOUT = 10
 SOCKET_TIMEOUT = 10
 HEARTBEAT_INTERVAL = 10
 MIN_MSG_LENGTH = 56
+_SKIP_KEYS = frozenset({'data_type', 'bucket', 'category', 'version'})
 
 
 class DeviceController(threading.Thread):
@@ -503,7 +504,7 @@ class MideaDevice:
                     self._controller.send_poll_query(2)
                     time.sleep(interval)
                 except Exception as e:
-                    pass
+                    _LOGGER.debug("[%s] Poll query error: %s", self._device_id, e)
             else:
                 time.sleep(1.0)
 
@@ -547,27 +548,24 @@ class MideaDevice:
                 return
 
             db_location = status.get("db_location")
-            if db_location not in [1, 2]:
-                return
-            if db_location != poll_location:
+            if db_location not in (1, 2) or db_location != poll_location:
                 return
 
             db_position = status.get('db_position')
             suffix = "_l" if db_location == 1 else "_r"
-            poll_keys = [
-                "db_detergent_needed", "db_remain_time", "db_progress", "db_running_status",
-                "db_error_code"
-            ]
+            poll_keys = (
+                "db_detergent_needed", "db_remain_time", "db_progress",
+                "db_running_status", "db_error_code"
+            )
 
             new_data = self._data.copy()
             updated_keys = []
 
             if db_position == 1:
                 for key, value in status.items():
-                    if key not in ['data_type', 'bucket', 'category', 'version']:
+                    if key not in _SKIP_KEYS:
                         new_data[key] = value
-                        if key not in updated_keys:
-                            updated_keys.append(key)
+                        updated_keys.append(key)
 
             for key in poll_keys:
                 if key in status:
