@@ -165,4 +165,4 @@ class MideaBinarySensorEntity(MideaBaseEntity, BinarySensorEntity):
 
         if isinstance(value, bool):
             return value
-        return value == 1 or value == "on" or value == "true"
+        return value == 1 or value == "on" or value == "true" or value == "yes"
