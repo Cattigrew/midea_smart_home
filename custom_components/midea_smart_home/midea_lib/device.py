@@ -437,6 +437,7 @@ class MideaDevice:
         self._last_available_time: float = 0.0
         self._pending_unavailable = False
         self._unavailable_delay = 5.0
+        self._unavailable_timer: Optional[threading.Timer] = None
         self._recent_controls = {}  # {attr: (value, timestamp)}
         self._control_timeout = 5.0
         self._control_hold = 5.0 if self._centralized else 1.0
@@ -457,12 +458,16 @@ class MideaDevice:
 
     @property
     def available(self):
-        if self._available:
-            return True
+        return self._available
+
+    def _mark_unavailable(self):
+        """Called by timer after unavailable_delay to mark device as unavailable."""
+        if self._pending_unavailable and not self._available:
+            return
         if self._pending_unavailable:
-            if time.time() - self._last_available_time < self._unavailable_delay:
-                return True
-        return False
+            self._available = False
+            self._pending_unavailable = False
+            self._notify_update()
 
     @property
     def data(self):
@@ -476,6 +481,9 @@ class MideaDevice:
         self._controller.open()
 
     def close(self):
+        if self._unavailable_timer is not None:
+            self._unavailable_timer.cancel()
+            self._unavailable_timer = None
         self._stop_poll_thread()
         self._controller.close()
 
@@ -516,6 +524,10 @@ class MideaDevice:
         notify = False
         if "available" in status:
             if status["available"]:
+                # Cancel any pending unavailable timer
+                if self._unavailable_timer is not None:
+                    self._unavailable_timer.cancel()
+                    self._unavailable_timer = None
                 if not self._available:
                     self._available = True
                     notify = True
@@ -527,9 +539,14 @@ class MideaDevice:
                 if not self._pending_unavailable:
                     self._pending_unavailable = True
                     self._last_available_time = time.time()
-                if time.time() - self._last_available_time >= self._unavailable_delay:
-                    self._available = False
-                    notify = True
+                    # Schedule a timer to mark unavailable after the delay
+                    if self._unavailable_timer is not None:
+                        self._unavailable_timer.cancel()
+                    self._unavailable_timer = threading.Timer(
+                        self._unavailable_delay, self._mark_unavailable
+                    )
+                    self._unavailable_timer.daemon = True
+                    self._unavailable_timer.start()
             if notify:
                 self._notify_update()
             return
@@ -537,6 +554,10 @@ class MideaDevice:
         self._last_available_time = time.time()
         if self._pending_unavailable:
             self._pending_unavailable = False
+            # Cancel any pending unavailable timer since we received data
+            if self._unavailable_timer is not None:
+                self._unavailable_timer.cancel()
+                self._unavailable_timer = None
             self._available = True
 
         if self._device_type == 0xD9:
