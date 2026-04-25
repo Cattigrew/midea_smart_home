@@ -149,6 +149,11 @@
         "name": "Turn Off Right Stove"
       }
     },
+    "cover": {
+      "updown": {
+        "name": "Laundry Rack"
+      }
+    },
     "climate": {
       "air_conditioner": {
         "name": "Thermostat (Air Conditioner)",

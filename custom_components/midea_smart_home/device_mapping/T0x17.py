@@ -5,13 +5,11 @@ DEVICE_MAPPING = {
     "default": {
         "rationale": ["off", "on"],
         "entities": {
-            Platform.SELECT:{
+            Platform.COVER: {
                 "updown": {
-                    "options": {
-                        "up": {"updown": "up"},
-                        "down": {"updown": "down"},
-                        "pause": {"updown": "pause"}
-                    },
+                    "open_value": "up",
+                    "close_value": "down",
+                    "stop_value": "pause",
                 }
             },
             Platform.NUMBER: {
@@ -50,13 +48,11 @@ DEVICE_MAPPING = {
     "default_laundry_rack": {
         "rationale": ["off", "on"],
         "entities": {
-            Platform.SELECT:{
+            Platform.COVER: {
                 "updown": {
-                    "options": {
-                        "up": {"updown": "up"},
-                        "down": {"updown": "down"},
-                        "pause": {"updown": "pause"}
-                    },
+                    "open_value": "up",
+                    "close_value": "down",
+                    "stop_value": "pause",
                 }
             },
             Platform.NUMBER: {

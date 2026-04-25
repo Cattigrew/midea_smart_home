@@ -149,6 +149,11 @@
         "name": "关闭右灶"
       }
     },
+    "cover": {
+      "updown": {
+        "name": "晾衣架"
+      }
+    },
     "climate": {
       "air_conditioner": {
         "name": "温控器(空调)",

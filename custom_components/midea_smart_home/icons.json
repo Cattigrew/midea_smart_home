@@ -34,6 +34,9 @@
             "left_stove_off": { "default": "mdi:stove" },
             "right_stove_off": { "default": "mdi:stove" }
         },
+        "cover": {
+            "updown": { "default": "mdi:arrow-up-down" }
+        },
         "climate": {
             "air_conditioner": { "default": "mdi:air-conditioner" },
             "electric_heater": { "default": "mdi:thermostat" },

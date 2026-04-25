@@ -60,4 +60,4 @@ DEVICE_TYPES = {
     0xFD: "Humidifier"
 }
 
-PLATFORMS = ["climate", "sensor", "switch", "select", "button", "number", "vacuum", "binary_sensor", "fan", "humidifier", "light", "water_heater"]
+PLATFORMS = ["climate", "sensor", "switch", "select", "button", "number", "vacuum", "binary_sensor", "fan", "humidifier", "light", "cover", "water_heater"]
