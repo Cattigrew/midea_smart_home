@@ -236,8 +236,17 @@
       }
     },
     "light": {
+      "common_light": {
+        "name": "Light"
+      },
       "light": {
         "name": "Smart Light"
+      },
+      "main_light": {
+        "name": "Main Light"
+      },
+      "night_light": {
+        "name": "Night Light"
       }
     },
     "number": {

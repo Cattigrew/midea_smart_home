@@ -50,7 +50,10 @@
             "humidifier": { "default": "mdi:air-humidifier" }
         },
         "light": {
-            "light": { "default": "mdi:lightbulb" }
+            "common_light": { "default": "mdi:lightbulb" },
+            "light": { "default": "mdi:lightbulb" },
+            "main_light": { "default": "mdi:lightbulb" },
+            "night_light": { "default": "mdi:weather-night" }
         },
         "number": {
             "air_set_hour": { "default": "mdi:air-filter" },

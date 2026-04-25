@@ -20,17 +20,23 @@ DEVICE_MAPPING = {
                     "step": 1,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS
                 },
-                "main_light_brightness": {
-                    "min": 10,
-                    "max": 100,
-                    "step": 1,
-                    "unit_of_measurement": PERCENTAGE
-                },
                 "radar_induction_closing_time": {
                     "min": 1,
                     "max": 5,
                     "step": 1,
                     "unit_of_measurement": UnitOfTime.MINUTES
+                }
+            },
+            Platform.LIGHT: {
+                "main_light": {
+                    "power": "light_mode",
+                    "brightness": {"main_light_brightness": [10, 100]},
+                    "rationale": ["close_all", "main_light"]
+                },
+                "night_light": {
+                    "power": "light_mode",
+                    "brightness": {"night_light_brightness": [5, 30]},
+                    "rationale": ["close_all", "night_light"]
                 }
             },
             Platform.SWITCH: {
@@ -88,13 +94,6 @@ DEVICE_MAPPING = {
                         "110": {"drying_direction": "110"},
                         "120": {"drying_direction": "120"},
                         "swing": {"drying_direction": "253"}
-                    }
-                },
-                "light_mode": {
-                    "options": {
-                        "close_all": {"light_mode": "close_all"},
-                        "night_light": {"light_mode": "night_light"},
-                        "main_light": {"light_mode": "main_light"}
                     }
                 },
                 "mode": {
@@ -142,17 +141,23 @@ DEVICE_MAPPING = {
                     "step": 1,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS
                 },
-                "main_light_brightness": {
-                    "min": 10,
-                    "max": 100,
-                    "step": 1,
-                    "unit_of_measurement": PERCENTAGE
-                },
                 "radar_induction_closing_time": {
                     "min": 1,
                     "max": 5,
                     "step": 1,
                     "unit_of_measurement": UnitOfTime.MINUTES
+                }
+            },
+            Platform.LIGHT: {
+                "main_light": {
+                    "power": "light_mode",
+                    "brightness": {"main_light_brightness": [10, 100]},
+                    "rationale": ["close_all", "main_light"]
+                },
+                "night_light": {
+                    "power": "light_mode",
+                    "brightness": {"night_light_brightness": [5, 30]},
+                    "rationale": ["close_all", "night_light"]
                 }
             },
             Platform.SWITCH: {
@@ -210,13 +215,6 @@ DEVICE_MAPPING = {
                         "110": {"drying_direction": "110"},
                         "120": {"drying_direction": "120"},
                         "swing": {"drying_direction": "253"}
-                    }
-                },
-                "light_mode": {
-                    "options": {
-                        "close_all": {"light_mode": "close_all"},
-                        "night_light": {"light_mode": "night_light"},
-                        "main_light": {"light_mode": "main_light"}
                     }
                 },
                 "mode": {

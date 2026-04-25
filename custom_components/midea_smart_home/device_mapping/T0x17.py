@@ -1,5 +1,5 @@
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import Platform, PERCENTAGE, UnitOfTime
+from homeassistant.const import Platform, UnitOfTime
 
 DEVICE_MAPPING = {
     "default": {
@@ -13,13 +13,6 @@ DEVICE_MAPPING = {
                 }
             },
             Platform.NUMBER: {
-                "light_brightness": {
-                    "min": 20,
-                    "max": 100,
-                    "step": 1,
-                    "unit_of_measurement": PERCENTAGE,
-                    "translation_key": "lightness"
-                },
                 "custom_height": {
                     "min": 0,
                     "max": 100,
@@ -32,10 +25,13 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTime.MINUTES
                 }
             },
+            Platform.LIGHT: {
+                "common_light": {
+                    "power": "light",
+                    "brightness": {"light_brightness": [20, 100]}
+                }
+            },
             Platform.SWITCH: {
-                "light": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                },
                 "laundry": {
                     "device_class": SwitchDeviceClass.SWITCH,
                 },
@@ -56,13 +52,6 @@ DEVICE_MAPPING = {
                 }
             },
             Platform.NUMBER: {
-                "light_brightness": {
-                    "min": 20,
-                    "max": 100,
-                    "step": 1,
-                    "unit_of_measurement": PERCENTAGE,
-                    "translation_key": "lightness"
-                },
                 "custom_height": {
                     "min": 0,
                     "max": 100,
@@ -75,10 +64,13 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTime.MINUTES
                 }
             },
+            Platform.LIGHT: {
+                "common_light": {
+                    "power": "light",
+                    "brightness": {"light_brightness": [20, 100]}
+                }
+            },
             Platform.SWITCH: {
-                "light": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                },
                 "laundry": {
                     "device_class": SwitchDeviceClass.SWITCH,
                 },

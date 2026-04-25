@@ -236,8 +236,17 @@
       }
     },
     "light": {
+      "common_light": {
+        "name": "照明"
+      },
       "light": {
         "name": "智能灯"
+      },
+      "main_light": {
+        "name": "主灯"
+      },
+      "night_light": {
+        "name": "夜灯"
       }
     },
     "number": {

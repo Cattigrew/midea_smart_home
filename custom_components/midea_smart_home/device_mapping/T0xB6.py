@@ -40,8 +40,11 @@ DEVICE_MAPPING = {
                         "b6_action": "control"
                     }
                 },
-                "light": {
-                    "device_class": SwitchDeviceClass.SWITCH,
+            },
+            Platform.LIGHT: {
+                "common_light": {
+                    "power": "light",
+                    "brightness": {"lightness": [10, 100]},
                     "command": {
                         "electronic_control_version": 2,
                         "type": "b6",
@@ -87,20 +90,6 @@ DEVICE_MAPPING = {
                 "right_stove_off": {
                     "command": {"electronic_control_version": 2, "type": "b7", "b7_work_burner_control": 2,
                                 "b7_function_control": 1},
-                }
-            },
-            Platform.NUMBER: {
-                "lightness": {
-                    "min": 10,
-                    "max": 100,
-                    "step": 5,
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light",
-                        "lightness": "{value}"
-                    }
                 }
             },
             Platform.SELECT: {
@@ -181,8 +170,11 @@ DEVICE_MAPPING = {
                         "b6_action": "control"
                     }
                 },
-                "light": {
-                    "device_class": SwitchDeviceClass.SWITCH,
+            },
+            Platform.LIGHT: {
+                "common_light": {
+                    "power": "light",
+                    "brightness": {"lightness": [10, 100]},
                     "command": {
                         "electronic_control_version": 2,
                         "type": "b6",
@@ -228,20 +220,6 @@ DEVICE_MAPPING = {
                 "right_stove_off": {
                     "command": {"electronic_control_version": 2, "type": "b7", "b7_work_burner_control": 2,
                                 "b7_function_control": 1},
-                }
-            },
-            Platform.NUMBER: {
-                "lightness": {
-                    "min": 10,
-                    "max": 100,
-                    "step": 5,
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light",
-                        "lightness": "{value}"
-                    }
                 }
             },
             Platform.SELECT: {
@@ -310,21 +288,24 @@ DEVICE_MAPPING = {
                         "setting": "gesture"
                     }
                 },
-                "light": {
-                    "device_class": SwitchDeviceClass.SWITCH,
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light"
-                    }
-                },
                 "aidry": {
                     "device_class": SwitchDeviceClass.SWITCH,
                     "command": {
                         "electronic_control_version": 2,
                         "type": "b6",
                         "b6_action": "control"
+                    }
+                }
+            },
+            Platform.LIGHT: {
+                "common_light": {
+                    "power": "light",
+                    "brightness": {"lightness": [10, 100]},
+                    "command": {
+                        "electronic_control_version": 2,
+                        "type": "b6",
+                        "b6_action": "setting",
+                        "setting": "light"
                     }
                 }
             },
@@ -344,20 +325,6 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.PRESSURE,
                     "unit_of_measurement": UnitOfPressure.PA,
                     "state_class": SensorStateClass.MEASUREMENT
-                }
-            },
-            Platform.NUMBER: {
-                "lightness": {
-                    "min": 10,
-                    "max": 100,
-                    "step": 5,
-                    "command": {
-                        "electronic_control_version": 2,
-                        "type": "b6",
-                        "b6_action": "setting",
-                        "setting": "light",
-                        "lightness": "{value}"
-                    }
                 }
             },
             Platform.SELECT: {
