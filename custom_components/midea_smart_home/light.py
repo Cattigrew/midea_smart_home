@@ -28,10 +28,11 @@ async def async_setup_entry(
 
         if light_config:
             for light_key, config in light_config.items():
+                light_rationale = config.get("rationale", rationale)
                 entities.append(
                     MideaLightEntity(
                         coordinator, device_id, device_type, sn, sn8, device_name,
-                        light_key, config, rationale, model
+                        light_key, config, light_rationale, model
                     )
                 )
 
@@ -61,6 +62,7 @@ class MideaLightEntity(MideaBaseEntity, LightEntity):
         self._key_preset_modes = self._config.get("preset_modes")
         self._key_brightness = self._config.get("brightness")
         self._key_color_temp = self._config.get("color_temp")
+        self._command = self._config.get("command")
 
         self._brightness_is_range = False
         self._brightness_min = 0
@@ -156,7 +158,19 @@ class MideaLightEntity(MideaBaseEntity, LightEntity):
 
     @property
     def is_on(self) -> bool:
-        return self._get_status_on_off(self._key_power)
+        if self._key_power is None:
+            return False
+        value = self._get_nested_value(self._key_power)
+        if value is None:
+            return False
+        try:
+            return bool(self._rationale.index(value))
+        except ValueError:
+            # When rationale is defined but the value is not in it,
+            # the light should be considered off (not on).
+            # This handles the case where multiple lights share the same
+            # power key with different rationale values (e.g., light_mode).
+            return False
 
     @property
     def effect_list(self):
@@ -285,9 +299,22 @@ class MideaLightEntity(MideaBaseEntity, LightEntity):
 
             new_status[self._color_temp_key] = str(device_value)
 
-        await self._async_set_status_on_off(self._key_power, True)
+        power_command = {self._key_power: self._rationale[1]} if self._key_power else {}
+        new_status.update(power_command)
+
+        if self._command and isinstance(self._command, dict):
+            merged = dict(self._command)
+            merged.update(new_status)
+            new_status = merged
+
         if new_status:
             await self.coordinator.async_set_controls(new_status)
 
     async def async_turn_off(self):
-        await self._async_set_status_on_off(self._key_power, False)
+        if self._key_power:
+            new_status = {self._key_power: self._rationale[0]}
+            if self._command and isinstance(self._command, dict):
+                merged = dict(self._command)
+                merged.update(new_status)
+                new_status = merged
+            await self.coordinator.async_set_controls(new_status)
