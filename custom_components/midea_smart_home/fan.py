@@ -55,6 +55,7 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
         )
         self._fan_id = fan_id
         self._key_power = self._config.get("power")
+        self._power_rationale = self._config.get("rationale")
         self._key_preset_modes = self._config.get("preset_modes", {})
         speeds_config = self._config.get("speeds", [])
         self._key_oscillate = self._config.get("oscillate")
@@ -183,12 +184,12 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             if index >= 0:
                 new_status.update(self._current_speeds[index])
 
-        await self._async_set_status_on_off(self._key_power, True)
+        await self._async_set_status_on_off(self._key_power, True, rationale=self._power_rationale)
         if new_status:
             await self.coordinator.async_set_controls(new_status)
 
     async def async_turn_off(self):
-        await self._async_set_status_on_off(self._key_power, False)
+        await self._async_set_status_on_off(self._key_power, False, rationale=self._power_rationale)
 
     async def async_set_percentage(self, percentage: int):
         if not self._current_speeds:
@@ -199,7 +200,7 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             return
 
         if not self.is_on:
-            await self._async_set_status_on_off(self._key_power, True)
+            await self._async_set_status_on_off(self._key_power, True, rationale=self._power_rationale)
 
         index = self._get_speed_index_from_percentage(percentage)
         if index >= 0:
@@ -213,7 +214,7 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
         mode_config = self._key_preset_modes.get(preset_mode, {})
         if mode_config:
             if not self.is_on:
-                await self._async_set_status_on_off(self._key_power, True)
+                await self._async_set_status_on_off(self._key_power, True, rationale=self._power_rationale)
 
             if "speeds" in mode_config:
                 self._current_speeds = mode_config["speeds"]
