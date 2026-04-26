@@ -3,6 +3,7 @@
         "binary_sensor": {
             "b3_upstair_door": { "default": "mdi:door-open" },
             "air_status": { "default": "mdi:air-conditioner" },
+            "bathing_work": { "default": "mdi:water-boiler" },
             "bright_lack": { "default": "mdi:creation" },
             "bucket_water_overheating": { "default": "mdi:thermometer-alert" },
             "change_water": { "default": "mdi:water-sync" },
@@ -17,6 +18,7 @@
             "filter": { "default": "mdi:water-sync" },
             "freezer_door_open_overtime": { "default": "mdi:fridge-alert" },
             "freezer_door_state": { "default": "mdi:fridge-bottom" },
+            "heating_work": { "default": "mdi:radiator" },
             "ice_gall_status": { "default": "mdi:snowflake" },
             "ice_status": { "default": "mdi:ice-pop" },
             "lack_water": { "default": "mdi:water-off" },
@@ -40,6 +42,7 @@
         },
         "climate": {
             "air_conditioner": { "default": "mdi:air-conditioner" },
+            "heating": { "default": "mdi:radiator" },
             "electric_heater": { "default": "mdi:thermostat" },
             "freezing_zone": { "default": "mdi:fridge-bottom" },
             "storage_zone": { "default": "mdi:fridge-top" }
@@ -188,6 +191,9 @@
             "battery_percent": { "default": "mdi:battery" },
             "bottom_temperature": { "default": "mdi:thermometer" },
             "cur_humidity": { "default": "mdi:water-percent" },
+            "bath_out_water_temperature": { "default": "mdi:thermometer-water" },
+            "current_bath_set_temperature": { "default": "mdi:thermometer" },
+            "current_heat_set_temperature": { "default": "mdi:thermometer" },
             "cur_temperature": { "default": "mdi:thermometer" },
             "cur_temperature_above": { "default": "mdi:thermometer-high" },
             "cur_temperature_underside": { "default": "mdi:thermometer-low" },
@@ -214,6 +220,10 @@
             "fresh_filter_time": { "default": "mdi:air-filter" },
             "germicidal_countdown": { "default": "mdi:calendar-clock" },
             "germicidal_left_time": { "default": "mdi:timer-sand" },
+            "heat_out_water_temperature": { "default": "mdi:thermometer-water" },
+            "fan_type": { "default": "mdi:fan" },
+            "fan_output": { "default": "mdi:fan" },
+            "ignitor_output": { "default": "mdi:fire" },
             "hcho": { "default": "mdi:molecule" },
             "hot_pot_temperature": { "default": "mdi:thermometer" },
             "in_tds": { "default": "mdi:water-check" },
@@ -254,6 +264,7 @@
             "water_consumption_once": { "default": "mdi:water" },
             "water_feedback": { "default": "mdi:water" },
             "wind_pressure": { "default": "mdi:weather-windy" },
+            "water_gage_bar": { "default": "mdi:gauge" },
             "work_mode": { "default": "mdi:tune" },
             "work_status": { "default": "mdi:play-circle-outline" },
             "work_time": { "default": "mdi:clock-outline" }
@@ -341,6 +352,7 @@
             "vacuum": { "default": "mdi:robot-vacuum" }
         },
         "water_heater": {
+            "bath_water_heater": { "default": "mdi:water-boiler" },
             "water_heater": { "default": "mdi:water-boiler" }
         }
     }

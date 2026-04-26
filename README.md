@@ -76,12 +76,13 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 14 | 0xE1 | Dishwasher |
 | 15 | 0xE2 | Electric Water Heater |
 | 16 | 0xE3 | Gas Water Heater |
-| 17 | 0xEA | Rice Cooker |
-| 18 | 0xED | Net Drinking Machine / Water Purifier / Pipeline Machine |
-| 19 | 0xFA | Electric Fan |
-| 20 | 0xFB | Electric Heater |
-| 21 | 0xFC | Air Purifier |
-| 22 | 0xFD | Humidifier |
+| 17 | 0xE6 | Gas Wall Hanging Tove |
+| 18 | 0xEA | Rice Cooker |
+| 19 | 0xED | Net Drinking Machine / Water Purifier / Pipeline Machine |
+| 20 | 0xFA | Electric Fan |
+| 21 | 0xFB | Electric Heater |
+| 22 | 0xFC | Air Purifier |
+| 23 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 

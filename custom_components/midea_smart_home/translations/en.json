@@ -107,6 +107,12 @@
       "freezer_door_state": {
         "name": "Freezer Door State"
       },
+      "heating_work": {
+        "name": "Heating Work Status"
+      },
+      "bathing_work": {
+        "name": "Bathing Work Status"
+      },
       "ice_gall_status": {
         "name": "Cooling Status"
       },
@@ -177,6 +183,18 @@
               "horizontal": "Horizontal",
               "off": "Off",
               "vertical": "Vertical"
+            }
+          }
+        }
+      },
+      "heating": {
+        "name": "Thermostat (Heating)",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "normal": "Normal",
+              "smart_away": "Smart Away",
+              "smart_home": "Smart Home"
             }
           }
         }
@@ -265,6 +283,9 @@
       "bath_temperature": {
         "name": "Bath Temperature"
       },
+      "boiling_water_temperture": {
+        "name": "Boiling Water Set Temperature"
+      },
       "custom_height": {
         "name": "Laundry Height"
       },
@@ -345,6 +366,9 @@
       },
       "work_second": {
         "name": "Set Second"
+      },
+      "warm_water_temperture": {
+        "name": "Warm Water Set Temperature"
       }
     },
     "select": {
@@ -1557,6 +1581,30 @@
       "wind_pressure": {
         "name": "Wind Pressure"
       },
+      "fan_type": {
+        "name": "Fan Mode"
+      },
+      "ignitor_output": {
+        "name": "Ignition Status"
+      },
+      "fan_output": {
+        "name": "Fan Status"
+      },
+      "current_heat_set_temperature": {
+        "name": "Heating Set Temperature"
+      },
+      "current_bath_set_temperature": {
+        "name": "Bath Set Temperature"
+      },
+      "heat_out_water_temperature": {
+        "name": "Heating Outlet Water Temperature"
+      },
+      "bath_out_water_temperature": {
+        "name": "Bath Outlet Water Temperature"
+      },
+      "water_gage_bar": {
+        "name": "Water Pressure"
+      },
       "work_mode": {
         "name": "Work Mode"
       },
@@ -1827,6 +1875,14 @@
       }
     },
     "water_heater": {
+      "bath_water_heater": {
+        "name": "Thermostat (Bath Water)",
+        "state": {
+          "normal": "Normal",
+          "off": "Off",
+          "smart_temp": "Smart Temp"
+        }
+      },
       "water_heater": {
         "name": "Thermostat (Hot Water)",
         "state": {
