@@ -675,6 +675,98 @@ DEVICE_MAPPING = {
             }
         }
     },
+    "632009HD": {
+        "rationale": ["off", "on"],
+        "entities": {
+            Platform.SWITCH: {
+                "lock": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                }
+            },
+            Platform.SELECT: {
+                "quantify_1": {
+                    "options": {
+                        "15": {"quantify_1": 15},
+                        "20": {"quantify_1": 20},
+                        "25": {"quantify_1": 25},
+                        "30": {"quantify_1": 30},
+                        "35": {"quantify_1": 35},
+                        "40": {"quantify_1": 40},
+                        "45": {"quantify_1": 45},
+                        "50": {"quantify_1": 50},
+                    },
+                    "translation_key": "quantified_water_volume"
+                },
+                "plateau_boiling_point": {
+                    "options": {
+                        "81": {"plateau_boiling_point": 10},
+                        "82": {"plateau_boiling_point": 20},
+                        "83": {"plateau_boiling_point": 30},
+                        "84": {"plateau_boiling_point": 40},
+                        "85": {"plateau_boiling_point": 50},
+                        "86": {"plateau_boiling_point": 60},
+                        "87": {"plateau_boiling_point": 70},
+                        "88": {"plateau_boiling_point": 80},
+                        "89": {"plateau_boiling_point": 90},
+                        "90": {"plateau_boiling_point": 100},
+                        "91": {"plateau_boiling_point": 110},
+                        "92": {"plateau_boiling_point": 120},
+                        "93": {"plateau_boiling_point": 130},
+                        "94": {"plateau_boiling_point": 140},
+                        "95": {"plateau_boiling_point": 150},
+                        "96": {"plateau_boiling_point": 160},
+                        "97": {"plateau_boiling_point": 170},
+                        "98": {"plateau_boiling_point": 180},
+                        "99": {"plateau_boiling_point": 190},
+                        "100": {"plateau_boiling_point": 0}
+                    },
+                    "command": {"plateau_power": "on"}
+                }
+            },
+            Platform.NUMBER: {
+                "milk_temperature": {
+                    "min": 45,
+                    "max": 50,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS
+                },
+                "honey_temperature": {
+                    "min": 50,
+                    "max": 70,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS
+                },
+                "tea_temperature": {
+                    "min": 71,
+                    "max": 85,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS
+                },
+                "custom_temperature_1": {
+                    "min": 86,
+                    "max": 100,
+                    "step": 1,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "translation_key": "boiling_water_temperture"
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "sleep": {
+                    "device_class": BinarySensorDeviceClass.OPENING,
+                    "rationale": ["on", "off"],
+                    "translation_key": "screen_status"
+                }
+            },
+            Platform.SENSOR: {
+                "current_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
+                }
+            }
+        }
+    },
     "default_net_drinking_machine": {
         "rationale": ["off", "on"],
         "calculate": {
