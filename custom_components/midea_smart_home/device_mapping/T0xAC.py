@@ -861,7 +861,7 @@ DEVICE_MAPPING = {
             }
         }
     },
-    ("22396505", "22396517", "22396521", "22396525", "22396533"): {
+    ("22396505", "22396521", "22396525", "22396533"): {
         "rationale": ["off", "on"],
         "initial_query": [
             {},
@@ -923,6 +923,120 @@ DEVICE_MAPPING = {
                         "on": {"follow_body_sense": "on", "follow_body_sense_enable": 1},
                         "off": {"follow_body_sense": "off", "follow_body_sense_enable": 1},
                     }
+                }
+            },
+            Platform.SENSOR: {
+                "mode": {
+                    "device_class": SensorDeviceClass.ENUM,
+                },
+                "indoor_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
+                },
+                "indoor_humidity": {
+                    "device_class": SensorDeviceClass.HUMIDITY,
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_humidity"
+                },
+                "outdoor_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
+    },
+    "22396517": {
+        "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"indoor_temperature"},
+            {"indoor_humidity"},
+            {"no_wind_sense"},
+            {"prevent_super_cool"},
+            {"run_status"}
+        ],
+        "entities": {
+            Platform.CLIMATE: {
+                "air_conditioner": {
+                    "power": "power",
+                    "hvac_modes": {
+                        "off": {"power": "off"},
+                        "heat": {"power": "on", "mode": "heat"},
+                        "cool": {"power": "on", "mode": "cool"},
+                        "auto": {"power": "on", "mode": "auto"},
+                        "dry": {"power": "on", "mode": "dry"},
+                        "fan_only": {"power": "on", "mode": "fan"}
+                    },
+                    "preset_modes": {
+                        "none": {"strong_wind": "off"},
+                        "boost": {"strong_wind": "on"}
+                    },
+                    "fan_modes": {
+                        "20": {"wind_speed": 20},
+                        "40": {"wind_speed": 40},
+                        "60": {"wind_speed": 60},
+                        "80": {"wind_speed": 80},
+                        "100": {"wind_speed": 100},
+                        "102": {"wind_speed": 102}
+                    },
+                    "target_temperature": ["temperature", "small_temperature"],
+                    "current_temperature": "indoor_temperature",
+                    "pre_mode": "mode",
+                    "aux_heat": "ptc",
+                    "min_temp": 16,
+                    "max_temp": 30,
+                    "temperature_unit": UnitOfTemperature.CELSIUS,
+                    "precision": PRECISION_HALVES,
+                }
+            },
+            Platform.SWITCH: {
+                "power": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "prevent_super_cool": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": [0, 1]
+                },
+                "dry": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "ac_dry"
+                },
+                "no_wind_sense": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                }
+            },
+            Platform.SELECT: {
+                "follow_body_sense": {
+                    "options": {
+                        "on": {"follow_body_sense": "on", "follow_body_sense_enable": 1},
+                        "off": {"follow_body_sense": "off", "follow_body_sense_enable": 1},
+                    }
+                },
+                "up_down_wind_direction": {
+                    "options": {
+                        "auto": {"up_down_wind_direction": 0, "wind_swing_ud": "on"},
+                        "top": {"up_down_wind_direction": 1, "wind_swing_ud": "off"},
+                        "upper": {"up_down_wind_direction": 3, "wind_swing_ud": "off"},
+                        "middle": {"up_down_wind_direction": 5, "wind_swing_ud": "off"},
+                        "lower": {"up_down_wind_direction": 7, "wind_swing_ud": "off"},
+                        "bottom": {"up_down_wind_direction": 9, "wind_swing_ud": "off"}
+                    },
+                    "translation_key": "wind_swing_ud_angle"
+                },
+                "left_right_wind_direction": {
+                    "options": {
+                        "auto": {"left_right_wind_direction": 0, "wind_swing_lr": "on"},
+                        "leftmost": {"left_right_wind_direction": 1, "wind_swing_lr": "off"},
+                        "left": {"left_right_wind_direction": 3, "wind_swing_lr": "off"},
+                        "middle": {"left_right_wind_direction": 5, "wind_swing_lr": "off"},
+                        "right": {"left_right_wind_direction": 7, "wind_swing_lr": "off"},
+                        "rightmost": {"left_right_wind_direction": 9, "wind_swing_lr": "off"}
+                    },
+                    "translation_key": "wind_swing_lr_angle"
                 }
             },
             Platform.SENSOR: {

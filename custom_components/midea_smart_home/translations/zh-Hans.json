@@ -1213,6 +1213,7 @@
       "wind_swing_lr_angle": {
         "name": "左右摆风角度",
         "state": {
+          "auto": "自动",
           "left": "偏左",
           "leftmost": "最左",
           "middle": "中间",
@@ -1224,6 +1225,7 @@
       "wind_swing_ud_angle": {
         "name": "上下摆风角度",
         "state": {
+          "auto": "自动",
           "bottom": "最下",
           "lower": "偏下",
           "middle": "中间",
@@ -1833,6 +1835,9 @@
       },
       "nightly": {
         "name": "夜间模式"
+      },
+      "no_wind_sense": {
+        "name": "无风感"
       },
       "offline_voice_function": {
         "name": "离线语音"

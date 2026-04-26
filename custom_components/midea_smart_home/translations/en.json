@@ -1213,6 +1213,7 @@
       "wind_swing_lr_angle": {
         "name": "Left-Right Swing Angle",
         "state": {
+          "auto": "Auto",
           "left": "Left",
           "leftmost": "Leftmost",
           "middle": "Middle",
@@ -1224,6 +1225,7 @@
       "wind_swing_ud_angle": {
         "name": "Up-Down Swing Angle",
         "state": {
+          "auto": "Auto",
           "bottom": "Bottom",
           "lower": "Lower",
           "middle": "Middle",
@@ -1833,6 +1835,9 @@
       },
       "nightly": {
         "name": "Night Mode"
+      },
+      "no_wind_sense": {
+        "name": "No Wind Sense"
       },
       "offline_voice_function": {
         "name": "Offline Voice"

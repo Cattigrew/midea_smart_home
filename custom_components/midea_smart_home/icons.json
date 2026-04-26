@@ -325,6 +325,7 @@
             "lock": { "default": "mdi:account-lock" },
             "microbubble": { "default": "mdi:chart-bubble" },
             "nightly": { "default": "mdi:weather-night" },
+            "no_wind_sense": { "default": "mdi:fan-off" },
             "offline_voice_function": { "default": "mdi:microphone" },
             "open_door_tips_switch": { "default": "mdi:bell-ring" },
             "power": { "default": "mdi:power" },
