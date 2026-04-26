@@ -65,22 +65,23 @@ For detailed configuration guide, please see [Configuration Guide](GUIDE.md)
 | 3 | 0xAC | Floor Air Conditioner / Wall Air Conditioner / Central Air Conditioner / Central Fresh Air / Central Miniaturized Fresh Air |
 | 4 | 0xB0 | Microwave Oven |
 | 5 | 0xB6 | Range Hood |
-| 6 | 0xB8 | Smart Robot Vacuum |
-| 7 | 0xBF | Microwave Steam Oven |
-| 8 | 0xCA | Multi-Door Fridge |
-| 9 | 0xD9 | Twin Tub Washing Machine |
-| 10 | 0xDA | Top Load Washing Machine |
-| 11 | 0xDB | Cylinder Washing Machine |
-| 12 | 0xDC | Clothes Dryer |
-| 13 | 0xE1 | Dishwasher |
-| 14 | 0xE2 | Electric Water Heater |
-| 15 | 0xE3 | Gas Water Heater |
-| 16 | 0xEA | Rice Cooker |
-| 17 | 0xED | Net Drinking Machine / Water Purifier / Pipeline Machine |
-| 18 | 0xFA | Electric Fan |
-| 19 | 0xFB | Electric Heater |
-| 20 | 0xFC | Air Purifier |
-| 21 | 0xFD | Humidifier |
+| 6 | 0x9C | Integrated Stove |
+| 7 | 0xB8 | Smart Robot Vacuum |
+| 8 | 0xBF | Microwave Steam Oven |
+| 9 | 0xCA | Multi-Door Fridge |
+| 10 | 0xD9 | Twin Tub Washing Machine |
+| 11 | 0xDA | Top Load Washing Machine |
+| 12 | 0xDB | Cylinder Washing Machine |
+| 13 | 0xDC | Clothes Dryer |
+| 14 | 0xE1 | Dishwasher |
+| 15 | 0xE2 | Electric Water Heater |
+| 16 | 0xE3 | Gas Water Heater |
+| 17 | 0xEA | Rice Cooker |
+| 18 | 0xED | Net Drinking Machine / Water Purifier / Pipeline Machine |
+| 19 | 0xFA | Electric Fan |
+| 20 | 0xFB | Electric Heater |
+| 21 | 0xFC | Air Purifier |
+| 22 | 0xFD | Humidifier |
 
 > More device types are being adapted. Contributions are welcome!
 

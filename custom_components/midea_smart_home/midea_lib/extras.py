@@ -58,6 +58,9 @@ class DeviceLogicHandler:
         elif self.device_type == 0xAC:
             self.adjust_ac_mode(data)
 
+        elif self.device_type == 0x9C:
+            self.adjust_b3_function_control(data)
+
         elif self.device_type == 0xED:
             self.adjust_standby_status_for_wash(data)
 
@@ -223,6 +226,20 @@ class DeviceLogicHandler:
             if "db_location" not in control and current_data and "db_location" in current_data:
                 control["db_location"] = current_data["db_location"]
         return control
+
+    def adjust_b3_function_control(self, data: dict) -> None:
+        """For T0x9C devices, map b3_upstair_status to b3_function_control."""
+        if "b3_upstair_status" not in data:
+            return
+
+        status_map = {
+            "power_off": 1,
+            "uperization": 2,
+            "drying": 4,
+        }
+        mapped = status_map.get(data["b3_upstair_status"])
+        if mapped is not None:
+            data["b3_function_control"] = mapped
 
     def adjust_standby_status_for_wash(self, data: dict) -> None:
         """For T0xED devices, prevent standby_status update when wash is on."""

@@ -62,6 +62,9 @@
   },
   "entity": {
     "binary_sensor": {
+      "b3_upstair_door": {
+        "name": "Upstair Door"
+      },
       "air_status": {
         "name": "Antibacterial Storage Status"
       },
@@ -370,6 +373,46 @@
           "10": "10 min",
           "15": "15 min",
           "5": "5 min"
+        }
+      },
+      "b3_function_control": {
+        "name": "Cabinet Function",
+        "state": {
+          "dry": "Dry",
+          "off": "Off",
+          "sterilize": "Sterilize"
+        }
+      },
+      "b6_delay_gear_linkage_gear": {
+        "name": "Delay Gear Linkage",
+        "state": {
+          "gear_1": "Gear 1",
+          "gear_2": "Gear 2",
+          "gear_3": "Gear 3"
+        }
+      },
+      "b6_delay_time_value": {
+        "name": "Delay Time",
+        "state": {
+          "1_min": "1 min",
+          "2_min": "2 min",
+          "3_min": "3 min",
+          "4_min": "4 min",
+          "5_min": "5 min",
+          "6_min": "6 min",
+          "7_min": "7 min",
+          "8_min": "8 min",
+          "9_min": "9 min",
+          "10_min": "10 min",
+          "off": "Off"
+        }
+      },
+      "b6_smoke_stove_linkage_gear": {
+        "name": "Smoke-Stove Linkage Gear",
+        "state": {
+          "gear_1": "Gear 1",
+          "gear_2": "Gear 2",
+          "gear_3": "Gear 3"
         }
       },
       "bath_direction": {
@@ -1176,11 +1219,86 @@
       "area": {
         "name": "Cleaning Area"
       },
+      "b3_upstair_status": {
+        "name": "Cabinet Status",
+        "state": {
+          "power_off": "Power Off",
+          "uperization": "Sterilize",
+          "drying": "Dry",
+          "standby": "Standby"
+        }
+      },
+      "b3_upstair_remaining_time_min": {
+        "name": "Cabinet Remaining Time"
+      },
+      "b3_upstair_destination_temp": {
+        "name": "Cabinet Target Temperature"
+      },
+      "b3_upstair_destination_time_min": {
+        "name": "Cabinet Target Duration"
+      },
+      "b6_work_status": {
+        "name": "Hood Work Status",
+        "state": {
+          "power_off": "Power Off",
+          "initial": "Initial",
+          "working": "Working",
+          "power_off_delay": "Power Off Delay",
+          "hotclean": "Hot Clean",
+          "error": "Error",
+          "clean": "Cleaning",
+          "check": "Check",
+          "vvvf_gear": "VVVF Gear",
+          "mute_gear": "Mute Gear",
+          "ai_dry_clean": "AI Dry Clean",
+          "clean_finish": "Clean Finish",
+          "air_duct_detection": "Air Duct Detection",
+          "standby": "Standby"
+        }
+      },
+      "b6_air_volume": {
+        "name": "Air Volume"
+      },
+      "b6_inverter_voltage_v": {
+        "name": "Inverter Voltage"
+      },
+      "b7_left_gear": {
+        "name": "Left Stove Gear",
+        "state": {
+          "0": "Off",
+          "1": "Gear 1",
+          "2": "Gear 2",
+          "3": "Gear 3",
+          "4": "Gear 4"
+        }
+      },
       "b7_left_status": {
-        "name": "Left Stove Status"
+        "name": "Left Stove Status",
+        "state": {
+          "power_off": "Power Off",
+          "working": "Working",
+          "ai": "AI",
+          "power_off_delay": "Delay Off"
+        }
+      },
+      "b7_right_gear": {
+        "name": "Right Stove Gear",
+        "state": {
+          "0": "Off",
+          "1": "Gear 1",
+          "2": "Gear 2",
+          "3": "Gear 3",
+          "4": "Gear 4"
+        }
       },
       "b7_right_status": {
-        "name": "Right Stove Status"
+        "name": "Right Stove Status",
+        "state": {
+          "power_off": "Power Off",
+          "working": "Working",
+          "ai": "AI",
+          "power_off_delay": "Delay Off"
+        }
       },
       "b7_vbattery": {
         "name": "Battery Voltage"
@@ -1476,6 +1594,18 @@
       },
       "autoclean_remind": {
         "name": "Auto Clean Reminder"
+      },
+      "total_power": {
+        "name": "Total Power"
+      },
+      "b6_power": {
+        "name": "Hood Power"
+      },
+      "b6_power_on_light": {
+        "name": "Power On Light"
+      },
+      "b6_smoke_stove_linkage": {
+        "name": "Smoke-Stove Linkage"
       },
       "baby_lock": {
         "name": "Baby Lock"

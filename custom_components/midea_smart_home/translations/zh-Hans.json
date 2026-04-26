@@ -62,6 +62,9 @@
   },
   "entity": {
     "binary_sensor": {
+      "b3_upstair_door": {
+        "name": "消毒柜门状态"
+      },
       "air_status": {
         "name": "抑菌存储状态"
       },
@@ -376,6 +379,46 @@
           "10": "10分钟",
           "15": "15分钟",
           "5": "5分钟"
+        }
+      },
+      "b3_function_control": {
+        "name": "消毒柜功能",
+        "state": {
+          "dry": "烘干",
+          "off": "关闭",
+          "sterilize": "消毒"
+        }
+      },
+      "b6_delay_gear_linkage_gear": {
+        "name": "延时关机挡位",
+        "state": {
+          "gear_1": "1档",
+          "gear_2": "2档",
+          "gear_3": "3档"
+        }
+      },
+      "b6_delay_time_value": {
+        "name": "延时关机时间",
+        "state": {
+          "1_min": "1分钟",
+          "2_min": "2分钟",
+          "3_min": "3分钟",
+          "4_min": "4分钟",
+          "5_min": "5分钟",
+          "6_min": "6分钟",
+          "7_min": "7分钟",
+          "8_min": "8分钟",
+          "9_min": "9分钟",
+          "10_min": "10分钟",
+          "off": "关闭"
+        }
+      },
+      "b6_smoke_stove_linkage_gear": {
+        "name": "烟灶联动挡位",
+        "state": {
+          "gear_1": "1档",
+          "gear_2": "2档",
+          "gear_3": "3档"
         }
       },
       "bath_direction": {
@@ -1182,17 +1225,92 @@
       "area": {
         "name": "清扫面积"
       },
+      "b3_upstair_status": {
+        "name": "消毒柜状态",
+        "state": {
+          "power_off": "关机",
+          "uperization": "消毒中",
+          "drying": "烘干中",
+          "standby": "待机"
+        }
+      },
+      "b3_upstair_remaining_time_min": {
+        "name": "消毒柜剩余时间"
+      },
+      "b3_upstair_destination_temp": {
+        "name": "消毒柜目标温度"
+      },
+      "b3_upstair_destination_time_min": {
+        "name": "消毒柜设定时间"
+      },
+      "b6_work_status": {
+        "name": "烟机工作状态",
+        "state": {
+          "power_off": "关机",
+          "initial": "初始化",
+          "working": "工作中",
+          "power_off_delay": "延时关机",
+          "hotclean": "热清洗",
+          "error": "故障",
+          "clean": "清洁中",
+          "check": "检查中",
+          "vvvf_gear": "变频挡位",
+          "mute_gear": "静音挡位",
+          "ai_dry_clean": "AI干洗",
+          "clean_finish": "清洁完成",
+          "air_duct_detection": "风道检测",
+          "standby": "待机"
+        }
+      },
+      "b6_air_volume": {
+        "name": "烟机风量"
+      },
+      "b6_inverter_voltage_v": {
+        "name": "工作电压"
+      },
       "autoclean_remind_cycle_remainder": {
         "name": "自清洗周期剩余天数"
       },
       "autoclean_time_remainder": {
         "name": "自清洗剩余时长"
       },
+      "b7_left_gear": {
+        "name": "左灶挡位",
+        "state": {
+          "0": "关",
+          "1": "1档",
+          "2": "2档",
+          "3": "3档",
+          "4": "4档"
+        }
+      },
       "b7_left_status": {
-        "name": "左灶状态"
+        "name": "左灶状态",
+        "state": {
+          "power_off": "关机",
+          "working": "工作中",
+          "ai": "智能",
+          "power_off_delay": "延时关机"
+        }
+      },
+      "b7_right_gear": {
+        "name": "右灶挡位",
+        "state": {
+          "0": "关",
+          "1": "1档",
+          "2": "2档",
+          "3": "3档",
+          "4": "4档"
+        }
       },
       "b7_right_status": {
-        "name": "右灶状态"
+        "name": "右灶状态",
+        "state": {
+          "power_off": "关机",
+          "working": "工作中",
+          "ai": "智能",
+          "power_off_delay": "延时关机"
+        }
       },
       "b7_vbattery": {
         "name": "电池电压"
@@ -1488,6 +1606,18 @@
       },
       "autoclean_remind": {
         "name": "自清洗提醒"
+      },
+      "total_power": {
+        "name": "总电源"
+      },
+      "b6_power": {
+        "name": "烟机电源"
+      },
+      "b6_power_on_light": {
+        "name": "开机开灯"
+      },
+      "b6_smoke_stove_linkage": {
+        "name": "烟灶联动"
       },
       "baby_lock": {
         "name": "婴儿锁"
