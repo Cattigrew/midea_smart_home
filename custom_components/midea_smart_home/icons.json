@@ -115,6 +115,7 @@
             "flexzone_function": { "default": "mdi:tune-vertical" },
             "follow_body_sense": { "default": "mdi:account" },
             "fresh_air_time": { "default": "mdi:air-filter" },
+            "fresh_air_mode": { "default": "mdi:fan-chevron-down" },
             "gear": { "default": "mdi:tune" },
             "gesture_sensitivity_value": { "default": "mdi:tune" },
             "gesture_value": { "default": "mdi:hand-wave" },

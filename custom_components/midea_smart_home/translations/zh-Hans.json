@@ -228,6 +228,12 @@
             }
           }
         }
+      },
+      "intake_fan": {
+        "name": "新风风机"
+      },
+      "exhaust_fan": {
+        "name": "排风风机"
       }
     },
     "humidifier": {
@@ -353,6 +359,15 @@
           "60": "60天",
           "7": "7天",
           "90": "90天"
+        }
+      },
+      "fresh_air_mode": {
+        "name": "新风模式",
+        "state": {
+          "heat_exchange": "热交换",
+          "strong": "强劲",
+          "vacation": "度假",
+          "auto": "自动"
         }
       },
       "autoclean_time": {

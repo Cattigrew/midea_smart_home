@@ -1178,5 +1178,74 @@ DEVICE_MAPPING = {
                 }
             }
         }
+    },
+    "default_central_miniaturized_fresh_air": {
+        "rationale": ["off", "on"],
+        "initial_query": [
+            {},
+            {"fresh_air_mode"},
+            {"fresh_filter_time"},
+            {"indoor_temperature"},
+            {"run_status"}
+        ],
+        "entities": {
+            Platform.SWITCH: {
+                "new_wind_machine": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "power"
+                },
+                "fresh_air_remove_odor": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "rationale": [0, 1]
+                }
+            },
+            Platform.FAN: {
+                "intake_fan": {
+                    "power": "new_wind_machine_intake_switch",
+                    "rationale": [0, 1],
+                    "speeds": list({"fresh_air_intake_fan_speed": v} for v in range(1, 101)),
+                },
+                "exhaust_fan": {
+                    "power": "new_wind_machine_exhaust_switch",
+                    "rationale": [0, 1],
+                    "speeds": list({"fresh_air_exhaust_fan_speed": v} for v in range(1, 101)),
+                }
+            },
+            Platform.SELECT: {
+                "fresh_air_mode": {
+                    "options": {
+                        "heat_exchange": {
+                            "fresh_air_mode": 1
+                        },
+                        "strong": {
+                            "fresh_air_mode": 7
+                        },
+                        "vacation": {
+                            "fresh_air_mode": 8
+                        },
+                        "auto": {
+                            "fresh_air_mode": 4
+                        }
+                    }
+                }
+            },
+            Platform.SENSOR: {
+                "fresh_filter_time": {
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "indoor_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "cur_temperature"
+                },
+                "outdoor_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT
+                }
+            }
+        }
     }
 }

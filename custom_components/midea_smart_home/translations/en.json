@@ -228,6 +228,12 @@
             }
           }
         }
+      },
+      "intake_fan": {
+        "name": "Intake Fan"
+      },
+      "exhaust_fan": {
+        "name": "Exhaust Fan"
       }
     },
     "humidifier": {
@@ -347,6 +353,15 @@
           "60": "60 days",
           "7": "7 days",
           "90": "90 days"
+        }
+      },
+      "fresh_air_mode": {
+        "name": "Fresh Air Mode",
+        "state": {
+          "heat_exchange": "Heat Exchange",
+          "strong": "Strong",
+          "vacation": "Vacation",
+          "auto": "Auto"
         }
       },
       "autoclean_time": {
