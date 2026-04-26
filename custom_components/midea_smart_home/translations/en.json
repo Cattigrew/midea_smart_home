@@ -1243,6 +1243,12 @@
       "area": {
         "name": "Cleaning Area"
       },
+      "autoclean_remind_cycle_remainder": {
+        "name": "Auto Clean Cycle Remaining Days"
+      },
+      "autoclean_time_remainder": {
+        "name": "Auto Clean Remaining Time"
+      },
       "b3_upstair_status": {
         "name": "Cabinet Status",
         "state": {

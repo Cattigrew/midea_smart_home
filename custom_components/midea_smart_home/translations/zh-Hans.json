@@ -614,7 +614,7 @@
         }
       },
       "fire_power": {
-        "name": "微波档位",
+        "name": "微波挡位",
         "state": {
           "10": "10%",
           "100": "100%",
@@ -695,7 +695,7 @@
         }
       },
       "gear": {
-        "name": "档位",
+        "name": "挡位",
         "state": {
           "extreme": "爆炒",
           "high": "高速",
@@ -1083,7 +1083,7 @@
         }
       },
       "steam_quantity": {
-        "name": "蒸汽档位",
+        "name": "蒸汽挡位",
         "state": {
           "high": "3档",
           "low": "1档",
@@ -1419,7 +1419,7 @@
         "name": "错误代码"
       },
       "fire_power": {
-        "name": "微波档位"
+        "name": "微波挡位"
       },
       "flexzone_real_temperature": {
         "name": "变温空间实际温度"
