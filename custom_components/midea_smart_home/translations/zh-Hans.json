@@ -1807,6 +1807,9 @@
       "intelligent_mode": {
         "name": "智能"
       },
+      "daily": {
+        "name": "日常"
+      },
       "inverter": {
         "name": "变频巡航"
       },

@@ -317,6 +317,7 @@
             "humidify": { "default": "mdi:air-humidifier" },
             "ice": { "default": "mdi:ice-pop" },
             "intelligent_mode": { "default": "mdi:brain" },
+            "daily": { "default": "mdi:calendar" },
             "inverter": { "default": "mdi:sync" },
             "laundry": { "default": "mdi:washing-machine" },
             "light": { "default": "mdi:lightbulb" },

@@ -1807,6 +1807,9 @@
       "intelligent_mode": {
         "name": "Intelligent Mode"
       },
+      "daily": {
+        "name": "Daily Mode"
+      },
       "inverter": {
         "name": "Inverter Cruise"
       },
