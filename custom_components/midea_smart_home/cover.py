@@ -2,6 +2,7 @@ import logging
 from typing import Any, Optional
 
 from homeassistant.components.cover import CoverEntity, CoverEntityFeature
+from homeassistant.components.cover.const import CoverState
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -66,6 +67,12 @@ class MideaCoverEntity(MideaBaseEntity, CoverEntity):
         if device_class:
             self._attr_device_class = device_class
 
+        # Enable assumed_state so that all control buttons (open/close/stop)
+        # remain available regardless of the current state. This is important
+        # for devices like clothes drying racks that can be in a "paused"
+        # (mid-position) state where both up and down commands should be allowed.
+        self._attr_assumed_state = True
+
         features = CoverEntityFeature.OPEN | CoverEntityFeature.CLOSE | CoverEntityFeature.STOP
         if self._position_key:
             features |= CoverEntityFeature.SET_POSITION
@@ -80,6 +87,12 @@ class MideaCoverEntity(MideaBaseEntity, CoverEntity):
                     return int(position) == 0
                 except (ValueError, TypeError):
                     pass
+        # When the cover is stopped/paused, it's not closed (it's somewhere
+        # between fully open and fully closed), so return False to avoid
+        # showing "unknown" state in Home Assistant.
+        value = self._get_nested_value(self._entity_key)
+        if value == self._stop_value:
+            return False
         return None
 
     @property
@@ -102,6 +115,44 @@ class MideaCoverEntity(MideaBaseEntity, CoverEntity):
     def is_closing(self) -> bool:
         value = self._get_nested_value(self._entity_key)
         return value == self._close_value
+
+    @property
+    def state(self) -> str | None:
+        """Return the state of the cover.
+
+        Overrides the default CoverEntity state to add a "stopped" state
+        for devices that support pause/stop (like clothes drying racks).
+        """
+        if self.is_opening:
+            return CoverState.OPENING
+        if self.is_closing:
+            return CoverState.CLOSING
+        value = self._get_nested_value(self._entity_key)
+        if value == self._stop_value:
+            return "stopped"
+        if self.is_closed:
+            return CoverState.CLOSED
+        if self.is_closed is False:
+            return CoverState.OPEN
+        return None
+
+    @property
+    def extra_state_attributes(self) -> dict[str, str]:
+        """Return the motion status as an extra attribute.
+
+        Home Assistant's cover platform only supports open/opening/closing/closed
+        states. For devices like clothes drying racks that have a "paused" state,
+        we expose the actual motion status as an extra attribute so users can see
+        whether the device is paused/stopped.
+        """
+        value = self._get_nested_value(self._entity_key)
+        if value == self._open_value:
+            return {"motion_status": "opening"}
+        if value == self._close_value:
+            return {"motion_status": "closing"}
+        if value == self._stop_value:
+            return {"motion_status": "stopped"}
+        return {"motion_status": "unknown"}
 
     async def async_open_cover(self, **kwargs: Any) -> None:
         await self.coordinator.async_set_control(self._entity_key, self._open_value)
