@@ -62,11 +62,14 @@
   },
   "entity": {
     "binary_sensor": {
+      "air_status": {
+        "name": "抑菌存储状态"
+      },
       "b3_upstair_door": {
         "name": "消毒柜门状态"
       },
-      "air_status": {
-        "name": "抑菌存储状态"
+      "bathing_work": {
+        "name": "卫浴工作状态"
       },
       "bright_lack": {
         "name": "漂洗剂不足"
@@ -109,9 +112,6 @@
       },
       "heating_work": {
         "name": "采暖工作状态"
-      },
-      "bathing_work": {
-        "name": "卫浴工作状态"
       },
       "ice_gall_status": {
         "name": "制冷状态"
@@ -158,11 +158,6 @@
         "name": "关闭右灶"
       }
     },
-    "cover": {
-      "updown": {
-        "name": "晾衣架"
-      }
-    },
     "climate": {
       "air_conditioner": {
         "name": "温控器(空调)",
@@ -187,18 +182,6 @@
           }
         }
       },
-      "heating": {
-        "name": "温控器(采暖)",
-        "state_attributes": {
-          "preset_mode": {
-            "state": {
-              "normal": "普通模式",
-              "smart_away": "智能外出",
-              "smart_home": "智能居家"
-            }
-          }
-        }
-      },
       "electric_heater": {
         "name": "温控器(取暖器)",
         "state_attributes": {
@@ -215,11 +198,31 @@
       "freezing_zone": {
         "name": "温控器(冷冻)"
       },
+      "heating": {
+        "name": "温控器(采暖)",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "normal": "普通模式",
+              "smart_away": "智能外出",
+              "smart_home": "智能居家"
+            }
+          }
+        }
+      },
       "storage_zone": {
         "name": "温控器(冷藏)"
       }
     },
+    "cover": {
+      "updown": {
+        "name": "晾衣架"
+      }
+    },
     "fan": {
+      "exhaust_fan": {
+        "name": "排风风机"
+      },
       "fan": {
         "name": "风扇",
         "state_attributes": {
@@ -252,9 +255,6 @@
       },
       "intake_fan": {
         "name": "新风风机"
-      },
-      "exhaust_fan": {
-        "name": "排风风机"
       }
     },
     "humidifier": {
@@ -304,6 +304,9 @@
       "heating_temperature": {
         "name": "取暖温度"
       },
+      "honey_temperature": {
+        "name": "蜂蜜水设定温度"
+      },
       "hosting_lower": {
         "name": "PM2.5下限(停止净化)"
       },
@@ -315,6 +318,9 @@
       },
       "main_light_brightness": {
         "name": "主灯亮度"
+      },
+      "milk_temperature": {
+        "name": "泡奶设定温度"
       },
       "night_light_brightness": {
         "name": "夜灯亮度"
@@ -343,20 +349,14 @@
       "softener": {
         "name": "柔顺剂"
       },
+      "tea_temperature": {
+        "name": "泡茶设定温度"
+      },
       "temperature": {
         "name": "设定温度"
       },
       "warm_water_temperture": {
         "name": "温水设定温度"
-      },
-      "milk_temperature": {
-        "name": "泡奶设定温度"
-      },
-      "honey_temperature": {
-        "name": "蜂蜜水设定温度"
-      },
-      "tea_temperature": {
-        "name": "泡茶设定温度"
       },
       "wash_level": {
         "name": "洗涤水位"
@@ -391,15 +391,6 @@
           "90": "90天"
         }
       },
-      "fresh_air_mode": {
-        "name": "新风模式",
-        "state": {
-          "heat_exchange": "热交换",
-          "strong": "强劲",
-          "vacation": "度假",
-          "auto": "自动"
-        }
-      },
       "autoclean_time": {
         "name": "自清洗设定时长",
         "state": {
@@ -427,6 +418,7 @@
       "b6_delay_time_value": {
         "name": "延时关机时间",
         "state": {
+          "10_min": "10分钟",
           "1_min": "1分钟",
           "2_min": "2分钟",
           "3_min": "3分钟",
@@ -436,7 +428,6 @@
           "7_min": "7分钟",
           "8_min": "8分钟",
           "9_min": "9分钟",
-          "10_min": "10分钟",
           "off": "关闭"
         }
       },
@@ -503,14 +494,6 @@
         "state": {
           "off": "保温零冷水",
           "on": "节能零冷水"
-        }
-      },
-      "e3_mode": {
-        "name": "热水模式",
-        "state": {
-          "shower": "淋浴洗",
-          "kitchen": "厨房洗",
-          "high_temperature": "高温洗"
         }
       },
       "cur_quantify": {
@@ -622,6 +605,14 @@
           "strong_mode": "强效模式"
         }
       },
+      "e3_mode": {
+        "name": "热水模式",
+        "state": {
+          "high_temperature": "高温洗",
+          "kitchen": "厨房洗",
+          "shower": "淋浴洗"
+        }
+      },
       "fire_power": {
         "name": "微波挡位",
         "state": {
@@ -692,6 +683,15 @@
         "state": {
           "off": "关闭",
           "on": "开启"
+        }
+      },
+      "fresh_air_mode": {
+        "name": "新风模式",
+        "state": {
+          "auto": "自动",
+          "heat_exchange": "热交换",
+          "strong": "强劲",
+          "vacation": "度假"
         }
       },
       "fresh_air_time": {
@@ -873,6 +873,31 @@
           "90": "1分钟30秒"
         }
       },
+      "plateau_boiling_point": {
+        "name": "沸点温度",
+        "state": {
+          "100": "100°C",
+          "81": "81°C",
+          "82": "82°C",
+          "83": "83°C",
+          "84": "84°C",
+          "85": "85°C",
+          "86": "86°C",
+          "87": "87°C",
+          "88": "88°C",
+          "89": "89°C",
+          "90": "90°C",
+          "91": "91°C",
+          "92": "92°C",
+          "93": "93°C",
+          "94": "94°C",
+          "95": "95°C",
+          "96": "96°C",
+          "97": "97°C",
+          "98": "98°C",
+          "99": "99°C"
+        }
+      },
       "pre_heat": {
         "name": "预热",
         "state": {
@@ -961,17 +986,6 @@
           "off": "关闭"
         }
       },
-      "quantify_1": {
-        "name": "小量用水量",
-        "state": {
-          "100": "100mL",
-          "150": "150mL",
-          "200": "200mL",
-          "250": "250mL",
-          "300": "300mL",
-          "50": "50mL"
-        }
-      },
       "quantified_water_volume": {
         "name": "定量用水量",
         "state": {
@@ -985,29 +999,15 @@
           "50": "500mL"
         }
       },
-      "plateau_boiling_point": {
-        "name": "沸点温度",
+      "quantify_1": {
+        "name": "小量用水量",
         "state": {
-          "81": "81°C",
-          "82": "82°C",
-          "83": "83°C",
-          "84": "84°C",
-          "85": "85°C",
-          "86": "86°C",
-          "87": "87°C",
-          "88": "88°C",
-          "89": "89°C",
-          "90": "90°C",
-          "91": "91°C",
-          "92": "92°C",
-          "93": "93°C",
-          "94": "94°C",
-          "95": "95°C",
-          "96": "96°C",
-          "97": "97°C",
-          "98": "98°C",
-          "99": "99°C",
-          "100": "100°C"
+          "100": "100mL",
+          "150": "150mL",
+          "200": "200mL",
+          "250": "250mL",
+          "300": "300mL",
+          "50": "50mL"
         }
       },
       "quantify_2": {
@@ -1292,17 +1292,11 @@
       "area": {
         "name": "清扫面积"
       },
-      "b3_upstair_status": {
-        "name": "消毒柜状态",
-        "state": {
-          "power_off": "关机",
-          "uperization": "消毒中",
-          "drying": "烘干中",
-          "standby": "待机"
-        }
+      "autoclean_remind_cycle_remainder": {
+        "name": "自清洗周期剩余天数"
       },
-      "b3_upstair_remaining_time_min": {
-        "name": "消毒柜剩余时间"
+      "autoclean_time_remainder": {
+        "name": "自清洗剩余时长"
       },
       "b3_upstair_destination_temp": {
         "name": "消毒柜目标温度"
@@ -1310,23 +1304,16 @@
       "b3_upstair_destination_time_min": {
         "name": "消毒柜设定时间"
       },
-      "b6_work_status": {
-        "name": "烟机工作状态",
+      "b3_upstair_remaining_time_min": {
+        "name": "消毒柜剩余时间"
+      },
+      "b3_upstair_status": {
+        "name": "消毒柜状态",
         "state": {
+          "drying": "烘干中",
           "power_off": "关机",
-          "initial": "初始化",
-          "working": "工作中",
-          "power_off_delay": "延时关机",
-          "hotclean": "热清洗",
-          "error": "故障",
-          "clean": "清洁中",
-          "check": "检查中",
-          "vvvf_gear": "变频挡位",
-          "mute_gear": "静音挡位",
-          "ai_dry_clean": "AI干洗",
-          "clean_finish": "清洁完成",
-          "air_duct_detection": "风道检测",
-          "standby": "待机"
+          "standby": "待机",
+          "uperization": "消毒中"
         }
       },
       "b6_air_volume": {
@@ -1335,11 +1322,24 @@
       "b6_inverter_voltage_v": {
         "name": "工作电压"
       },
-      "autoclean_remind_cycle_remainder": {
-        "name": "自清洗周期剩余天数"
-      },
-      "autoclean_time_remainder": {
-        "name": "自清洗剩余时长"
+      "b6_work_status": {
+        "name": "烟机工作状态",
+        "state": {
+          "ai_dry_clean": "AI干洗",
+          "air_duct_detection": "风道检测",
+          "check": "检查中",
+          "clean": "清洁中",
+          "clean_finish": "清洁完成",
+          "error": "故障",
+          "hotclean": "热清洗",
+          "initial": "初始化",
+          "mute_gear": "静音挡位",
+          "power_off": "关机",
+          "power_off_delay": "延时关机",
+          "standby": "待机",
+          "vvvf_gear": "变频挡位",
+          "working": "工作中"
+        }
       },
       "b7_left_gear": {
         "name": "左灶挡位",
@@ -1354,10 +1354,10 @@
       "b7_left_status": {
         "name": "左灶状态",
         "state": {
-          "power_off": "关机",
-          "working": "工作中",
           "ai": "智能",
-          "power_off_delay": "延时关机"
+          "power_off": "关机",
+          "power_off_delay": "延时关机",
+          "working": "工作中"
         }
       },
       "b7_right_gear": {
@@ -1373,14 +1373,17 @@
       "b7_right_status": {
         "name": "右灶状态",
         "state": {
-          "power_off": "关机",
-          "working": "工作中",
           "ai": "智能",
-          "power_off_delay": "延时关机"
+          "power_off": "关机",
+          "power_off_delay": "延时关机",
+          "working": "工作中"
         }
       },
       "b7_vbattery": {
         "name": "电池电压"
+      },
+      "bath_out_water_temperature": {
+        "name": "卫浴出水温度"
       },
       "battery_percent": {
         "name": "电池电量"
@@ -1399,6 +1402,12 @@
       },
       "cur_temperature_underside": {
         "name": "下管温度"
+      },
+      "current_bath_set_temperature": {
+        "name": "卫浴设定温度"
+      },
+      "current_heat_set_temperature": {
+        "name": "采暖设定温度"
       },
       "db_error_code_l": {
         "name": "错误代码(左筒)"
@@ -1467,6 +1476,12 @@
       "error_code": {
         "name": "错误代码"
       },
+      "fan_output": {
+        "name": "风机状态"
+      },
+      "fan_type": {
+        "name": "风机模式"
+      },
       "fire_power": {
         "name": "微波挡位"
       },
@@ -1493,6 +1508,12 @@
       },
       "hcho": {
         "name": "甲醛浓度"
+      },
+      "heat_out_water_temperature": {
+        "name": "采暖出水温度"
+      },
+      "ignitor_output": {
+        "name": "点火状态"
       },
       "in_tds": {
         "name": "原水TDS"
@@ -1633,32 +1654,11 @@
       "water_feedback": {
         "name": "水位反馈"
       },
-      "wind_pressure": {
-        "name": "风压"
-      },
-      "fan_type": {
-        "name": "风机模式"
-      },
-      "ignitor_output": {
-        "name": "点火状态"
-      },
-      "fan_output": {
-        "name": "风机状态"
-      },
-      "current_heat_set_temperature": {
-        "name": "采暖设定温度"
-      },
-      "current_bath_set_temperature": {
-        "name": "卫浴设定温度"
-      },
-      "heat_out_water_temperature": {
-        "name": "采暖出水温度"
-      },
-      "bath_out_water_temperature": {
-        "name": "卫浴出水温度"
-      },
       "water_gage_bar": {
         "name": "水压"
+      },
+      "wind_pressure": {
+        "name": "风压"
       },
       "work_mode": {
         "name": "工作模式"
@@ -1698,9 +1698,6 @@
       "autoclean_remind": {
         "name": "自清洗提醒"
       },
-      "total_power": {
-        "name": "总电源"
-      },
       "b6_power": {
         "name": "烟机电源"
       },
@@ -1739,6 +1736,9 @@
       },
       "cycle_memory": {
         "name": "程序记忆"
+      },
+      "daily": {
+        "name": "日常"
       },
       "damp_dry_signal": {
         "name": "潮湿干燥信号"
@@ -1808,9 +1808,6 @@
       },
       "intelligent_mode": {
         "name": "智能"
-      },
-      "daily": {
-        "name": "日常"
       },
       "inverter": {
         "name": "变频巡航"
@@ -1898,6 +1895,9 @@
       },
       "storage_power": {
         "name": "冷藏电源"
+      },
+      "total_power": {
+        "name": "总电源"
       },
       "ultraviolet_lamp": {
         "name": "UV除菌"
