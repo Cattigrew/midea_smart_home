@@ -28,6 +28,13 @@ DEVICE_MAPPING = {
                 },
                 "open_door_tips_switch": {
                     "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "intelligent_mode": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "daily"
+                },
+                "freezing_light_open_chose": {
+                    "device_class": SwitchDeviceClass.SWITCH,
                 }
             },
             Platform.BINARY_SENSOR: {
@@ -36,6 +43,12 @@ DEVICE_MAPPING = {
                 },
                 "freezer_door_state": {
                     "device_class": BinarySensorDeviceClass.DOOR,
+                },
+                "storage_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "freezer_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
                 }
             },
             Platform.CLIMATE: {
@@ -141,6 +154,18 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "left_flexzone_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "flexzone_temperature"
+                },
+                "left_variable_real_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "flexzone_real_temperature"
                 }
             }
         }
@@ -169,6 +194,13 @@ DEVICE_MAPPING = {
                 },
                 "open_door_tips_switch": {
                     "device_class": SwitchDeviceClass.SWITCH,
+                },
+                "intelligent_mode": {
+                    "device_class": SwitchDeviceClass.SWITCH,
+                    "translation_key": "daily"
+                },
+                "freezing_light_open_chose": {
+                    "device_class": SwitchDeviceClass.SWITCH,
                 }
             },
             Platform.BINARY_SENSOR: {
@@ -177,6 +209,12 @@ DEVICE_MAPPING = {
                 },
                 "freezer_door_state": {
                     "device_class": BinarySensorDeviceClass.DOOR,
+                },
+                "storage_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "freezer_door_open_overtime": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
                 }
             },
             Platform.CLIMATE: {
@@ -282,6 +320,18 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT
+                },
+                "left_flexzone_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "flexzone_temperature"
+                },
+                "left_variable_real_temperature": {
+                    "device_class": SensorDeviceClass.TEMPERATURE,
+                    "unit_of_measurement": UnitOfTemperature.CELSIUS,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "flexzone_real_temperature"
                 }
             }
         }
