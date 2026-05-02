@@ -568,6 +568,43 @@ DEVICE_MAPPING = {
             }
         }
     },
+    "63201787": {
+        "rationale": ["off", "on"],
+        "entities": {
+            Platform.BINARY_SENSOR: {
+                "standby_status": {
+                    "device_class": BinarySensorDeviceClass.RUNNING,
+                    "rationale": [1, 0],
+                    "translation_key": "water_output_switch"
+                }
+            },
+            Platform.SWITCH: {
+                "wash": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                }
+            },
+            Platform.SENSOR: {
+                "in_tds": {
+                    "unit_of_measurement": CONCENTRATION_PARTS_PER_MILLION,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "out_tds": {
+                    "unit_of_measurement": CONCENTRATION_PARTS_PER_MILLION,
+                    "state_class": SensorStateClass.MEASUREMENT
+                },
+                "life_1": {
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "life_pcb"
+                },
+                "life_2": {
+                    "unit_of_measurement": PERCENTAGE,
+                    "state_class": SensorStateClass.MEASUREMENT,
+                    "translation_key": "life_ro"
+                }
+            }
+        }
+    },
     "default_pipeline_machine": {
         "rationale": ["off", "on"],
         "entities": {
