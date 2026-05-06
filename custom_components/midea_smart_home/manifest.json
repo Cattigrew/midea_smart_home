@@ -1,7 +1,9 @@
 {
   "domain": "midea_smart_home",
   "name": "Midea Smart Home",
-  "codeowners": ["@Cyborg2017"],
+  "codeowners": [
+    "@Cyborg2017"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/Cyborg2017/midea_smart_home",
@@ -14,5 +16,5 @@
     "aiohttp>=3.8.0",
     "pycryptodome>=3.15.0"
   ],
-  "version": "26.5.0"
+  "version": "26.5.1"
 }
