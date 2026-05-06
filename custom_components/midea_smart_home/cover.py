@@ -1,8 +1,7 @@
 import logging
 from typing import Any, Optional
 
-from homeassistant.components.cover import CoverEntity, CoverEntityFeature
-from homeassistant.components.cover.const import CoverState
+from homeassistant.components.cover import CoverEntity, CoverEntityFeature, CoverState
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
