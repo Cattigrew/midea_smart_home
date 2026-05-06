@@ -110,11 +110,11 @@
       "freezer_door_state": {
         "name": "Freezer Door State"
       },
-      "heating_work": {
-        "name": "Heating Work Status"
-      },
       "heat_status": {
         "name": "Heat Status"
+      },
+      "heating_work": {
+        "name": "Heating Work Status"
       },
       "ice_gall_status": {
         "name": "Cooling Status"
@@ -476,6 +476,16 @@
           "swing": "Swing"
         }
       },
+      "boiling_water_temperature": {
+        "name": "Boiling Water Set Temperature",
+        "state": {
+          "75": "75°C",
+          "80": "80°C",
+          "83": "83°C",
+          "90": "90°C",
+          "95": "95°C"
+        }
+      },
       "bright": {
         "name": "Brightness",
         "state": {
@@ -799,6 +809,18 @@
           "night_light": "Night Light"
         }
       },
+      "milk_temperature": {
+        "name": "Milk Temperature",
+        "state": {
+          "30": "30°C",
+          "35": "35°C",
+          "40": "40°C",
+          "45": "45°C",
+          "50": "50°C",
+          "55": "55°C",
+          "60": "60°C"
+        }
+      },
       "mode": {
         "name": "Mode",
         "state": {
@@ -1091,6 +1113,17 @@
           "60": "1min"
         }
       },
+      "set_germicidal_countdown_days": {
+        "name": "Sterilization Countdown Days",
+        "state": {
+          "10": "10 days",
+          "15": "15 days",
+          "20": "20 days",
+          "25": "25 days",
+          "30": "30 days",
+          "7": "7 days"
+        }
+      },
       "soak_count": {
         "name": "Rinse Count",
         "state": {
@@ -1150,6 +1183,16 @@
           "sweep_then_mop": "Sweep Then Mop"
         }
       },
+      "tea_temperature": {
+        "name": "Tea Temperature",
+        "state": {
+          "75": "75°C",
+          "80": "80°C",
+          "83": "83°C",
+          "90": "90°C",
+          "95": "95°C"
+        }
+      },
       "temperature": {
         "name": "Temperature",
         "state": {
@@ -1167,6 +1210,18 @@
           "down": "Down",
           "pause": "Pause",
           "up": "Up"
+        }
+      },
+      "warm_water_temperature": {
+        "name": "Warm Water Set Temperature",
+        "state": {
+          "30": "30°C",
+          "35": "35°C",
+          "40": "40°C",
+          "45": "45°C",
+          "50": "50°C",
+          "55": "55°C",
+          "60": "60°C"
         }
       },
       "wash_mode": {
@@ -1279,61 +1334,6 @@
           "power_off": "Power Off",
           "power_on": "Power On",
           "resume": "Resume"
-        }
-      },
-      "set_germicidal_countdown_days": {
-        "name": "Sterilization Countdown Days",
-        "state": {
-          "7": "7 days",
-          "10": "10 days",
-          "15": "15 days",
-          "20": "20 days",
-          "25": "25 days",
-          "30": "30 days"
-        }
-      },
-      "boiling_water_temperature": {
-        "name": "Boiling Water Set Temperature",
-        "state": {
-          "75": "75°C",
-          "80": "80°C",
-          "83": "83°C",
-          "90": "90°C",
-          "95": "95°C"
-        }
-      },
-      "warm_water_temperature": {
-        "name": "Warm Water Set Temperature",
-        "state": {
-          "30": "30°C",
-          "35": "35°C",
-          "40": "40°C",
-          "45": "45°C",
-          "50": "50°C",
-          "55": "55°C",
-          "60": "60°C"
-        }
-      },
-      "milk_temperature": {
-        "name": "Milk Temperature",
-        "state": {
-          "30": "30°C",
-          "35": "35°C",
-          "40": "40°C",
-          "45": "45°C",
-          "50": "50°C",
-          "55": "55°C",
-          "60": "60°C"
-        }
-      },
-      "tea_temperature": {
-        "name": "Tea Temperature",
-        "state": {
-          "75": "75°C",
-          "80": "80°C",
-          "83": "83°C",
-          "90": "90°C",
-          "95": "95°C"
         }
       }
     },
