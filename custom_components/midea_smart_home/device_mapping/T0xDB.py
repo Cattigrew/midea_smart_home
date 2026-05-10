@@ -28,6 +28,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -241,6 +244,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -454,6 +460,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -667,6 +676,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -866,6 +878,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -1076,6 +1091,9 @@ DEVICE_MAPPING = {
                 },
                 "detergent_lack": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -1254,6 +1272,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {
@@ -1463,6 +1484,9 @@ DEVICE_MAPPING = {
                 },
                 "bucket_water_overheating": {
                     "device_class": BinarySensorDeviceClass.PROBLEM,
+                },
+                "down_light": {
+                    "device_class": BinarySensorDeviceClass.OPENING
                 }
             },
             Platform.SWITCH: {

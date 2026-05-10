@@ -95,6 +95,9 @@
       "door_opened": {
         "name": "Door Status"
       },
+      "down_light": {
+        "name": "Down Light Status"
+      },
       "drying_tunnel_overheating": {
         "name": "Drying Tunnel Overheating"
       },

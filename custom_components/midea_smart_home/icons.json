@@ -13,6 +13,7 @@
             "device_status": { "default": "mdi:information" },
             "door_opened": { "default": "mdi:door-open" },
             "door_warn": { "default": "mdi:door-open" },
+            "down_light": { "default": "mdi:wall-sconce-flat" },
             "drying_tunnel_overheating": { "default": "mdi:thermometer-alert" },
             "failed_device": { "default": "mdi:alert-circle" },
             "filter": { "default": "mdi:water-sync" },

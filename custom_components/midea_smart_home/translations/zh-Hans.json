@@ -95,6 +95,9 @@
       "door_opened": {
         "name": "门状态"
       },
+      "down_light": {
+        "name": "筒灯状态"
+      },
       "drying_tunnel_overheating": {
         "name": "烘干通道过热"
       },
