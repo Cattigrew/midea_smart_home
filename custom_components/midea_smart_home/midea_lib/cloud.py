@@ -300,6 +300,7 @@ class MeijuCloud(MideaCloud):
             for home in response.get("homeList") or []:
                 home_name = home.get("name", home.get("nickname", ""))
                 for room in home.get("roomList") or []:
+                    room_name = room.get("name", room.get("nickname", ""))
                     for appliance in room.get("applianceList"):
                         try:
                             model_number = int(appliance.get("modelNumber", 0))
@@ -323,6 +324,7 @@ class MeijuCloud(MideaCloud):
                             "online": appliance.get("onlineStatus") == "1",
                             "category": appliance.get("category", ""),
                             "home_name": home_name,
+                            "room_name": room_name,
                         }
                         sn8 = device_info.get("sn8")
                         if not sn8 or len(sn8) == 0:

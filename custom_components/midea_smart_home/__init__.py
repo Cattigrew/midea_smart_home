@@ -20,6 +20,7 @@ from .const import (
     CONF_MODEL_NUMBER,
     CONF_PORT,
     CONF_PROTOCOL,
+    CONF_ROOM_NAME,
     CONF_SN,
     CONF_SN8,
     CONF_TOKEN,
@@ -88,6 +89,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         if not device_name:
             device_name = DEVICE_TYPES.get(device_type_int, f"Device {device_type}")
 
+        room_name = device_data.get(CONF_ROOM_NAME, "")
+        area = room_name
+
         category = device_data.get(CONF_CATEGORY, "")
         protocol = device_data.get(CONF_PROTOCOL, ProtocolVersion.V3)
 
@@ -148,7 +152,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             coordinator = MideaCoordinator(
                 hass,
                 device,
-                f"Device_{device_id}",
+                device_name,
+                area,
             )
 
             import asyncio
@@ -217,8 +222,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
-        entry_data = hass.data[DOMAIN].pop(entry.entry_id)
+        entry_data = hass.data[DOMAIN].pop(entry.entry_id, {})
         for device_id_str, data in entry_data.items():
+            coordinator = data.get("coordinator")
+            if coordinator:
+                coordinator.deactivate()
             device = data.get("device")
             if device:
                 device.close()

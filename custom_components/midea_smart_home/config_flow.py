@@ -18,6 +18,7 @@ from .const import (
     CONF_DEVICE_ID,
     CONF_DEVICE_NAME,
     CONF_DEVICE_TYPE,
+    CONF_HOME_NAME,
     CONF_IP,
     CONF_KEY,
     CONF_LUA_FILE,
@@ -25,6 +26,7 @@ from .const import (
     CONF_PASSWORD,
     CONF_PORT,
     CONF_PROTOCOL,
+    CONF_ROOM_NAME,
     CONF_SERVER,
     CONF_SN,
     CONF_SN8,
@@ -423,6 +425,8 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_KEY: key if is_v3 else "",
                 CONF_LUA_FILE: lua_file,
                 CONF_PROTOCOL: protocol,
+                CONF_HOME_NAME: current_device.get(CONF_HOME_NAME, ""),
+                CONF_ROOM_NAME: current_device.get(CONF_ROOM_NAME, ""),
             }
 
             existing_index = next(
@@ -463,6 +467,8 @@ class MideaSmartHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     current_device[CONF_DEVICE_NAME] = cloud_device.get("name") or current_device.get(CONF_DEVICE_NAME, "")
                     current_device[CONF_MANUFACTURER_CODE] = cloud_device.get("manufacturer_code") or current_device.get(CONF_MANUFACTURER_CODE, "0000")
                     current_device[CONF_CATEGORY] = cloud_device.get("category") or current_device.get(CONF_CATEGORY, "")
+                    current_device[CONF_HOME_NAME] = cloud_device.get("home_name", "")
+                    current_device[CONF_ROOM_NAME] = cloud_device.get("room_name", "")
 
                 sn = current_device.get(CONF_SN, "")
                 sn8 = current_device.get(CONF_SN8, "")
@@ -846,6 +852,8 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
                 CONF_KEY: key if is_v3 else "",
                 CONF_LUA_FILE: lua_file,
                 CONF_PROTOCOL: protocol,
+                CONF_HOME_NAME: current_device.get(CONF_HOME_NAME, ""),
+                CONF_ROOM_NAME: current_device.get(CONF_ROOM_NAME, ""),
             }
 
             existing_index = next(
@@ -1179,6 +1187,8 @@ class MideaSmartHomeOptionsFlowHandler(config_entries.OptionsFlow):
                             CONF_MODEL_NUMBER: device.get("model_number", ""),
                             CONF_DEVICE_NAME: device.get("name", ""),
                             CONF_CATEGORY: device.get("category", ""),
+                            CONF_HOME_NAME: device.get("home_name", ""),
+                            CONF_ROOM_NAME: device.get("room_name", ""),
                         }
                 _LOGGER.info("Refreshed device info from cloud for %d devices", len(cloud_device_info))
         except (socket.error, OSError, ValueError, json.JSONDecodeError) as err:
