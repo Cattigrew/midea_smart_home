@@ -7,6 +7,7 @@
             "bright_lack": { "default": "mdi:creation" },
             "bucket_water_overheating": { "default": "mdi:thermometer-alert" },
             "change_water": { "default": "mdi:water-sync" },
+            "current_radar_status": { "default": "mdi:radar" },
             "db_detergent_needed_l": { "default": "mdi:water-alert" },
             "db_detergent_needed_r": { "default": "mdi:water-alert" },
             "detergent_lack": { "default": "mdi:water-alert" },

@@ -80,6 +80,9 @@
       "change_water": {
         "name": "Change Water Reminder"
       },
+      "current_radar_status": {
+        "name": "Radar Induction Status"
+      },
       "db_detergent_needed_l": {
         "name": "Left Bucket Detergent Needed"
       },

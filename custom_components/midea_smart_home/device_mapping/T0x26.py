@@ -122,6 +122,11 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "cur_temperature"
                 }
+            },
+            Platform.BINARY_SENSOR: {
+                "current_radar_status": {
+                    "device_class": BinarySensorDeviceClass.OCCUPANCY
+                }
             }
         }
     },
@@ -242,6 +247,11 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "cur_temperature"
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "current_radar_status": {
+                    "device_class": BinarySensorDeviceClass.OCCUPANCY
                 }
             }
         }

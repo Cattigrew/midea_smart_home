@@ -80,6 +80,9 @@
       "change_water": {
         "name": "换水提醒"
       },
+      "current_radar_status": {
+        "name": "雷达感应有人"
+      },
       "db_detergent_needed_l": {
         "name": "洗涤剂状态(左筒)"
       },
