@@ -22,6 +22,7 @@
             "freezer_door_state": { "default": "mdi:fridge-bottom" },
             "heat_status": { "default": "mdi:radiator" },
             "heating_work": { "default": "mdi:radiator" },
+            "high_float_type": { "default": "mdi:water-sync" },
             "ice_gall_status": { "default": "mdi:snowflake" },
             "ice_status": { "default": "mdi:ice-pop" },
             "lack_water": { "default": "mdi:water-off" },

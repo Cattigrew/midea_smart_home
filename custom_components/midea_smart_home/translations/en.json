@@ -124,6 +124,9 @@
       "heating_work": {
         "name": "Heating Work Status"
       },
+      "high_float_type": {
+        "name": "Change Water Reminder"
+      },
       "ice_gall_status": {
         "name": "Cooling Status"
       },

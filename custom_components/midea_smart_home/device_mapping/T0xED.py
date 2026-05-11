@@ -1093,6 +1093,9 @@ DEVICE_MAPPING = {
                 },
                 "filter": {
                     "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "high_float_type": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
                 }
             },
             Platform.SENSOR: {
