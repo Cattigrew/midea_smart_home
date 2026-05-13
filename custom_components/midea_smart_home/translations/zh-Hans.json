@@ -121,11 +121,11 @@
       "heat_status": {
         "name": "加热状态"
       },
-      "high_float_type": {
-        "name": "换水提醒"
-      },
       "heating_work": {
         "name": "采暖工作状态"
+      },
+      "high_float_type": {
+        "name": "换水提醒"
       },
       "ice_gall_status": {
         "name": "制冷状态"
