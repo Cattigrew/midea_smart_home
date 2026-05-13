@@ -183,10 +183,15 @@ class DeviceController(threading.Thread):
             self._connection_errors = 0
         else:
             self._connection_errors += 1
-            self._retry_delay = min(
-                INITIAL_RETRY_DELAY * (RETRY_MULTIPLIER ** self._connection_errors),
-                MAX_RETRY_DELAY
-            )
+            if self._connection_errors > 100:
+                self._connection_errors = 100
+            try:
+                self._retry_delay = min(
+                    INITIAL_RETRY_DELAY * (RETRY_MULTIPLIER ** self._connection_errors),
+                    MAX_RETRY_DELAY
+                )
+            except OverflowError:
+                self._retry_delay = MAX_RETRY_DELAY
 
     def _fetch_v2_message(self, msg: bytes) -> tuple[list, bytes]:
         result = []
@@ -286,7 +291,6 @@ class DeviceController(threading.Thread):
             self._previous_heartbeat = now
 
     def _connect_loop(self) -> None:
-        connection_retries = 0
         while self._is_run:
             if self._sock is not None:
                 break
@@ -297,10 +301,8 @@ class DeviceController(threading.Thread):
                     self.refresh_status()
                 break
             self._close_socket()
-            connection_retries += 1
-            sleep_time = min(5 * (2 ** (connection_retries - 1)), 60)
-            _LOGGER.warning("[%s] Unable to connect, sleep %s seconds (retry %d)", self._device_id, sleep_time, connection_retries)
-            time.sleep(sleep_time)
+            _LOGGER.warning("[%s] Unable to connect, sleep %.1f seconds (errors: %d)", self._device_id, self._retry_delay, self._connection_errors)
+            time.sleep(self._retry_delay)
 
     def run(self) -> None:
         while self._is_run:
