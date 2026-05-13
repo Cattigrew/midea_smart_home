@@ -16,9 +16,7 @@ ControlValue = Union[str, int, float, bool, None]
 OFFLINE_DEVICES_KEY = "offline_devices"
 NOTIFICATION_ID = "midea_smart_home_device_status"
 
-
 _translations_cache: dict[str, dict] = {}
-
 
 def _get_translations(language: str) -> dict:
     """Get notification translations for the given language."""
@@ -55,12 +53,10 @@ def _get_translations(language: str) -> dict:
     _translations_cache[lang_code] = result
     return result
 
-
 def _get_text(key: str, language: str) -> str:
     """Get translated text."""
     translations = _get_translations(language)
     return translations.get(key, key)
-
 
 def _get_offline_devices(hass: HomeAssistant) -> dict[str, dict]:
     if DOMAIN not in hass.data:
@@ -68,7 +64,6 @@ def _get_offline_devices(hass: HomeAssistant) -> dict[str, dict]:
     if OFFLINE_DEVICES_KEY not in hass.data[DOMAIN]:
         hass.data[DOMAIN][OFFLINE_DEVICES_KEY] = {}
     return hass.data[DOMAIN][OFFLINE_DEVICES_KEY]
-
 
 def async_update_device_status_notification(hass: HomeAssistant, device_id: str, device_name: str, ip: str, is_online: bool, area: str = "") -> None:
     offline_devices = _get_offline_devices(hass)
