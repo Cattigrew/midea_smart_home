@@ -46,13 +46,20 @@ Home Assistant custom integration for Midea smart devices via local network.
 
 ## Installation
 
-### HACS (Recommended)
+### One-Click Install (Recommended)
+
+[![Open your Home Assistant instance and add this HACS repository.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Cyborg2017&repository=midea_smart_home&category=integration)
+
+### HACS (Custom Repository)
 
 1. Open HACS in Home Assistant
 2. Go to "Integrations"
-3. Click the "+" button
-4. Search for "Midea Smart Home"
-5. Click "Download"
+3. Click the "+" button (top right)
+4. Click "⚙️ Custom repositories" (3 dots menu > Custom repositories)
+5. Enter: `https://github.com/Cyborg2017/midea_smart_home`
+6. Category: **Integration**
+7. Click "Add"
+8. Search for "Midea Smart Home" and click "Download"
 
 ### Manual Installation
 
