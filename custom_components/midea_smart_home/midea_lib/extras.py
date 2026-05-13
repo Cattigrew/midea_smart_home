@@ -107,6 +107,9 @@ class DeviceLogicHandler:
         if remain_time_key in data:
             self._adjust_remain_time_by_status(data, remain_time_key, running_status)
 
+        # Calculate db_remain_time_long as max of left and right remain times
+        self._calculate_db_remain_time_long(data)
+
         return True
 
     def _validate_end_status(self, raw_status: dict) -> bool:
@@ -149,6 +152,27 @@ class DeviceLogicHandler:
             data[remain_time_key] = 0
         else:
             data[remain_time_key] = None
+
+    @staticmethod
+    def _calculate_db_remain_time_long(data: dict) -> None:
+        """Calculate db_remain_time_long as max of left and right remain times.
+
+        Rules:
+        - If both are unknown (None), result is unknown
+        - If one is unknown and other has value, result is the value
+        - If both have values, result is the maximum
+        """
+        remain_l = data.get("db_remain_time_l")
+        remain_r = data.get("db_remain_time_r")
+
+        if remain_l is None and remain_r is None:
+            data["db_remain_time_long"] = None
+        elif remain_l is None:
+            data["db_remain_time_long"] = remain_r
+        elif remain_r is None:
+            data["db_remain_time_long"] = remain_l
+        else:
+            data["db_remain_time_long"] = max(remain_l, remain_r)
 
     def _adjust_db_running_status_for_power_off(self, data: dict) -> None:
         db_power = data.get("db_power")

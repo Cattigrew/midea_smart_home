@@ -149,6 +149,11 @@ DEVICE_MAPPING = {
                 },
                 "db_running_status_r": {
                     "device_class": SensorDeviceClass.ENUM
+                },
+                "db_remain_time_long": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.MINUTES,
+                    "state_class": SensorStateClass.MEASUREMENT
                 }
             }
         }
@@ -298,6 +303,11 @@ DEVICE_MAPPING = {
                 },
                 "db_running_status_r": {
                     "device_class": SensorDeviceClass.ENUM
+                },
+                "db_remain_time_long": {
+                    "device_class": SensorDeviceClass.DURATION,
+                    "unit_of_measurement": UnitOfTime.MINUTES,
+                    "state_class": SensorStateClass.MEASUREMENT
                 }
             }
         }
