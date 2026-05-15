@@ -90,6 +90,7 @@ jobs:
           
           with open('custom_components/midea_smart_home/manifest.json', 'w') as f:
               json.dump(manifest, f, indent=2)
+              f.write('\n')
           
           print(f"::set-output name=new_version::{new_version}")
         shell: python
