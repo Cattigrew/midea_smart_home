@@ -1691,6 +1691,9 @@
       "in_tds": {
         "name": "原水TDS"
       },
+      "indoor_temperature": {
+        "name": "室内温度"
+      },
       "in_water_tem": {
         "name": "进水温度"
       },

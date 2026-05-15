@@ -1691,6 +1691,9 @@
       "in_tds": {
         "name": "Inlet TDS"
       },
+      "indoor_temperature": {
+        "name": "Indoor Temperature"
+      },
       "in_water_tem": {
         "name": "Inlet Water Temperature"
       },

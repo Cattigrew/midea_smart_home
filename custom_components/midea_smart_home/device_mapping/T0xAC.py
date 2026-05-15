@@ -127,8 +127,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -246,8 +245,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -355,8 +353,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -490,8 +487,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -628,8 +624,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -754,8 +749,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -850,8 +844,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "total_elec_value": {
                     "device_class": SensorDeviceClass.ENERGY,
@@ -932,8 +925,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "indoor_humidity": {
                     "device_class": SensorDeviceClass.HUMIDITY,
@@ -1046,8 +1038,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "indoor_humidity": {
                     "device_class": SensorDeviceClass.HUMIDITY,
@@ -1114,8 +1105,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 }
             }
         }
@@ -1201,8 +1191,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "total_elec_value": {
                     "device_class": SensorDeviceClass.ENERGY,
@@ -1288,8 +1277,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
@@ -1370,8 +1358,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "new_wind_humidity": {
                     "device_class": SensorDeviceClass.HUMIDITY,
@@ -1439,8 +1426,7 @@ DEVICE_MAPPING = {
                 "indoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
-                    "state_class": SensorStateClass.MEASUREMENT,
-                    "translation_key": "cur_temperature"
+                    "state_class": SensorStateClass.MEASUREMENT
                 },
                 "outdoor_temperature": {
                     "device_class": SensorDeviceClass.TEMPERATURE,
