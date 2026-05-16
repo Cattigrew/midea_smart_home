@@ -31,6 +31,12 @@ DEVICE_MAPPING = {
                 },
                 "foam_shield": {
                     "device_class": SwitchDeviceClass.SWITCH
+                },
+                "move_clean": {
+                    "device_class": SwitchDeviceClass.SWITCH
+                },
+                "strength_clean": {
+                    "device_class": SwitchDeviceClass.SWITCH
                 }
             },
             Platform.BUTTON: {
@@ -44,7 +50,8 @@ DEVICE_MAPPING = {
                         "off": {"clean_mode": "invalid"},
                         "rear_wash": {"clean_mode": "normal"},
                         "feminine_wash": {"clean_mode": "woman"},
-                        "nozzle_clean": {"clean_mode": "maintain"}
+                        "nozzle_clean": {"clean_mode": "maintain"},
+                        "auxiliary_wash": {"clean_mode": "auxiliary"}
                     }
                 },
                 "dry_gear": {

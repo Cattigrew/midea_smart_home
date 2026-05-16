@@ -1362,7 +1362,8 @@
           "off": "关闭",
           "rear_wash": "臀洗",
           "feminine_wash": "妇洗",
-          "nozzle_clean": "喷杆清洁"
+          "nozzle_clean": "喷杆清洁",
+          "auxiliary_wash": "助便洗"
         }
       },
       "dry_gear": {
@@ -2116,6 +2117,12 @@
       },
       "foam_shield": {
         "name": "泡沫盾"
+      },
+      "move_clean": {
+        "name": "移动清洗"
+      },
+      "strength_clean": {
+        "name": "强力清洗"
       }
     },
     "vacuum": {

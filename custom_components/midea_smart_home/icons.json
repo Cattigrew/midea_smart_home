@@ -333,6 +333,8 @@
             "eplus": { "default": "mdi:water-plus" },
             "fengguan_remove_odor": { "default": "mdi:air-filter" },
             "foam_shield": { "default": "mdi:shield-check" },
+            "move_clean": { "default": "mdi:arrow-left-right" },
+            "strength_clean": { "default": "mdi:hand-wave" },
             "freezing_light_open_chose": { "default": "mdi:lightbulb" },
             "freezing_mode": { "default": "mdi:snowflake-thermometer" },
             "freezing_power": { "default": "mdi:fridge-bottom" },

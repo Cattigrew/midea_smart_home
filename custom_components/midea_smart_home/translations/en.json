@@ -1362,7 +1362,8 @@
           "off": "Off",
           "rear_wash": "Rear Wash",
           "feminine_wash": "Feminine Wash",
-          "nozzle_clean": "Nozzle Clean"
+          "nozzle_clean": "Nozzle Clean",
+          "auxiliary_wash": "Auxiliary Wash"
         }
       },
       "dry_gear": {
@@ -2116,6 +2117,12 @@
       },
       "foam_shield": {
         "name": "Foam Shield"
+      },
+      "move_clean": {
+        "name": "Move Clean"
+      },
+      "strength_clean": {
+        "name": "Strength Clean"
       }
     },
     "vacuum": {
