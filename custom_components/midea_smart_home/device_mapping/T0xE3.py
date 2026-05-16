@@ -1,5 +1,6 @@
 from homeassistant.const import Platform, UnitOfTemperature, PRECISION_WHOLE
 from homeassistant.components.sensor import SensorStateClass, SensorDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
 
 DEVICE_MAPPING = {
@@ -65,6 +66,11 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "temp_set"
                 }
+            },
+            Platform.BINARY_SENSOR: {
+                "feedback": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                }
             }
         }
     },
@@ -129,6 +135,11 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "temp_set"
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "feedback": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
                 }
             }
         }
@@ -205,6 +216,11 @@ DEVICE_MAPPING = {
                     "unit_of_measurement": UnitOfTemperature.CELSIUS,
                     "state_class": SensorStateClass.MEASUREMENT,
                     "translation_key": "temp_set"
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "feedback": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
                 }
             }
         }

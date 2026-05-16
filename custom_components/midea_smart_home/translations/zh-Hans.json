@@ -73,6 +73,9 @@
       "bathing_work": {
         "name": "卫浴工作状态"
       },
+      "feedback": {
+        "name": "燃烧状态"
+      },
       "bright_lack": {
         "name": "漂洗剂不足"
       },

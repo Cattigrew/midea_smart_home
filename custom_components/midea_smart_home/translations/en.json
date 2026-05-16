@@ -73,6 +73,9 @@
       "bathing_work": {
         "name": "Bathing Work Status"
       },
+      "feedback": {
+        "name": "Burning State"
+      },
       "bright_lack": {
         "name": "Rinse Aid Shortage"
       },

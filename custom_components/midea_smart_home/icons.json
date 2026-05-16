@@ -4,6 +4,7 @@
             "air_status": { "default": "mdi:air-conditioner" },
             "b3_upstair_door": { "default": "mdi:door-open" },
             "bathing_work": { "default": "mdi:water-boiler" },
+            "feedback": { "default": "mdi:fire" },
             "bright_lack": { "default": "mdi:creation" },
             "bucket_water_overheating": { "default": "mdi:thermometer-alert" },
             "change_water": { "default": "mdi:water-sync" },
