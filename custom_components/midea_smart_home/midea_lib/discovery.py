@@ -83,6 +83,9 @@ def _parse_v2_v3_response(data: bytes, addr: tuple, security: LocalSecurity) -> 
         protocol = ProtocolVersion.V3
         inner_data = data[8:-16] if len(data) > 24 else data[8:]
     elif data[:2].hex() == "5a5a":
+        msg_type = data[2:4].hex()
+        if msg_type == "0110":
+            return _parse_0110_response(data, addr)
         protocol = ProtocolVersion.V2
         inner_data = data
     else:
@@ -118,6 +121,47 @@ def _parse_v2_v3_response(data: bytes, addr: tuple, security: LocalSecurity) -> 
         CONF_SN8: sn8,
         CONF_PROTOCOL: protocol,
     }
+
+
+def _parse_0110_response(data: bytes, addr: tuple) -> dict | None:
+    if len(data) < 120:
+        return None
+
+    try:
+        device_id = int.from_bytes(data[16:22], "little")
+
+        ssid_raw = data[81:]
+        ssid_end = ssid_raw.find(b'\x00')
+        if ssid_end >= 0:
+            ssid = ssid_raw[:ssid_end].decode("utf-8", errors="ignore")
+        else:
+            ssid = ssid_raw[:32].decode("utf-8", errors="ignore")
+
+        device_type = int.from_bytes(data[108:110], "little")
+
+        sn8 = ""
+        if "_" in ssid:
+            try:
+                sn8 = ssid.split("_")[-1][:8]
+            except (IndexError, ValueError):
+                pass
+
+        _LOGGER.warning(
+            "Device %s (type=0x%02X) at %s uses V2 protocol variant 0x0110. "
+            "This format is recognized but TCP communication is not yet supported.",
+            ssid, device_type, addr[0]
+        )
+
+        return {
+            CONF_DEVICE_ID: device_id,
+            CONF_IP: addr[0],
+            CONF_DEVICE_TYPE: device_type,
+            CONF_SN: ssid,
+            CONF_SN8: sn8,
+            CONF_PROTOCOL: ProtocolVersion.V2,
+        }
+    except Exception:
+        return None
 
 def _parse_scan_address(scan_address: str) -> list:
     if not scan_address or scan_address.lower() == "auto":
