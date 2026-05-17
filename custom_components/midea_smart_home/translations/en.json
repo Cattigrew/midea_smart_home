@@ -171,6 +171,18 @@
       },
       "flip_status": {
         "name": "Lid Status"
+      },
+      "hotclean_tips": {
+        "name": "High Temperature Clean Tips"
+      },
+      "oilcup_position": {
+        "name": "Oil Cup Position"
+      },
+      "hotclean_stage": {
+        "name": "High Temperature Cleaning"
+      },
+      "steaming": {
+        "name": "Steaming"
       }
     },
     "button": {

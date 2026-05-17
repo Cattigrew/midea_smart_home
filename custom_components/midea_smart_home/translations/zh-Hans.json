@@ -171,6 +171,18 @@
       },
       "flip_status": {
         "name": "马桶盖状态"
+      },
+      "hotclean_tips": {
+        "name": "清洁提示"
+      },
+      "oilcup_position": {
+        "name": "油杯位置"
+      },
+      "hotclean_stage": {
+        "name": "高温清洁中"
+      },
+      "steaming": {
+        "name": "蒸汽洗中"
       }
     },
     "button": {

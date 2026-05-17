@@ -1,4 +1,5 @@
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.const import Platform, UnitOfPressure, UnitOfTime, UnitOfElectricPotential
 from homeassistant.components.switch import SwitchDeviceClass
 
@@ -80,6 +81,20 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.PRESSURE,
                     "unit_of_measurement": UnitOfPressure.PA,
                     "state_class": SensorStateClass.MEASUREMENT
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "hotclean_tips": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "oilcup_position": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "hotclean_stage": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "steaming": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
                 }
             },
             Platform.BUTTON: {
@@ -212,6 +227,20 @@ DEVICE_MAPPING = {
                     "state_class": SensorStateClass.MEASUREMENT
                 }
             },
+            Platform.BINARY_SENSOR: {
+                "hotclean_tips": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "oilcup_position": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "hotclean_stage": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "steaming": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                }
+            },
             Platform.BUTTON: {
                 "left_stove_off": {
                     "command": {"electronic_control_version": 2, "type": "b7", "b7_work_burner_control": 1,
@@ -325,6 +354,20 @@ DEVICE_MAPPING = {
                     "device_class": SensorDeviceClass.PRESSURE,
                     "unit_of_measurement": UnitOfPressure.PA,
                     "state_class": SensorStateClass.MEASUREMENT
+                }
+            },
+            Platform.BINARY_SENSOR: {
+                "hotclean_tips": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "oilcup_position": {
+                    "device_class": BinarySensorDeviceClass.PROBLEM
+                },
+                "hotclean_stage": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
+                },
+                "steaming": {
+                    "device_class": BinarySensorDeviceClass.RUNNING
                 }
             },
             Platform.SELECT: {

@@ -38,7 +38,11 @@
             "storage_door_open_overtime": { "default": "mdi:fridge-alert" },
             "storage_door_state": { "default": "mdi:fridge-top" },
             "water_lack": { "default": "mdi:water-off" },
-            "water_output_switch": { "default": "mdi:water-pump" }
+            "water_output_switch": { "default": "mdi:water-pump" },
+            "hotclean_tips": { "default": "mdi:thermometer-alert" },
+            "oilcup_position": { "default": "mdi:cup" },
+            "hotclean_stage": { "default": "mdi:washing-machine" },
+            "steaming": { "default": "mdi:steam" }
         },
         "button": {
             "left_stove_off": { "default": "mdi:stove" },
