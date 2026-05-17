@@ -1392,12 +1392,12 @@ DEVICE_MAPPING = {
                 "intake_fan": {
                     "power": "new_wind_machine_intake_switch",
                     "rationale": [0, 1],
-                    "speeds": list({"fresh_air_intake_fan_speed": v} for v in range(1, 101)),
+                    "speeds": list({"fresh_air_intake_fan_speed": value + 1} for value in range(0, 100))
                 },
                 "exhaust_fan": {
                     "power": "new_wind_machine_exhaust_switch",
                     "rationale": [0, 1],
-                    "speeds": list({"fresh_air_exhaust_fan_speed": v} for v in range(1, 101)),
+                    "speeds": list({"fresh_air_exhaust_fan_speed": value + 1} for value in range(0, 100))
                 }
             },
             Platform.SELECT: {

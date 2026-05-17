@@ -262,5 +262,5 @@ class MideaFanEntity(MideaBaseEntity, FanEntity):
             return -1
         if self._attr_speed_count == 1:
             return 0
-        index = round(percentage * (self._attr_speed_count - 1) / 100)
+        index = round(percentage * self._attr_speed_count / 100) - 1
         return max(0, min(index, self._attr_speed_count - 1))
