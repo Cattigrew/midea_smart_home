@@ -73,9 +73,6 @@
       "bathing_work": {
         "name": "卫浴工作状态"
       },
-      "feedback": {
-        "name": "燃烧状态"
-      },
       "bright_lack": {
         "name": "漂洗剂不足"
       },
@@ -112,8 +109,14 @@
       "failed_device": {
         "name": "初始化失败"
       },
+      "feedback": {
+        "name": "燃烧状态"
+      },
       "filter": {
         "name": "制水状态"
+      },
+      "flip_status": {
+        "name": "马桶盖状态"
       },
       "freezer_door_open_overtime": {
         "name": "冷冻门打开超时"
@@ -130,6 +133,12 @@
       "high_float_type": {
         "name": "换水提醒"
       },
+      "hotclean_stage": {
+        "name": "高温清洁中"
+      },
+      "hotclean_tips": {
+        "name": "清洁提示"
+      },
       "ice_gall_status": {
         "name": "制冷状态"
       },
@@ -138,6 +147,12 @@
       },
       "lack_water": {
         "name": "缺水状态"
+      },
+      "oilcup_position": {
+        "name": "油杯位置"
+      },
+      "on_seat": {
+        "name": "坐圈有人"
       },
       "out_ice": {
         "name": "出冰状态"
@@ -157,6 +172,9 @@
       "softwater_lack": {
         "name": "软水盐不足"
       },
+      "steaming": {
+        "name": "蒸汽洗中"
+      },
       "storage_door_open_overtime": {
         "name": "冷藏门打开超时"
       },
@@ -165,24 +183,6 @@
       },
       "water_output_switch": {
         "name": "龙头出水"
-      },
-      "on_seat": {
-        "name": "坐圈有人"
-      },
-      "flip_status": {
-        "name": "马桶盖状态"
-      },
-      "hotclean_tips": {
-        "name": "清洁提示"
-      },
-      "oilcup_position": {
-        "name": "油杯位置"
-      },
-      "hotclean_stage": {
-        "name": "高温清洁中"
-      },
-      "steaming": {
-        "name": "蒸汽洗中"
       }
     },
     "button": {
@@ -537,6 +537,16 @@
           "light": "全亮"
         }
       },
+      "clean_mode": {
+        "name": "清洗模式",
+        "state": {
+          "auxiliary_wash": "助便洗",
+          "feminine_wash": "妇洗",
+          "nozzle_clean": "喷杆清洁",
+          "off": "关闭",
+          "rear_wash": "臀洗"
+        }
+      },
       "cold_water_conservation": {
         "name": "零冷水预热时间设置",
         "state": {
@@ -618,6 +628,15 @@
           "l4": "L4",
           "off": "关闭",
           "smart": "智能"
+        }
+      },
+      "dry_gear": {
+        "name": "风温档位",
+        "state": {
+          "high": "高档",
+          "low": "低档",
+          "medium": "中档",
+          "off": "空档"
         }
       },
       "dryer": {
@@ -821,6 +840,28 @@
           "normal_ice_making": "常规制冰",
           "off": "关闭",
           "rapid_ice_making": "急速制冰"
+        }
+      },
+      "injector_position_normal": {
+        "name": "臀洗喷嘴位置",
+        "state": {
+          "front": "前档",
+          "mid_front": "中前档",
+          "mid_rear": "中后档",
+          "middle": "中档",
+          "off": "空档",
+          "rear": "后档"
+        }
+      },
+      "injector_position_woman": {
+        "name": "妇洗喷嘴位置",
+        "state": {
+          "front": "前档",
+          "mid_front": "中前档",
+          "mid_rear": "中后档",
+          "middle": "中档",
+          "off": "空档",
+          "rear": "后档"
         }
       },
       "intensity": {
@@ -1137,6 +1178,14 @@
           "5": "5档"
         }
       },
+      "rinse_volume": {
+        "name": "冲水模式",
+        "state": {
+          "full": "大冲",
+          "half": "小冲",
+          "off": "关闭"
+        }
+      },
       "screenout_time": {
         "name": "熄屏时间",
         "state": {
@@ -1146,6 +1195,17 @@
           "30": "30秒",
           "300": "5分钟",
           "60": "1分钟"
+        }
+      },
+      "seat_gear": {
+        "name": "坐圈温度",
+        "state": {
+          "high": "高档",
+          "low": "低档",
+          "medium": "中档",
+          "medium_high": "中高档",
+          "medium_low": "中低档",
+          "off": "空档"
         }
       },
       "set_germicidal_countdown_days": {
@@ -1277,6 +1337,17 @@
           "strong_wash": "超强洗"
         }
       },
+      "water_gear": {
+        "name": "水温档位",
+        "state": {
+          "high": "高档",
+          "low": "低档",
+          "medium": "中档",
+          "medium_high": "中高档",
+          "medium_low": "中低档",
+          "off": "空档"
+        }
+      },
       "water_level": {
         "name": "水位",
         "state": {
@@ -1285,6 +1356,28 @@
           "l2": "L2",
           "l3": "L3",
           "l4": "L4"
+        }
+      },
+      "water_pressure_normal": {
+        "name": "臀洗冲洗强度",
+        "state": {
+          "high": "高档",
+          "low": "低档",
+          "medium": "中档",
+          "medium_high": "中高档",
+          "medium_low": "中低档",
+          "off": "空档"
+        }
+      },
+      "water_pressure_woman": {
+        "name": "妇洗冲洗强度",
+        "state": {
+          "high": "高档",
+          "low": "低档",
+          "medium": "中档",
+          "medium_high": "中高档",
+          "medium_low": "中低档",
+          "off": "空档"
         }
       },
       "wind_around": {
@@ -1369,99 +1462,6 @@
           "power_off": "关机",
           "power_on": "开机",
           "resume": "继续"
-        }
-      },
-      "clean_mode": {
-        "name": "清洗模式",
-        "state": {
-          "off": "关闭",
-          "rear_wash": "臀洗",
-          "feminine_wash": "妇洗",
-          "nozzle_clean": "喷杆清洁",
-          "auxiliary_wash": "助便洗"
-        }
-      },
-      "dry_gear": {
-        "name": "风温档位",
-        "state": {
-          "off": "空档",
-          "low": "低档",
-          "medium": "中档",
-          "high": "高档"
-        }
-      },
-      "water_gear": {
-        "name": "水温档位",
-        "state": {
-          "off": "空档",
-          "low": "低档",
-          "medium_low": "中低档",
-          "medium": "中档",
-          "medium_high": "中高档",
-          "high": "高档"
-        }
-      },
-      "seat_gear": {
-        "name": "坐圈温度",
-        "state": {
-          "off": "空档",
-          "low": "低档",
-          "medium_low": "中低档",
-          "medium": "中档",
-          "medium_high": "中高档",
-          "high": "高档"
-        }
-      },
-      "rinse_volume": {
-        "name": "冲水模式",
-        "state": {
-          "full": "大冲",
-          "half": "小冲",
-          "off": "关闭"
-        }
-      },
-      "injector_position_normal": {
-        "name": "臀洗喷嘴位置",
-        "state": {
-          "off": "空档",
-          "rear": "后档",
-          "mid_rear": "中后档",
-          "middle": "中档",
-          "mid_front": "中前档",
-          "front": "前档"
-        }
-      },
-      "injector_position_woman": {
-        "name": "妇洗喷嘴位置",
-        "state": {
-          "off": "空档",
-          "rear": "后档",
-          "mid_rear": "中后档",
-          "middle": "中档",
-          "mid_front": "中前档",
-          "front": "前档"
-        }
-      },
-      "water_pressure_normal": {
-        "name": "臀洗冲洗强度",
-        "state": {
-          "off": "空档",
-          "low": "低档",
-          "medium_low": "中低档",
-          "medium": "中档",
-          "medium_high": "中高档",
-          "high": "高档"
-        }
-      },
-      "water_pressure_woman": {
-        "name": "妇洗冲洗强度",
-        "state": {
-          "off": "空档",
-          "low": "低档",
-          "medium_low": "中低档",
-          "medium": "中档",
-          "medium_high": "中高档",
-          "high": "高档"
         }
       }
     },
@@ -1671,6 +1671,9 @@
       "fan_type": {
         "name": "风机模式"
       },
+      "filter_use_per": {
+        "name": "滤芯使用率"
+      },
       "fire_power": {
         "name": "微波挡位"
       },
@@ -1707,11 +1710,11 @@
       "in_tds": {
         "name": "原水TDS"
       },
-      "indoor_temperature": {
-        "name": "室内温度"
-      },
       "in_water_tem": {
         "name": "进水温度"
+      },
+      "indoor_temperature": {
+        "name": "室内温度"
       },
       "lan_ip": {
         "name": "局域网IP"
@@ -1860,9 +1863,6 @@
       },
       "work_time": {
         "name": "工作时间"
-      },
-      "filter_use_per": {
-        "name": "滤芯使用率"
       }
     },
     "switch": {
@@ -1881,8 +1881,17 @@
       "antifreeze": {
         "name": "防冻功能"
       },
+      "auto_deodorization": {
+        "name": "自动除臭"
+      },
+      "auto_eco": {
+        "name": "自动节能"
+      },
       "auto_power_off": {
         "name": "自动关机"
+      },
+      "auto_rinse": {
+        "name": "自动冲水"
       },
       "auto_throw": {
         "name": "自动投放"
@@ -1965,6 +1974,9 @@
       "fengguan_remove_odor": {
         "name": "除菌"
       },
+      "foam_shield": {
+        "name": "泡沫盾"
+      },
       "freezing_light_open_chose": {
         "name": "氛围灯功能"
       },
@@ -2019,11 +2031,17 @@
       "light_sensitive": {
         "name": "智能光感"
       },
+      "light_sensor": {
+        "name": "光感照明"
+      },
       "lock": {
         "name": "童锁"
       },
       "microbubble": {
         "name": "超微净泡"
+      },
+      "move_clean": {
+        "name": "移动清洗"
       },
       "nightly": {
         "name": "夜间模式"
@@ -2067,6 +2085,9 @@
       "remind_sound": {
         "name": "提醒声音"
       },
+      "sedentary_remind": {
+        "name": "久坐提醒"
+      },
       "set_germicidal_countdown": {
         "name": "高温杀菌提醒"
       },
@@ -2091,6 +2112,9 @@
       "storage_power": {
         "name": "冷藏电源"
       },
+      "strength_clean": {
+        "name": "强力清洗"
+      },
       "total_power": {
         "name": "总电源"
       },
@@ -2114,30 +2138,6 @@
       },
       "wind_dispel": {
         "name": "忘取无忧"
-      },
-      "auto_rinse": {
-        "name": "自动冲水"
-      },
-      "auto_deodorization": {
-        "name": "自动除臭"
-      },
-      "light_sensor": {
-        "name": "光感照明"
-      },
-      "auto_eco": {
-        "name": "自动节能"
-      },
-      "sedentary_remind": {
-        "name": "久坐提醒"
-      },
-      "foam_shield": {
-        "name": "泡沫盾"
-      },
-      "move_clean": {
-        "name": "移动清洗"
-      },
-      "strength_clean": {
-        "name": "强力清洗"
       }
     },
     "vacuum": {

@@ -73,9 +73,6 @@
       "bathing_work": {
         "name": "Bathing Work Status"
       },
-      "feedback": {
-        "name": "Burning State"
-      },
       "bright_lack": {
         "name": "Rinse Aid Shortage"
       },
@@ -112,8 +109,14 @@
       "failed_device": {
         "name": "Initialization Failed"
       },
+      "feedback": {
+        "name": "Burning State"
+      },
       "filter": {
         "name": "Filter Status"
+      },
+      "flip_status": {
+        "name": "Lid Status"
       },
       "freezer_door_open_overtime": {
         "name": "Freezer Door Open Overtime"
@@ -130,6 +133,12 @@
       "high_float_type": {
         "name": "Change Water Reminder"
       },
+      "hotclean_stage": {
+        "name": "High Temperature Cleaning"
+      },
+      "hotclean_tips": {
+        "name": "High Temperature Clean Tips"
+      },
       "ice_gall_status": {
         "name": "Cooling Status"
       },
@@ -138,6 +147,12 @@
       },
       "lack_water": {
         "name": "Water Shortage Status"
+      },
+      "oilcup_position": {
+        "name": "Oil Cup Position"
+      },
+      "on_seat": {
+        "name": "Seat Occupied"
       },
       "out_ice": {
         "name": "Ice Output Status"
@@ -157,6 +172,9 @@
       "softwater_lack": {
         "name": "Softener Salt Shortage"
       },
+      "steaming": {
+        "name": "Steaming"
+      },
       "storage_door_open_overtime": {
         "name": "Refrigerator Door Open Overtime"
       },
@@ -165,24 +183,6 @@
       },
       "water_output_switch": {
         "name": "Tap Water"
-      },
-      "on_seat": {
-        "name": "Seat Occupied"
-      },
-      "flip_status": {
-        "name": "Lid Status"
-      },
-      "hotclean_tips": {
-        "name": "High Temperature Clean Tips"
-      },
-      "oilcup_position": {
-        "name": "Oil Cup Position"
-      },
-      "hotclean_stage": {
-        "name": "High Temperature Cleaning"
-      },
-      "steaming": {
-        "name": "Steaming"
       }
     },
     "button": {
@@ -537,6 +537,16 @@
           "light": "Bright"
         }
       },
+      "clean_mode": {
+        "name": "Clean Mode",
+        "state": {
+          "auxiliary_wash": "Auxiliary Wash",
+          "feminine_wash": "Feminine Wash",
+          "nozzle_clean": "Nozzle Clean",
+          "off": "Off",
+          "rear_wash": "Rear Wash"
+        }
+      },
       "cold_water_conservation": {
         "name": "Zero Cold Water Preheat",
         "state": {
@@ -618,6 +628,15 @@
           "l4": "L4",
           "off": "Off",
           "smart": "Smart"
+        }
+      },
+      "dry_gear": {
+        "name": "Dry Temperature",
+        "state": {
+          "high": "High",
+          "low": "Low",
+          "medium": "Medium",
+          "off": "Off"
         }
       },
       "dryer": {
@@ -821,6 +840,28 @@
           "normal_ice_making": "Normal Ice Making",
           "off": "Off",
           "rapid_ice_making": "Rapid Ice Making"
+        }
+      },
+      "injector_position_normal": {
+        "name": "Rear Wash Nozzle Position",
+        "state": {
+          "front": "Front",
+          "mid_front": "Mid-Front",
+          "mid_rear": "Mid-Rear",
+          "middle": "Middle",
+          "off": "Off",
+          "rear": "Rear"
+        }
+      },
+      "injector_position_woman": {
+        "name": "Feminine Wash Nozzle Position",
+        "state": {
+          "front": "Front",
+          "mid_front": "Mid-Front",
+          "mid_rear": "Mid-Rear",
+          "middle": "Middle",
+          "off": "Off",
+          "rear": "Rear"
         }
       },
       "intensity": {
@@ -1137,6 +1178,14 @@
           "5": "Level 5"
         }
       },
+      "rinse_volume": {
+        "name": "Rinse Volume",
+        "state": {
+          "full": "Full Flush",
+          "half": "Half Flush",
+          "off": "Off"
+        }
+      },
       "screenout_time": {
         "name": "Screen Timeout",
         "state": {
@@ -1146,6 +1195,17 @@
           "30": "30s",
           "300": "5min",
           "60": "1min"
+        }
+      },
+      "seat_gear": {
+        "name": "Seat Temperature",
+        "state": {
+          "high": "High",
+          "low": "Low",
+          "medium": "Medium",
+          "medium_high": "Medium-High",
+          "medium_low": "Medium-Low",
+          "off": "Off"
         }
       },
       "set_germicidal_countdown_days": {
@@ -1277,6 +1337,17 @@
           "strong_wash": "Strong Wash"
         }
       },
+      "water_gear": {
+        "name": "Water Temperature",
+        "state": {
+          "high": "High",
+          "low": "Low",
+          "medium": "Medium",
+          "medium_high": "Medium-High",
+          "medium_low": "Medium-Low",
+          "off": "Off"
+        }
+      },
       "water_level": {
         "name": "Water Level",
         "state": {
@@ -1285,6 +1356,28 @@
           "l2": "L2",
           "l3": "L3",
           "l4": "L4"
+        }
+      },
+      "water_pressure_normal": {
+        "name": "Rear Wash Pressure",
+        "state": {
+          "high": "High",
+          "low": "Low",
+          "medium": "Medium",
+          "medium_high": "Medium-High",
+          "medium_low": "Medium-Low",
+          "off": "Off"
+        }
+      },
+      "water_pressure_woman": {
+        "name": "Feminine Wash Pressure",
+        "state": {
+          "high": "High",
+          "low": "Low",
+          "medium": "Medium",
+          "medium_high": "Medium-High",
+          "medium_low": "Medium-Low",
+          "off": "Off"
         }
       },
       "wind_around": {
@@ -1369,99 +1462,6 @@
           "power_off": "Power Off",
           "power_on": "Power On",
           "resume": "Resume"
-        }
-      },
-      "clean_mode": {
-        "name": "Clean Mode",
-        "state": {
-          "off": "Off",
-          "rear_wash": "Rear Wash",
-          "feminine_wash": "Feminine Wash",
-          "nozzle_clean": "Nozzle Clean",
-          "auxiliary_wash": "Auxiliary Wash"
-        }
-      },
-      "dry_gear": {
-        "name": "Dry Temperature",
-        "state": {
-          "off": "Off",
-          "low": "Low",
-          "medium": "Medium",
-          "high": "High"
-        }
-      },
-      "water_gear": {
-        "name": "Water Temperature",
-        "state": {
-          "off": "Off",
-          "low": "Low",
-          "medium_low": "Medium-Low",
-          "medium": "Medium",
-          "medium_high": "Medium-High",
-          "high": "High"
-        }
-      },
-      "seat_gear": {
-        "name": "Seat Temperature",
-        "state": {
-          "off": "Off",
-          "low": "Low",
-          "medium_low": "Medium-Low",
-          "medium": "Medium",
-          "medium_high": "Medium-High",
-          "high": "High"
-        }
-      },
-      "rinse_volume": {
-        "name": "Rinse Volume",
-        "state": {
-          "full": "Full Flush",
-          "half": "Half Flush",
-          "off": "Off"
-        }
-      },
-      "injector_position_normal": {
-        "name": "Rear Wash Nozzle Position",
-        "state": {
-          "off": "Off",
-          "rear": "Rear",
-          "mid_rear": "Mid-Rear",
-          "middle": "Middle",
-          "mid_front": "Mid-Front",
-          "front": "Front"
-        }
-      },
-      "injector_position_woman": {
-        "name": "Feminine Wash Nozzle Position",
-        "state": {
-          "off": "Off",
-          "rear": "Rear",
-          "mid_rear": "Mid-Rear",
-          "middle": "Middle",
-          "mid_front": "Mid-Front",
-          "front": "Front"
-        }
-      },
-      "water_pressure_normal": {
-        "name": "Rear Wash Pressure",
-        "state": {
-          "off": "Off",
-          "low": "Low",
-          "medium_low": "Medium-Low",
-          "medium": "Medium",
-          "medium_high": "Medium-High",
-          "high": "High"
-        }
-      },
-      "water_pressure_woman": {
-        "name": "Feminine Wash Pressure",
-        "state": {
-          "off": "Off",
-          "low": "Low",
-          "medium_low": "Medium-Low",
-          "medium": "Medium",
-          "medium_high": "Medium-High",
-          "high": "High"
         }
       }
     },
@@ -1671,6 +1671,9 @@
       "fan_type": {
         "name": "Fan Mode"
       },
+      "filter_use_per": {
+        "name": "Filter Usage"
+      },
       "fire_power": {
         "name": "Microwave Power"
       },
@@ -1707,11 +1710,11 @@
       "in_tds": {
         "name": "Inlet TDS"
       },
-      "indoor_temperature": {
-        "name": "Indoor Temperature"
-      },
       "in_water_tem": {
         "name": "Inlet Water Temperature"
+      },
+      "indoor_temperature": {
+        "name": "Indoor Temperature"
       },
       "lan_ip": {
         "name": "LAN IP"
@@ -1860,9 +1863,6 @@
       },
       "work_time": {
         "name": "Work Time"
-      },
-      "filter_use_per": {
-        "name": "Filter Usage"
       }
     },
     "switch": {
@@ -1881,8 +1881,17 @@
       "antifreeze": {
         "name": "Antifreeze"
       },
+      "auto_deodorization": {
+        "name": "Auto Deodorization"
+      },
+      "auto_eco": {
+        "name": "Auto Eco"
+      },
       "auto_power_off": {
         "name": "Auto Power Off"
+      },
+      "auto_rinse": {
+        "name": "Auto Rinse"
       },
       "auto_throw": {
         "name": "Auto throw"
@@ -1965,6 +1974,9 @@
       "fengguan_remove_odor": {
         "name": "Deodorization"
       },
+      "foam_shield": {
+        "name": "Foam Shield"
+      },
       "freezing_light_open_chose": {
         "name": "Ambient Light Function"
       },
@@ -2019,11 +2031,17 @@
       "light_sensitive": {
         "name": "Light Sensitive"
       },
+      "light_sensor": {
+        "name": "Light Sensor"
+      },
       "lock": {
         "name": "Child Lock"
       },
       "microbubble": {
         "name": "Microbubble Soak"
+      },
+      "move_clean": {
+        "name": "Move Clean"
       },
       "nightly": {
         "name": "Night Mode"
@@ -2067,6 +2085,9 @@
       "remind_sound": {
         "name": "Reminder Sound"
       },
+      "sedentary_remind": {
+        "name": "Sedentary Remind"
+      },
       "set_germicidal_countdown": {
         "name": "Sterilization Reminder"
       },
@@ -2091,6 +2112,9 @@
       "storage_power": {
         "name": "Refrigerator Power"
       },
+      "strength_clean": {
+        "name": "Strength Clean"
+      },
       "total_power": {
         "name": "Total Power"
       },
@@ -2114,30 +2138,6 @@
       },
       "wind_dispel": {
         "name": "Wind Dispel"
-      },
-      "auto_rinse": {
-        "name": "Auto Rinse"
-      },
-      "auto_deodorization": {
-        "name": "Auto Deodorization"
-      },
-      "light_sensor": {
-        "name": "Light Sensor"
-      },
-      "auto_eco": {
-        "name": "Auto Eco"
-      },
-      "sedentary_remind": {
-        "name": "Sedentary Remind"
-      },
-      "foam_shield": {
-        "name": "Foam Shield"
-      },
-      "move_clean": {
-        "name": "Move Clean"
-      },
-      "strength_clean": {
-        "name": "Strength Clean"
       }
     },
     "vacuum": {
