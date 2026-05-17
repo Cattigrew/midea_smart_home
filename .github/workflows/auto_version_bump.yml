@@ -18,6 +18,25 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Git hooks for Gerrit compliance
+        run: |
+          cat > .git/hooks/commit-msg << 'EOF'
+          #!/bin/bash
+          COMMIT_MSG_FILE="$1"
+          if [ -z "$COMMIT_MSG_FILE" ]; then
+              COMMIT_MSG_FILE=".git/COMMIT_EDITMSG"
+          fi
+
+          # Add Change-Id if not exists
+          if ! grep -q '^Change-Id:' "$COMMIT_MSG_FILE"; then
+              ID=$(git var GIT_AUTHOR_IDENT | git hash-object --stdin)
+              CHANGE_ID="I$(echo "$ID" | cut -c1-40)"
+              echo "" >> "$COMMIT_MSG_FILE"
+              echo "Change-Id: $CHANGE_ID" >> "$COMMIT_MSG_FILE"
+          fi
+          EOF
+          chmod +x .git/hooks/commit-msg
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
