@@ -131,7 +131,7 @@ jobs:
           prev_version = tags[0] if tags else None
           
           result = subprocess.run(
-              ['git', 'log', '--oneline', '--format=%B', '-50'],
+              ['git', 'log', '--oneline', '--format=%s', '-50'],
               capture_output=True,
               text=True
           )
