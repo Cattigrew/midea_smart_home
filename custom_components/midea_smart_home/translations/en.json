@@ -752,6 +752,15 @@
           "on": "On"
         }
       },
+      "fresh_air_fan_speed": {
+        "name": "Fresh Air Fan Speed",
+        "state": {
+          "high": "high",
+          "low": "low",
+          "mid": "medium",
+          "strong": "strong"
+        }
+      },
       "fresh_air_mode": {
         "name": "Fresh Air Mode",
         "state": {
@@ -759,6 +768,13 @@
           "heat_exchange": "Heat Exchange",
           "strong": "Strong",
           "vacation": "Vacation"
+        }
+      },
+      "fresh_air_mode_two": {
+        "name": "Fresh Air Mode",
+        "state": {
+          "inside": "Auto Circulation",
+          "outside": "External Circulation"
         }
       },
       "fresh_air_time": {
@@ -862,6 +878,15 @@
           "middle": "Middle",
           "off": "Off",
           "rear": "Rear"
+        }
+      },
+      "inner_purifier_fan_speed": {
+        "name": "Inner Purifier Fan Speed",
+        "state": {
+          "high": "high",
+          "low": "low",
+          "mid": "medium",
+          "strong": "strong"
         }
       },
       "intensity": {
@@ -1692,6 +1717,9 @@
       "fresh_filter_time": {
         "name": "Fresh Air Filter Usage Rate"
       },
+      "fresh_filter_time_used": {
+        "name": "Fresh Filter Time Used"
+      },
       "germicidal_countdown": {
         "name": "Sterilization Countdown"
       },
@@ -1989,6 +2017,9 @@
       "frequency_hot": {
         "name": "Inverter Heating"
       },
+      "fresh_air": {
+        "name": "Fresh Air"
+      },
       "fresh_air_remove_odor": {
         "name": "Fresh Air Remove Odor"
       },
@@ -2012,6 +2043,9 @@
       },
       "ice": {
         "name": "Ice Making"
+      },
+      "inner_purifier": {
+        "name": "Inner Purifier"
       },
       "intelligent_mode": {
         "name": "Intelligent Mode"

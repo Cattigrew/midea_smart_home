@@ -752,6 +752,15 @@
           "on": "开启"
         }
       },
+      "fresh_air_fan_speed": {
+        "name": "新风风速",
+        "state": {
+          "high": "高速",
+          "low": "低速",
+          "mid": "中速",
+          "strong": "强劲"
+        }
+      },
       "fresh_air_mode": {
         "name": "新风模式",
         "state": {
@@ -759,6 +768,13 @@
           "heat_exchange": "热交换",
           "strong": "强劲",
           "vacation": "度假"
+        }
+      },
+      "fresh_air_mode_two": {
+        "name": "新风模式",
+        "state": {
+          "Inside": "内外循环",
+          "Outside": "外循环"
         }
       },
       "fresh_air_time": {
@@ -1692,6 +1708,9 @@
       "fresh_filter_time": {
         "name": "新风滤网使用率"
       },
+      "fresh_filter_time_used": {
+        "name": "新风滤网已用时长"
+      },
       "germicidal_countdown": {
         "name": "杀菌提醒周期"
       },
@@ -1989,6 +2008,9 @@
       "frequency_hot": {
         "name": "变频加热"
       },
+      "fresh_air": {
+        "name": "新风"
+      },
       "fresh_air_remove_odor": {
         "name": "新风除菌"
       },
@@ -2012,6 +2034,9 @@
       },
       "ice": {
         "name": "制冰"
+      },
+      "inner_purifier": {
+        "name": "净化"
       },
       "intelligent_mode": {
         "name": "智能"
